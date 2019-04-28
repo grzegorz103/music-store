@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -59,5 +59,15 @@ public class DiscServiceTest
                 assertThat( discService.findById( 0L ) ).isEqualTo( list.get( 0 ) );
                 assertNull( discService.findById( null ) );
                 assertThat( discService.findById( -1L ) ).isEqualTo( list.get( 0 ) );
+        }
+
+        @Test
+        public void createDiscTest ()
+        {
+                Disc disc = new Disc( 4L, "TestBrand", new Date( new Date().getTime() - 10 ), 1f, 1, false );
+                list.add( disc );
+                when( discRepository.save( disc ) ).thenReturn( disc );
+                assertThat( discService.create( disc ) ).isEqualTo( disc.getID() );
+                assertEquals( 4, discRepository.findAll().size() );
         }
 }

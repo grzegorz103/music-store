@@ -35,7 +35,7 @@ public class DiscServiceImpl implements DiscService
         @Override
         public Long create ( Disc disc )
         {
-                return null;
+                return discRepository.save( disc ).getID();
         }
 
         @Override
