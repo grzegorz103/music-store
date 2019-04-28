@@ -16,6 +16,11 @@ public class DiscController
         @Autowired
         private DiscService discService;
 
+        public DiscController ( DiscService discService )
+        {
+                this.discService = discService;
+        }
+
         @GetMapping
         public List<Disc> findAll ()
         {

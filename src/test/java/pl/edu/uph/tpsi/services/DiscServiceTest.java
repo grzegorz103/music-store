@@ -15,7 +15,9 @@ import pl.edu.uph.tpsi.repositories.DiscRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import static junit.framework.TestCase.assertNull;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -42,11 +44,20 @@ public class DiscServiceTest
                 list.add( new Disc( 3L, "Brand3", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
 
                 when( discRepository.findAll() ).thenReturn( list );
+                when( discRepository.findById( 0L ) ).thenReturn( Optional.of( list.get( 0 ) ) );
         }
 
         @Test
-        public void findAllTest ()
+        public void findAllDiscsTest ()
         {
-                assertThat( discService.findAll() ).size().isEqualTo( 3 );
+                assertThat( discService.findAll() ).isEqualTo( list );
+        }
+
+        @Test
+        public void findOneDiscTest ()
+        {
+                assertThat( discService.findById( 0L ) ).isEqualTo( list.get( 0 ) );
+                assertNull( discService.findById( null ) );
+                assertThat( discService.findById( -1L ) ).isEqualTo( list.get( 0 ) );
         }
 }
