@@ -36,7 +36,7 @@ public class DiscServiceTest
 
         @Before
         @SuppressWarnings ("all")
-        public void setUp ()
+        public void setup ()
         {
                 list = new ArrayList<>();
                 list.add( new Disc( 1L, "Brand1", new Date( new Date().getTime() - 10 ), 1f, 2, false ) );
