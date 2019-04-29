@@ -61,6 +61,7 @@ public class CartServiceImpl implements CartService
         {
                 if ( cart.getList().size() == 0 )
                         throw new EmptyCartException();
+
                 Order order = Order.builder()
                         .discs( cart.getList() )
                         .orderDate( new Date() )
@@ -70,5 +71,11 @@ public class CartServiceImpl implements CartService
                         return orderService.create( order );
                 }
                 return null;
+        }
+
+        @Override
+        public Cart getCart ()
+        {
+                return cart;
         }
 }

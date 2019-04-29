@@ -23,9 +23,8 @@ public class Order
         @GeneratedValue (strategy = GenerationType.IDENTITY)
         private Long ID;
 
-        //plyta / ilosc sztuk
         @OneToMany
-        @MapKeyColumn (name = "amount")
+        @JoinColumn (name = "order_info_id")
         private List<CartItem> discs;
 
         @Temporal (TemporalType.DATE)
