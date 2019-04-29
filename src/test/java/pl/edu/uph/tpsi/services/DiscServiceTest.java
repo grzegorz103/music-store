@@ -19,7 +19,7 @@ import java.util.Optional;
 
 import static junit.framework.TestCase.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith (MockitoJUnitRunner.class)
 @SpringBootTest
@@ -42,6 +42,7 @@ public class DiscServiceTest
                 list.add( new Disc( 1L, "Brand1", new Date( new Date().getTime() - 10 ), 1f, 2, false ) );
                 list.add( new Disc( 2L, "Brand2", new Date( new Date().getTime() - 10 ), 2f, 3, false ) );
                 list.add( new Disc( 3L, "Brand3", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
+                list.add( new Disc( 10L, "Brand4", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
 
                 when( discRepository.findAll() ).thenReturn( list );
                 when( discRepository.findById( 0L ) ).thenReturn( Optional.of( list.get( 0 ) ) );
@@ -68,6 +69,22 @@ public class DiscServiceTest
                 list.add( disc );
                 when( discRepository.save( disc ) ).thenReturn( disc );
                 assertThat( discService.create( disc ) ).isEqualTo( disc.getID() );
-                assertEquals( 4, discRepository.findAll().size() );
+                assertEquals( 5, discRepository.findAll().size() );
+        }
+
+        @Test
+        public void updateDiscTest ()
+        {
+                Disc test = new Disc( 0L, "ReplaceBand", new Date( new Date().getTime() - 10 ), 100f, 1, false );
+                Disc test2 = new Disc( 111L, "NoIdInDB", new Date( new Date().getTime() - 10 ), 100f, 1, false );
+                assertThat( discService.update( 0L, test ).getBand() ).isEqualTo( "ReplaceBand" );
+                assertNull( discService.update( 111L, test2 ) );
+        }
+
+        @Test
+        public void deleteDiscByIdTest ()
+        {
+                discService.delete( 10L );
+                verify( discRepository, times( 1 ) ).deleteById( 10L );
         }
 }

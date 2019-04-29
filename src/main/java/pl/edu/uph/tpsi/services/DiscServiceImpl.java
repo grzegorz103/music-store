@@ -41,12 +41,22 @@ public class DiscServiceImpl implements DiscService
         @Override
         public Disc update ( Long id, Disc disc )
         {
-                return null;
+                Disc discToReplace = discRepository.findById( id ).orElse( null );
+                if ( discToReplace != null )
+                {
+                        discToReplace.setAmount( disc.getAmount() );
+                        discToReplace.setBand( disc.getBand() );
+                        discToReplace.setDeleted( disc.getDeleted() );
+                        discToReplace.setPrice( disc.getPrice() );
+                        discToReplace.setReleaseDate( disc.getReleaseDate() );
+                        discRepository.save( discToReplace );
+                }
+                return discToReplace;
         }
 
         @Override
         public void delete ( Long id )
         {
-
+                discRepository.deleteById( id );
         }
 }

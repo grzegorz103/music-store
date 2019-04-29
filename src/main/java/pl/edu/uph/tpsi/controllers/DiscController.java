@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping ("/disc")
 public class DiscController
 {
-        @Autowired
-        private DiscService discService;
+        private final DiscService discService;
 
+        @Autowired
         public DiscController ( DiscService discService )
         {
                 this.discService = discService;
