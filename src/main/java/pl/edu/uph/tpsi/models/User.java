@@ -1,6 +1,7 @@
 package pl.edu.uph.tpsi.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -9,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -20,11 +22,14 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User implements UserDetails
 {
         @Id
         @GeneratedValue (strategy = GenerationType.IDENTITY)
         private Long ID;
+
+        // moje
 
         @Column (name = "username")
         @NotNull
@@ -36,6 +41,13 @@ public class User implements UserDetails
         @NotNull
         @NotBlank
         private String password;
+
+        @Email
+        @NotBlank
+        @NotNull
+        private String email;
+
+        //springowe
 
         @Column (name = "expired")
         private boolean expired;
