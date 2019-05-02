@@ -6,20 +6,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DiscListComponent } from './disc-list/disc-list.component';
 import { DiscService } from './service/disc.service';
-import { RegisterFormComponent } from './register-form/register-form.component';
- 
+import { UserFormComponent } from './register-form/register-form.component';
+import { UserService } from './service/user-service.service';
+
 @NgModule({
   declarations: [
     AppComponent,
     DiscListComponent,
-    RegisterFormComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [DiscService],
+  providers: [UserService, DiscService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

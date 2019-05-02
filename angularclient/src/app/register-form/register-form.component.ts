@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../service/user-service.service';
 import { User } from '../model/user';
 
 @Component({
@@ -6,11 +8,20 @@ import { User } from '../model/user';
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.css']
 })
-export class RegisterFormComponent implements OnInit {
+export class UserFormComponent {
 
-  constructor() { }
+  user: User;
 
-  ngOnInit() {
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
+    this.user = new User();
+  }
+
+  onSubmit() {
+    this.userService.save(this.user).subscribe(result => this.gotoUserList());
+  }
+
+  gotoUserList() {
+    this.router.navigate(['/discs']);
   }
 
 }

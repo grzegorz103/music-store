@@ -12,7 +12,7 @@ import pl.edu.uph.tpsi.services.UserService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping ("/user")
+@RequestMapping ("/users")
 public class UserController
 {
         private final UserService userService;
