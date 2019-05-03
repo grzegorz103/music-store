@@ -84,7 +84,9 @@ public class DiscServiceTest
         @Test
         public void deleteDiscByIdTest ()
         {
-                discService.delete( 10L );
-                verify( discRepository, times( 1 ) ).deleteById( 10L );
+                when( discRepository.existsById( 10L ) ).thenReturn( true );
+                assertThat( discService.delete( 10L ) ).isEqualTo( true );
+                when(discRepository.existsById( 9L )).thenReturn( false ); // nie ma takiego mocka z id 9
+                assertThat(discService.delete( 9L )).isEqualTo( false );
         }
 }

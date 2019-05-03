@@ -54,4 +54,16 @@ public class UserServiceImpl implements UserService
                 return userRepository.save( user );
         }
 
+        @Override
+        public boolean isLoginCorrect ( String login, String password )
+        {
+                User u = userRepository.findUserByUsername( login );
+                if ( u == null )
+                {
+                        return false;
+                }
+                return u.getUsername().equals( login )
+                        && encoder.matches( u.getUsername(), encoder.encode( password ) );
+        }
+
 }

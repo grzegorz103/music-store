@@ -3,6 +3,8 @@ package pl.edu.uph.tpsi.controllers;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.services.DiscService;
@@ -51,9 +53,12 @@ public class DiscController
         }
 
         @DeleteMapping ("/{id}")
-        @ResponseStatus (HttpStatus.OK)
-        public void delete ( @PathVariable ("id") Long id )
+        public ResponseEntity<?> delete ( @PathVariable ("id") Long id )
         {
-                discService.delete( id );
+                if ( !discService.delete( id ) )
+                {
+                        return new ResponseEntity<>( HttpStatus.NO_CONTENT );
+                }
+                return new ResponseEntity<>( HttpStatus.OK );
         }
 }

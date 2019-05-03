@@ -8,4 +8,5 @@ public interface UserService extends UserDetailsService
 {
         User create ( UserDTO userDTO );
 
+        boolean isLoginCorrect ( String login, String password );
 }

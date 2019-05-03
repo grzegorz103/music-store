@@ -55,8 +55,11 @@ public class DiscServiceImpl implements DiscService
         }
 
         @Override
-        public void delete ( Long id )
+        public boolean delete ( Long id )
         {
+                if ( !discRepository.existsById( id ) )
+                        return false;
                 discRepository.deleteById( id );
+                return true;
         }
 }
