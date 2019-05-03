@@ -7,7 +7,7 @@ import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.services.CartService;
 
 @RestController
-@RequestMapping ("/cart")
+@RequestMapping ("/api/cart")
 public class CartController
 {
         private final CartService cartService;

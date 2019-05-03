@@ -9,7 +9,7 @@ export class DiscService {
 	private discsUrls: string;
 
 	constructor(private http: HttpClient) {
-		this.discsUrls = 'http://localhost:8080/disc';
+		this.discsUrls = 'http://localhost:8080/api/disc';
 	}
 
 	public findAll(): Observable<Disc[]> {

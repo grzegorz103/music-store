@@ -12,7 +12,7 @@ import pl.edu.uph.tpsi.services.DiscService;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/disc")
+@RequestMapping ("/api/disc")
 public class DiscController
 {
         private final DiscService discService;
@@ -55,10 +55,6 @@ public class DiscController
         @DeleteMapping ("/{id}")
         public ResponseEntity<?> delete ( @PathVariable ("id") Long id )
         {
-                if ( !discService.delete( id ) )
-                {
-                        return new ResponseEntity<>( HttpStatus.NO_CONTENT );
-                }
-                return new ResponseEntity<>( HttpStatus.OK );
+                return new ResponseEntity<>( discService.delete( id ) ? HttpStatus.OK : HttpStatus.NO_CONTENT );
         }
 }

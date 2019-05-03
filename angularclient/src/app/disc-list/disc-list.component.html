@@ -1,22 +1,24 @@
-<div class="card my-5">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Band</th>
-          <th scope="col">Price</th>
-          <th scope="col">Buy</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let disc of discs">
-          <td>{{ disc.id }}</td>
-          <td>{{ disc.band }}</td>
-          <td>{{ disc.price }}</td>
-          <td><button type="button" class="btn btn-primary">Buy</button></td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container">
+  <div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Band</th>
+            <th scope="col">Price</th>
+            <th scope="col">Buy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let disc of discs">
+            <td>{{ disc.id }}</td>
+            <td>{{ disc.band }}</td>
+            <td>{{ disc.price }}</td>
+            <td><button type="button" class="btn btn-primary">Buy</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

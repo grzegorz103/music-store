@@ -1,5 +1,4 @@
-<div class="container">
-  <div class="row">
+<!----<div class="row">
     <div class="col-md-12">
       <div class="card bg-dark my-5">
         <div class="card-body">
@@ -13,5 +12,29 @@
       </div>
       <router-outlet></router-outlet>
     </div>
+  </div>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <div class="container">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/main">Index</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/discs">Discs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/register">Sign up</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+    </ul>
   </div>
-</div>
+</nav>
+<router-outlet></router-outlet>
+<footer class="bg-dark py-4 fixed-bottom">
+  <div class="container">
+    <div class="small text-center text-muted">Copyright &copy; 2019 - Grzegorz Piłat <a target="_blank" href="http://github.com/grzegorz103">github.com/grzegorz103</a></div>
+  </div>
+</footer>
