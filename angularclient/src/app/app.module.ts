@@ -10,6 +10,8 @@ import { UserFormComponent } from './register-form/register-form.component';
 import { UserService } from './service/user-service.service';
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent} from './main-page/main-page.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { MainPageComponent} from './main-page/main-page.component';
     DiscListComponent,
     UserFormComponent,
     LoginComponent,
-    MainPageComponent
+    MainPageComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

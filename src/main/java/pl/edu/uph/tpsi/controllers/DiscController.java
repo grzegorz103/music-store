@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.services.DiscService;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -24,13 +27,15 @@ public class DiscController
         }
 
         @GetMapping
-        public List<Disc> findAll ()
+        public ResponseEntity<?> findAll ( @RequestHeader ("Authorization") @NotBlank @NotEmpty String auth )
         {
-                return discService.findAll();
+                if ( auth.length() < 8 ) return new ResponseEntity<>( HttpStatus.UNAUTHORIZED );
+                return new ResponseEntity<>( discService.findAll(), HttpStatus.OK );
         }
 
         @GetMapping ("/{id}")
-        public Disc findById ( @PathVariable ("id") Long id )
+        public Disc findById (
+                @PathVariable ("id") Long id )
         {
                 return discService.findById( id );
         }

@@ -13,6 +13,11 @@ export class DiscService {
 	}
 
 	public findAll(): Observable<Disc[]> {
-		return this.http.get<Disc[]>(this.discsUrls);
+		let headers: HttpHeaders = new HttpHeaders({
+			'Authorization': 'Basic ' + sessionStorage.getItem('token')
+		});
+		let options = { headers: headers };
+
+		return this.http.get<Disc[]>(this.discsUrls, options);
 	}
 }

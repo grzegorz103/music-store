@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     sessionStorage.setItem('token', '');
   }
   login() {
-    this.http.post<Observable<boolean>>('http://localhost:8080/users/login', {
+    this.http.post<Observable<boolean>>('http://localhost:8080/api/users/login', {
       username: this.model.username,
       password: this.model.password
     }).subscribe(isValid => {
