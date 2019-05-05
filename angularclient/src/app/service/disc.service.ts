@@ -20,4 +20,12 @@ export class DiscService {
 
 		return this.http.get<Disc[]>(this.discsUrls, options);
 	}
+
+	public save(disc: Disc) {
+		return this.http.post<Disc>(this.discsUrls, disc);
+	}
+
+	public remove(id: number) {
+		this.http.delete(this.discsUrls + '/' + id).subscribe(res => console.log('OK'));
+	}
 }

@@ -4,18 +4,13 @@ import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.services.DiscService;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-
 @RestController
 @RequestMapping ("/api/disc")
+@CrossOrigin (origins = "http://localhost:4200")
 public class DiscController
 {
         private final DiscService discService;
@@ -27,15 +22,15 @@ public class DiscController
         }
 
         @GetMapping
-        public ResponseEntity<?> findAll ( @RequestHeader ("Authorization") @NotBlank @NotEmpty String auth )
+        public ResponseEntity<?> findAll ( @RequestHeader ("Authorization") String auth )
         {
-                if ( auth.length() < 8 ) return new ResponseEntity<>( HttpStatus.UNAUTHORIZED );
+                if ( auth.length() < 7 )
+                        return new ResponseEntity<>( HttpStatus.UNAUTHORIZED );
                 return new ResponseEntity<>( discService.findAll(), HttpStatus.OK );
         }
 
         @GetMapping ("/{id}")
-        public Disc findById (
-                @PathVariable ("id") Long id )
+        public Disc findById ( @PathVariable ("id") Long id )
         {
                 return discService.findById( id );
         }

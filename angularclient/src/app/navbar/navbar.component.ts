@@ -18,4 +18,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/discs']);
   }
 
+  isAuthenticated(): boolean {
+    return sessionStorage.getItem('token').length > 0;
+  }
+
 }

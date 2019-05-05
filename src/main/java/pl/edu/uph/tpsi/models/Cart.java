@@ -18,7 +18,6 @@ import java.util.Map;
 @AllArgsConstructor
 public class Cart
 {
-        @JsonProperty ("FGY")
         private List<CartItem> list = new ArrayList<>();
 
         public List<CartItem> getList ()

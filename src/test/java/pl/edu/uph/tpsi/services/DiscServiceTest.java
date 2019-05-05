@@ -39,10 +39,10 @@ public class DiscServiceTest
         public void setup ()
         {
                 list = new ArrayList<>();
-                list.add( new Disc( 1L, "Brand1", new Date( new Date().getTime() - 10 ), 1f, 2, false ) );
-                list.add( new Disc( 2L, "Brand2", new Date( new Date().getTime() - 10 ), 2f, 3, false ) );
-                list.add( new Disc( 3L, "Brand3", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
-                list.add( new Disc( 10L, "Brand4", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
+                list.add( new Disc( 1L, "Brand1", "Title1", new Date( new Date().getTime() - 10 ), 1f, 2, false ) );
+                list.add( new Disc( 2L, "Brand2", "Title2", new Date( new Date().getTime() - 10 ), 2f, 3, false ) );
+                list.add( new Disc( 3L, "Brand3", "Title3", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
+                list.add( new Disc( 10L, "Brand4", "Title4", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
 
                 when( discRepository.findAll() ).thenReturn( list );
                 when( discRepository.findById( 0L ) ).thenReturn( Optional.of( list.get( 0 ) ) );
@@ -65,7 +65,7 @@ public class DiscServiceTest
         @Test
         public void createDiscTest ()
         {
-                Disc disc = new Disc( 4L, "TestBrand", new Date( new Date().getTime() - 10 ), 1f, 1, false );
+                Disc disc = new Disc( 4L, "TestBrand", "TestTitle", new Date( new Date().getTime() - 10 ), 1f, 1, false );
                 list.add( disc );
                 when( discRepository.save( disc ) ).thenReturn( disc );
                 assertThat( discService.create( disc ) ).isEqualTo( disc.getID() );
@@ -75,8 +75,8 @@ public class DiscServiceTest
         @Test
         public void updateDiscTest ()
         {
-                Disc test = new Disc( 0L, "ReplaceBand", new Date( new Date().getTime() - 10 ), 100f, 1, false );
-                Disc test2 = new Disc( 111L, "NoIdInDB", new Date( new Date().getTime() - 10 ), 100f, 1, false );
+                Disc test = new Disc( 0L, "ReplaceBand", "Test", new Date( new Date().getTime() - 10 ), 100f, 1, false );
+                Disc test2 = new Disc( 111L, "NoIdInDB", "Test", new Date( new Date().getTime() - 10 ), 100f, 1, false );
                 assertThat( discService.update( 0L, test ).getBand() ).isEqualTo( "ReplaceBand" );
                 assertNull( discService.update( 111L, test2 ) );
         }
@@ -86,7 +86,7 @@ public class DiscServiceTest
         {
                 when( discRepository.existsById( 10L ) ).thenReturn( true );
                 assertThat( discService.delete( 10L ) ).isEqualTo( true );
-                when(discRepository.existsById( 9L )).thenReturn( false ); // nie ma takiego mocka z id 9
-                assertThat(discService.delete( 9L )).isEqualTo( false );
+                when( discRepository.existsById( 9L ) ).thenReturn( false ); // nie ma takiego mocka z id 9
+                assertThat( discService.delete( 9L ) ).isEqualTo( false );
         }
 }

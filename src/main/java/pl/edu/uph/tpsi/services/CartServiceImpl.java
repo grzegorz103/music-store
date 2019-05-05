@@ -9,6 +9,7 @@ import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.models.Order;
 import pl.edu.uph.tpsi.repositories.OrderRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -35,8 +36,9 @@ public class CartServiceImpl implements CartService
                         .findFirst()
                         .orElse( null );
                 if ( cartItem == null )
+                {
                         cart.getList().add( new CartItem( disc, amount ) );
-                else
+                } else
                         cartItem.setAmount( cartItem.getAmount() + amount );
         }
 

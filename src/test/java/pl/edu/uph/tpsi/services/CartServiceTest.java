@@ -41,7 +41,7 @@ public class CartServiceTest
         @Before
         public void setup ()
         {
-                Disc disc = new Disc( 1L, "TestBrand", new Date( new Date().getTime() - 10 ), 1f, 100, false );
+                Disc disc = new Disc( 1L, "TestBrand","Test", new Date( new Date().getTime() - 10 ), 1f, 100, false );
                 cartService.addToCart( disc, 4L );
         }
 

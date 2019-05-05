@@ -26,9 +26,9 @@ public class RepositoryInitializer
                 return () -> {
                         if ( discRepository.findAll().isEmpty() )
                         {
-                                discRepository.save( Disc.builder().amount( 100 ).band( "The beatles" ).deleted( false ).price( 100f ).build() );
-                                discRepository.save( Disc.builder().amount( 55 ).band( "Michael Jackson" ).deleted( false ).price( 100f ).build() );
-                                discRepository.save( Disc.builder().amount( 100 ).band( "Queen" ).deleted( false ).price( 100f ).build() );
+                                discRepository.save( Disc.builder().amount( 100 ).band( "The beatles" ).title( "With the Beatles" ).deleted( false ).price( 100f ).build() );
+                                discRepository.save( Disc.builder().amount( 55 ).band( "Michael Jackson" ).title( "Thriller" ).deleted( false ).price( 100f ).build() );
+                                discRepository.save( Disc.builder().amount( 100 ).band( "Queen" ).title( "A kind of magic" ).deleted( false ).price( 100f ).build() );
                         }
                 };
         }

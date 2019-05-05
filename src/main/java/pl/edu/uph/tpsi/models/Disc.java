@@ -27,6 +27,12 @@ public class Disc
         @NotBlank
         private String band;
 
+        @Column (name = "title")
+        @Size (min = 2, max = 50)
+        @NotNull
+        @NotBlank
+        private String title;
+
         @Temporal (TemporalType.DATE)
         @Past
         private Date releaseDate;

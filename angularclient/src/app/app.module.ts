@@ -9,9 +9,12 @@ import { DiscService } from './service/disc.service';
 import { UserFormComponent } from './register-form/register-form.component';
 import { UserService } from './service/user-service.service';
 import { LoginComponent } from './login/login.component';
-import { MainPageComponent} from './main-page/main-page.component';
+import { MainPageComponent } from './main-page/main-page.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { DiscFormComponent } from './disc-form/disc-form.component';
+import { CartComponent } from './cart/cart.component';
+import { CartService } from './service/cart-service.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import { FooterComponent } from './footer/footer.component';
     LoginComponent,
     MainPageComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    DiscFormComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,7 @@ import { FooterComponent } from './footer/footer.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService, DiscService],
+  providers: [UserService, DiscService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -49,9 +49,9 @@ public class DiscControllerTest
         public void setup ()
         {
                 list = new ArrayList<>();
-                list.add( new Disc( 1L, "Brand1", new Date( new Date().getTime() - 10 ), 1f, 2, false ) );
-                list.add( new Disc( 2L, "Brand2", new Date( new Date().getTime() - 10 ), 2f, 3, false ) );
-                list.add( new Disc( 3L, "Brand3", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
+                list.add( new Disc( 1L, "Brand1", "Title1", new Date( new Date().getTime() - 10 ), 1f, 2, false ) );
+                list.add( new Disc( 2L, "Brand2", "Title2", new Date( new Date().getTime() - 10 ), 2f, 3, false ) );
+                list.add( new Disc( 3L, "Brand3", "Title3", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
                 when( discService.findAll() ).thenReturn( list );
         }
 
