@@ -17,7 +17,20 @@ export class CartComponent implements OnInit {
     private cartService: CartService) { }
 
   ngOnInit() {
-    this.cartService.findAll()
-    .subscribe(res => this.items = res);
+    this.fetchData();
+  }
+
+  fetchData() {
+    this.cartService.findAll().subscribe(
+      res => this.items = res
+    );
+  }
+
+  remove(id: number) {
+    this.cartService.remove(id).subscribe(() => this.fetchData());
+  }
+
+  buy() {
+    this.cartService.buy().subscribe(res => this.router.navigate(['/orders']));
   }
 }

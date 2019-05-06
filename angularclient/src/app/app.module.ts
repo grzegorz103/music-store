@@ -15,6 +15,8 @@ import { FooterComponent } from './footer/footer.component';
 import { DiscFormComponent } from './disc-form/disc-form.component';
 import { CartComponent } from './cart/cart.component';
 import { CartService } from './service/cart-service.service';
+import { OrderListComponent } from './order-list/order-list.component';
+import { OrderService } from './service/order.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { CartService } from './service/cart-service.service';
     FooterComponent,
     DiscFormComponent,
     CartComponent,
+    OrderListComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import { CartService } from './service/cart-service.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService, DiscService, CartService],
+  providers: [UserService, DiscService, CartService, OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

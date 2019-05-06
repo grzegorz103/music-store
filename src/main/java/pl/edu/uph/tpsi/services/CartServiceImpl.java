@@ -72,7 +72,8 @@ public class CartServiceImpl implements CartService
                 {
                         cart.setList( cart.getList()
                                 .stream()
-                                .filter( e -> !e.getDisc().getID().equals( id ) ).collect( Collectors.toList() )
+                                .filter( e -> !e.getID().equals( id ) )
+                                .collect( Collectors.toList() )
                         );
                         cartRepository.save( cart );
                 }
@@ -86,6 +87,7 @@ public class CartServiceImpl implements CartService
         }
 
         @Override
+        @Transactional
         public Order makeOrder ( String username )
         {
                 Cart cart = cartRepository.findByUser( userRepository.findUserByUsername( username ) );
@@ -97,6 +99,7 @@ public class CartServiceImpl implements CartService
                         Order order = Order.builder()
                                 .discs( cart.getList() )
                                 .orderDate( new Date() )
+                                .user( userRepository.findUserByUsername( username ) )
                                 .build();
                         if ( order != null )
                         {

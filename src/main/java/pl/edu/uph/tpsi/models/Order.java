@@ -23,7 +23,7 @@ public class Order
         @GeneratedValue (strategy = GenerationType.IDENTITY)
         private Long ID;
 
-        @OneToMany
+        @OneToMany (fetch = FetchType.EAGER)
         @JoinColumn (name = "order_info_id")
         private List<CartItem> discs;
 

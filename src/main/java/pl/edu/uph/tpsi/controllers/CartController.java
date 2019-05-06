@@ -1,6 +1,8 @@
 package pl.edu.uph.tpsi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.dto.CartDTO;
 import pl.edu.uph.tpsi.models.Cart;
@@ -31,12 +33,12 @@ public class CartController
                 String authToken = auth.substring( "Basic".length() ).trim();
                 String username = new String( Base64.getDecoder()
                         .decode( authToken ) ).split( ":" )[0];
-                return new CartDTO( cartService.getCart(username).getList() );
+                return new CartDTO( cartService.getCart( username ).getList() );
         }
 
-        @PostMapping
+        @PostMapping ("/{id}")
         public CartDTO addToCart ( @RequestHeader ("Authorization") String auth,
-                                   @RequestParam (name = "id", required = false, defaultValue = "1") Disc disc,
+                                   @PathVariable (name = "id") Disc disc,
                                    @RequestParam (name = "amount", required = false, defaultValue = "1") Long amount )
         {
                 String authToken = auth.substring( "Basic".length() ).trim();
@@ -54,5 +56,16 @@ public class CartController
                         .decode( authToken ) ).split( ":" )[0];
 
                 cartService.makeOrder( username );
+        }
+
+        @DeleteMapping ("/{id}")
+        public void deleteById ( @RequestHeader ("Authorization") String auth,
+                                 @PathVariable ("id") Long id )
+        {
+                String authToken = auth.substring( "Basic".length() ).trim();
+                String username = new String( Base64.getDecoder()
+                        .decode( authToken ) ).split( ":" )[0];
+
+                cartService.removeById( username, id );
         }
 }

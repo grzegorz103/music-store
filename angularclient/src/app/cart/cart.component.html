@@ -1,23 +1,32 @@
 <div class="container">
-    <div class="card my-5">
-      <div class="card-body">
-        <table class="table table-bordered table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Band</th>
-              <th scope="col">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let disc of items.list">
-              <td>{{ disc.disc.id }}</td>
-              <td>{{ disc.disc.band }}</td>
-              <td>{{ disc.disc.price }}</td>
-             </tr>
-          </tbody>
-        </table>
-      </div>
-      
+  <div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Band</th>
+            <th scope="col">Price</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let disc of items.list">
+            <td>{{ disc.disc.id }}</td>
+            <td>{{ disc.disc.band }}</td>
+            <td>{{ disc.disc.price }}</td>
+            <td>
+              <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
+                <button type="submit" class="btn btn-primary">Remove</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form (ngSubmit)="buy()" #userForm="ngForm">
+          <button type="submit" class="btn btn-success">Buy it!</button>
+        </form>
     </div>
+
   </div>
+</div>

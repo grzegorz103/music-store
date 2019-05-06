@@ -1,13 +1,13 @@
 package pl.edu.uph.tpsi.services;
 
-import pl.edu.uph.tpsi.models.Disc;
+import pl.edu.uph.tpsi.dto.OrderDTO;
 import pl.edu.uph.tpsi.models.Order;
 
 import java.util.List;
 
 public interface OrderService
 {
-        public List<Order> findAll ();
+        List<OrderDTO> findAll ( String username );
 
         public Order findById ( Long id );
 

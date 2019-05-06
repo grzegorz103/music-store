@@ -24,21 +24,22 @@ export class DiscListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fetchData();
+  }
+
+  fetchData() {
     this.discService.findAll().subscribe(
       data => {
         this.discs = data;
-
-      },
-      err => this.router.navigate(['/login']));
-
+      }, err => this.router.navigate(['/login']));
   }
 
   buyItem(id: number) {
-    this.cartService.save(id).subscribe(res => console.log('ok'));
+    this.cartService.save(id).subscribe(res => alert('Disc has been added to your shopping cart'));
   }
 
-  remove(id: number){
-    this.discService.remove(id);
+  remove(id: number) {
+    this.discService.remove(id).subscribe(() => this.fetchData());
   }
 
 }

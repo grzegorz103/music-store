@@ -26,8 +26,25 @@ export class CartService {
       'Authorization': 'Basic ' + sessionStorage.getItem('token')
     });
     let options = { headers: headers };
-    const params = new URLSearchParams();
-    params.set('id', id.toString());
-    return this.http.post(this.cartUrl, params, options);
+    
+    return this.http.post(this.cartUrl + '/' + id, null, options);
+  }
+
+  public remove(id: number){
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Basic ' + sessionStorage.getItem('token')
+    });
+    let options = { headers: headers };
+    
+    return this.http.delete(this.cartUrl + '/' + id, options);
+  }
+
+  public buy(){
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Basic ' + sessionStorage.getItem('token')
+    });
+    let options = { headers: headers };
+    
+    return this.http.put(this.cartUrl, null, options);
   }
 }

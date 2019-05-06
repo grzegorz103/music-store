@@ -6,6 +6,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Band</th>
+            <th scope="col">Title</th>
             <th scope="col">Price</th>
             <th scope="col">Buy</th>
             <th scope="col">Delete</th>
@@ -15,6 +16,7 @@
           <tr *ngFor="let disc of discs">
             <td>{{ disc.id }}</td>
             <td>{{ disc.band }}</td>
+            <td>{{ disc.title }}</td>
             <td>{{ disc.price }}</td>
             <td>
               <form (ngSubmit)="buyItem(disc.id)" #userForm="ngForm">

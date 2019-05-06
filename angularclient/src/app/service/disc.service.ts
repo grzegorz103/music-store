@@ -26,6 +26,6 @@ export class DiscService {
 	}
 
 	public remove(id: number) {
-		this.http.delete(this.discsUrls + '/' + id).subscribe(res => console.log('OK'));
+		return this.http.delete(this.discsUrls + '/' + id);
 	}
 }

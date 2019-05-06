@@ -2,12 +2,14 @@ package pl.edu.uph.tpsi.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.uph.tpsi.dto.OrderDTO;
 import pl.edu.uph.tpsi.models.Cart;
 import pl.edu.uph.tpsi.models.CartItem;
 import pl.edu.uph.tpsi.models.Order;
 import pl.edu.uph.tpsi.repositories.OrderRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service ("orderService")
 public class OrderServiceImpl implements OrderService
@@ -21,9 +23,15 @@ public class OrderServiceImpl implements OrderService
         }
 
         @Override
-        public List<Order> findAll ()
+        public List<OrderDTO> findAll ( String username )
         {
-                return orderRepository.findAll();
+                if ( username != null && !username.isEmpty() )
+                        return orderRepository.findAll()
+                                .stream()
+                                .filter( e -> e.getUser().getUsername().equals( username ) )
+                                .map( OrderDTO::new )
+                                .collect( Collectors.toList() );
+                return null;
         }
 
         @Override
