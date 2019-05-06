@@ -3,16 +3,19 @@ package pl.edu.uph.tpsi.services;
 import pl.edu.uph.tpsi.models.Cart;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.models.Order;
+import pl.edu.uph.tpsi.models.User;
 
 public interface CartService
 {
-        public void addToCart ( Disc disc, Long amount );
+        void create ( User user );
 
-        public boolean removeById ( Long id );
+        void addToCart ( String username, Disc disc, Long amount );
 
-        public boolean remove ( Disc id );
+        boolean removeById ( String username, Long id );
 
-        public Order makeOrder ();
+        boolean remove ( Disc id );
 
-        public Cart getCart ();
+        public Order makeOrder ( String username );
+
+        public Cart getCart (String username);
 }

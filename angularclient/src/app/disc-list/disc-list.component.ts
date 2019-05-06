@@ -38,7 +38,6 @@ export class DiscListComponent implements OnInit {
   }
 
   remove(id: number){
-    console.log('USUWAM');
     this.discService.remove(id);
   }
 

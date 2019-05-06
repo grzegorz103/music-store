@@ -42,7 +42,7 @@ public class CartServiceTest
         public void setup ()
         {
                 Disc disc = new Disc( 1L, "TestBrand","Test", new Date( new Date().getTime() - 10 ), 1f, 100, false );
-                cartService.addToCart( disc, 4L );
+                cartService.addToCart( "test", disc, 4L );
         }
 
         @Test
@@ -56,7 +56,7 @@ public class CartServiceTest
         @Test
         public void removeByIdTest ()
         {
-                cartService.removeById( 1L );
+                cartService.removeById( "test", 1L );
                 assertThat( cart.getList().size() ).isEqualTo( 0L );
         }
 
@@ -66,13 +66,13 @@ public class CartServiceTest
                 Order order = new Order();
                 order.setDiscs( cart.getList() );
                 when( orderService.create( any( Order.class ) ) ).thenReturn( order );
-                assertThat( cartService.makeOrder().getDiscs() ).isEqualTo( order.getDiscs() );
+                assertThat( cartService.makeOrder("test").getDiscs() ).isEqualTo( order.getDiscs() );
         }
 
         @Test (expected = EmptyCartException.class)
         public void makeOrderWithEmptyCartTest ()
         {
                 cart.setList( new ArrayList<>() );
-                cartService.makeOrder();
+                cartService.makeOrder("test");
         }
 }

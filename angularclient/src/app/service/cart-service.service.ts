@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../model/cart-item';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { CartDto } from '../model/cart-dto';
 
 
 @Injectable()
@@ -13,13 +14,20 @@ export class CartService {
   }
 
   public findAll() {
-    console.log('22222');
-    return this.http.get<CartItem[]>(this.cartUrl);
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Basic ' + sessionStorage.getItem('token')
+    });
+    let options = { headers: headers };
+    return this.http.get<CartDto>(this.cartUrl, options);
   }
 
   public save(id: number) {
+    let headers: HttpHeaders = new HttpHeaders({
+      'Authorization': 'Basic ' + sessionStorage.getItem('token')
+    });
+    let options = { headers: headers };
     const params = new URLSearchParams();
     params.set('id', id.toString());
-    return this.http.post(this.cartUrl, params);
+    return this.http.post(this.cartUrl, params, options);
   }
 }

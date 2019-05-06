@@ -9,6 +9,7 @@ import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.services.CartService;
 
 import javax.servlet.http.HttpSession;
+import java.util.Base64;
 
 @RestController
 @RequestMapping ("/api/cart")
@@ -25,24 +26,33 @@ public class CartController
         }
 
         @GetMapping
-        public CartDTO getCart ()
+        public CartDTO getCart ( @RequestHeader ("Authorization") String auth )
         {
-                for ( CartItem x : cartService.getCart().getList() )
-                        System.out.println( x.getDisc().getBand() );
-                return new CartDTO( cartService.getCart().getList() );
+                String authToken = auth.substring( "Basic".length() ).trim();
+                String username = new String( Base64.getDecoder()
+                        .decode( authToken ) ).split( ":" )[0];
+                return new CartDTO( cartService.getCart(username).getList() );
         }
 
         @PostMapping
-        public CartDTO addToCart ( @RequestParam (name = "id", required = false, defaultValue = "1") Disc disc,
+        public CartDTO addToCart ( @RequestHeader ("Authorization") String auth,
+                                   @RequestParam (name = "id", required = false, defaultValue = "1") Disc disc,
                                    @RequestParam (name = "amount", required = false, defaultValue = "1") Long amount )
         {
-                cartService.addToCart( disc, amount );
-                return new CartDTO( cartService.getCart().getList() );
+                String authToken = auth.substring( "Basic".length() ).trim();
+                String username = new String( Base64.getDecoder()
+                        .decode( authToken ) ).split( ":" )[0];
+                cartService.addToCart( username, disc, amount );
+                return new CartDTO( cartService.getCart( username ).getList() );
         }
 
         @PutMapping
-        public void makeOrder ()
+        public void makeOrder ( @RequestHeader ("Authorization") String auth )
         {
-                cartService.makeOrder();
+                String authToken = auth.substring( "Basic".length() ).trim();
+                String username = new String( Base64.getDecoder()
+                        .decode( authToken ) ).split( ":" )[0];
+
+                cartService.makeOrder( username );
         }
 }

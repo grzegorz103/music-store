@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../service/cart-service.service';
 import { CartItem } from '../model/cart-item';
+import { CartDto } from '../model/cart-dto';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,15 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  
-  items: CartItem[];
+
+  items: CartDto;
 
   constructor(private router: Router,
     private cartService: CartService) { }
 
   ngOnInit() {
-    this.cartService.findAll().subscribe(
-      data => { this.items = data; },
-      err => this.router.navigate(['/login']));
+    this.cartService.findAll()
+    .subscribe(res => this.items = res);
   }
 }

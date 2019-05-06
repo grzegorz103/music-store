@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.uph.tpsi.dto.UserDTO;
 import pl.edu.uph.tpsi.models.User;
 import pl.edu.uph.tpsi.models.UserRole;
@@ -22,12 +23,15 @@ public class UserServiceImpl implements UserService
 
         private final RoleRepository roleRepository;
 
+        private final CartService cartService;
+
         @Autowired
-        public UserServiceImpl ( UserRepository userRepository, PasswordEncoder encoder, RoleRepository roleRepository )
+        public UserServiceImpl ( UserRepository userRepository, PasswordEncoder encoder, RoleRepository roleRepository, CartService cartService )
         {
                 this.userRepository = userRepository;
                 this.encoder = encoder;
                 this.roleRepository = roleRepository;
+                this.cartService = cartService;
         }
 
         @Override
@@ -42,6 +46,7 @@ public class UserServiceImpl implements UserService
         }
 
         @Override
+        @Transactional
         public User create ( UserDTO userDTO )
         {
                 User user = User.builder()
@@ -51,7 +56,9 @@ public class UserServiceImpl implements UserService
                         .password( encoder.encode( userDTO.getPassword() ) )
                         .userRoles( Collections.singleton( roleRepository.findUserRoleByUserType( UserRole.UserType.ROLE_USER ) ) )
                         .build();
-                return userRepository.save( user );
+                userRepository.save( user );
+                cartService.create( user );
+                return user;
         }
 
         @Override

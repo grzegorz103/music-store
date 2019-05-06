@@ -4,17 +4,16 @@
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>
-              <th scope="col"># {{ items?.length }}</th>
+              <th scope="col">#</th>
               <th scope="col">Band</th>
               <th scope="col">Price</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let disc of items">
+            <tr *ngFor="let disc of items.list">
               <td>{{ disc.disc.id }}</td>
               <td>{{ disc.disc.band }}</td>
               <td>{{ disc.disc.price }}</td>
-              <td><button type="button" class="btn btn-primary">Buy</button></td>
              </tr>
           </tbody>
         </table>

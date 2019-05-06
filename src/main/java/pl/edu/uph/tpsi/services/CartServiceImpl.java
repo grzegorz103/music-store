@@ -2,53 +2,80 @@ package pl.edu.uph.tpsi.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.uph.tpsi.exceptions.EmptyCartException;
-import pl.edu.uph.tpsi.models.Cart;
-import pl.edu.uph.tpsi.models.CartItem;
-import pl.edu.uph.tpsi.models.Disc;
-import pl.edu.uph.tpsi.models.Order;
-import pl.edu.uph.tpsi.repositories.OrderRepository;
+import pl.edu.uph.tpsi.models.*;
+import pl.edu.uph.tpsi.repositories.CartRepository;
+import pl.edu.uph.tpsi.repositories.UserRepository;
 
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
 @Service ("cartService")
 public class CartServiceImpl implements CartService
 {
-        private final Cart cart;
+        private final CartRepository cartRepository;
 
         private final OrderService orderService;
 
+        private final UserRepository userRepository;
+
         @Autowired
-        public CartServiceImpl ( Cart cart, OrderService orderService )
+        public CartServiceImpl ( OrderService orderService, CartRepository cartRepository, UserRepository userRepository )
         {
-                this.cart = cart;
                 this.orderService = orderService;
+                this.cartRepository = cartRepository;
+                this.userRepository = userRepository;
         }
 
         @Override
-        public void addToCart ( Disc disc, Long amount )
+        @Transactional
+        public void create ( User user )
         {
-                CartItem cartItem = cart.getList()
-                        .stream()
-                        .filter( e -> e.getDisc().getID().equals( disc.getID() ) )
-                        .findFirst()
-                        .orElse( null );
-                if ( cartItem == null )
+                if ( cartRepository.findByUser( userRepository.findUserByUsername( user.getUsername() ) ) == null )
                 {
-                        cart.getList().add( new CartItem( disc, amount ) );
-                } else
-                        cartItem.setAmount( cartItem.getAmount() + amount );
+                        cartRepository.save( Cart.builder()
+                                .list( new ArrayList<>() )
+                                .user( user )
+                                .build()
+                        );
+                }
         }
 
         @Override
-        public boolean removeById ( Long id )
+        @Transactional
+        public void addToCart ( String username, Disc disc, Long amount )
         {
-                cart.setList( cart.getList()
-                        .stream()
-                        .filter( e -> !e.getDisc().getID().equals( id ) ).collect( Collectors.toList() )
-                );
+                Cart cart = cartRepository.findByUser( userRepository.findUserByUsername( username ) );
+                if ( cart != null )
+                {
+                        CartItem cartItem = cart.getList()
+                                .stream()
+                                .filter( e -> e.getDisc().getID().equals( disc.getID() ) )
+                                .findFirst()
+                                .orElse( null );
+                        if ( cartItem == null )
+                        {
+                                cart.getList().add( new CartItem( disc, amount ) );
+                        } else
+                                cartItem.setAmount( cartItem.getAmount() + amount );
+                        cartRepository.save( cart );
+                }
+        }
+
+        @Override
+        public boolean removeById ( String username, Long id )
+        {
+                Cart cart = cartRepository.findByUser( userRepository.findUserByUsername( username ) );
+                if ( cart != null )
+                {
+                        cart.setList( cart.getList()
+                                .stream()
+                                .filter( e -> !e.getDisc().getID().equals( id ) ).collect( Collectors.toList() )
+                        );
+                        cartRepository.save( cart );
+                }
                 return true;
         }
 
@@ -59,25 +86,36 @@ public class CartServiceImpl implements CartService
         }
 
         @Override
-        public Order makeOrder ()
+        public Order makeOrder ( String username )
         {
-                if ( cart.getList().size() == 0 )
-                        throw new EmptyCartException();
-
-                Order order = Order.builder()
-                        .discs( cart.getList() )
-                        .orderDate( new Date() )
-                        .build();
-                if ( order != null )
+                Cart cart = cartRepository.findByUser( userRepository.findUserByUsername( username ) );
+                if ( cart != null )
                 {
-                        return orderService.create( order );
+                        if ( cart.getList().size() == 0 )
+                                throw new EmptyCartException();
+
+                        Order order = Order.builder()
+                                .discs( cart.getList() )
+                                .orderDate( new Date() )
+                                .build();
+                        if ( order != null )
+                        {
+                                cart.setList( new ArrayList<>() );
+                                cartRepository.save( cart );
+                                return orderService.create( order );
+                        }
                 }
                 return null;
         }
 
         @Override
-        public Cart getCart ()
+        public Cart getCart ( String username )
         {
-                return cart;
+                Cart cart = cartRepository.findByUser( userRepository.findUserByUsername( username ) );
+                if ( cart != null )
+                {
+                        return cart;
+                }
+                return null;
         }
 }
