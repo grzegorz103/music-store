@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+/**
+ * @author Grzegorz Piłat
+ */
 @Service ("cartService")
 public class CartServiceImpl implements CartService
 {
@@ -29,6 +32,10 @@ public class CartServiceImpl implements CartService
                 this.userRepository = userRepository;
         }
 
+        /**
+         * Creates cart for specified user
+         * @param user  for whom the cart will be created
+         */
         @Override
         @Transactional
         public void create ( User user )
@@ -43,6 +50,14 @@ public class CartServiceImpl implements CartService
                 }
         }
 
+        /**
+         * Adds item to shopping cart.
+         * <p>If an item already exists in the cart, its amount will be increased</p>
+         * <p>Otherwise the item will be added to cart</p>
+         * @param username      username of the shopping cart owner
+         * @param disc          item that will be added to the cart
+         * @param amount        amount of item
+         */
         @Override
         @Transactional
         public void addToCart ( String username, Disc disc, Long amount )
@@ -64,6 +79,12 @@ public class CartServiceImpl implements CartService
                 }
         }
 
+        /**
+         * Removes item from cart by given ID
+         * @param username      username of the shopping cart owner
+         * @param id            ID of item that will be deleted
+         * @return              true if item has been removed from cart
+         */
         @Override
         public boolean removeById ( String username, Long id )
         {
@@ -86,6 +107,11 @@ public class CartServiceImpl implements CartService
                 return false;
         }
 
+        /**
+         * Creates order by user's shopping cart and clears it's cart
+         * @param username      username of the shopping cart owner
+         * @return              created order
+         */
         @Override
         @Transactional
         public Order makeOrder ( String username )
@@ -111,6 +137,11 @@ public class CartServiceImpl implements CartService
                 return null;
         }
 
+        /**
+         * Retrieves user's shopping cart
+         * @param username      username of the shopping cart owner
+         * @return              user's shopping cart
+         */
         @Override
         public Cart getCart ( String username )
         {

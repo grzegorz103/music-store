@@ -1,28 +1,59 @@
 package pl.edu.uph.tpsi.config;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.edu.uph.tpsi.models.User;
+import org.springframework.util.StringUtils;
 import pl.edu.uph.tpsi.models.UserRole;
+import pl.edu.uph.tpsi.services.UserService;
 
-import java.util.List;
+import java.util.Base64;
 
+/**
+ * @autor Grzegorz Piłat
+ */
 @Component
 public class UserAuthentication
 {
-        public String getUsername ()
+        private final UserService userService;
+
+        @Autowired
+        public UserAuthentication ( UserService userService )
         {
-                User u = ( User ) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                return u.getUsername();
+                this.userService = userService;
         }
 
-        public boolean hasRole ( UserRole.UserType type )
+        /**
+         * Checks whether logged user has admin role
+         *
+         * @param auth Authorization request header
+         * @return true if user is an admin
+         */
+        public boolean hasAdminRole ( String auth )
         {
-                User u = ( User ) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                return u.getAuthorities()
-                        .stream()
-                        .anyMatch( e -> e.getAuthority().equals( type.name() ) );
+                if ( !StringUtils.isEmpty( auth ) )
+                {
+                        String username = this.getUsername( auth );
+                        if ( !StringUtils.isEmpty( username ) )
+                        {
+                                return userService.getByUsername( username )
+                                        .getUserRoles()
+                                        .stream()
+                                        .anyMatch( e -> e.getUserType().equals( UserRole.UserType.ROLE_ADMIN ) );
+                        }
+                }
+                return false;
+        }
+
+        /**
+         * Retrieves username from Authorization request header
+         *
+         * @param auth Authorization request header
+         * @return username
+         */
+        public String getUsername ( String auth )
+        {
+                String authToken = auth.substring( "Basic".length() ).trim();
+                return new String( Base64.getDecoder()
+                        .decode( authToken ) ).split( ":" )[0];
         }
 }

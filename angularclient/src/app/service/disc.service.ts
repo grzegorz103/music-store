@@ -17,15 +17,22 @@ export class DiscService {
 			'Authorization': 'Basic ' + sessionStorage.getItem('token')
 		});
 		let options = { headers: headers };
-
 		return this.http.get<Disc[]>(this.discsUrls, options);
 	}
 
 	public save(disc: Disc) {
-		return this.http.post<Disc>(this.discsUrls, disc);
+		let headers: HttpHeaders = new HttpHeaders({
+			'Authorization': 'Basic ' + sessionStorage.getItem('token')
+		});
+		let options = { headers: headers };
+		return this.http.post<Disc>(this.discsUrls, disc, options);
 	}
 
 	public remove(id: number) {
-		return this.http.delete(this.discsUrls + '/' + id);
+		let headers: HttpHeaders = new HttpHeaders({
+			'Authorization': 'Basic ' + sessionStorage.getItem('token')
+		});
+		let options = { headers: headers };
+		return this.http.delete(this.discsUrls + '/' + id, options);
 	}
 }

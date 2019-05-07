@@ -25,7 +25,7 @@ public class UserController
                 this.userService = userService;
         }
 
-        @PostMapping
+        @PostMapping("/register")
         @ResponseStatus (HttpStatus.CREATED)
         public void addUser ( @RequestBody @Valid UserDTO userDTO,
                               BindingResult bindingResult )

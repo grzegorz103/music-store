@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -16,13 +18,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         {
                 http
                         .authorizeRequests()
-                        .antMatchers( "/login" ).permitAll()
-                        .anyRequest()
+                        .antMatchers( "/api/users/login", "/api/users/register" )
                         .permitAll()
+                        .antMatchers( "/api/**" )
+                        .authenticated()
                         .and()
                         .httpBasic()
                         .and()
-                        .csrf().disable();
+                        .cors()
+                        .and()
+                        .csrf()
+                        .disable();
+        }
+
+        @Bean
+        public WebMvcConfigurer corsMappig ()
+        {
+                return new WebMvcConfigurer()
+                {
+                        @Override
+                        public void addCorsMappings ( CorsRegistry registry )
+                        {
+                                registry.addMapping( "/**" ).allowedMethods( "*" ).allowedOrigins( "http://localhost:4200" );
+
+                        }
+                };
         }
 
         @Bean

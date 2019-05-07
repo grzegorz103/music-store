@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import pl.edu.uph.tpsi.dto.UserDTO;
 import pl.edu.uph.tpsi.models.User;
 import pl.edu.uph.tpsi.models.UserRole;
@@ -59,6 +60,16 @@ public class UserServiceImpl implements UserService
                 userRepository.save( user );
                 cartService.create( user );
                 return user;
+        }
+
+        @Override
+        public User getByUsername ( String username )
+        {
+                if ( !StringUtils.isEmpty( username ) )
+                {
+                        return userRepository.findUserByUsername( username );
+                }
+                return null;
         }
 
         @Override

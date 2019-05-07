@@ -19,7 +19,7 @@ export class DiscFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.discService.save(this.disc).subscribe(result => this.goToDiscList());
+    this.discService.save(this.disc).subscribe(result => this.goToDiscList(), res => alert('Failed to add new disc'));
   }
 
   goToDiscList() {

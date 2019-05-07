@@ -35,7 +35,7 @@ export class DiscListComponent implements OnInit {
   }
 
   buyItem(id: number) {
-    this.cartService.save(id).subscribe(res => alert('Disc has been added to your shopping cart'));
+    this.cartService.save(id).subscribe(res => alert('Disc has been added to your shopping'));
   }
 
   remove(id: number) {
