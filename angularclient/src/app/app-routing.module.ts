@@ -7,6 +7,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { DiscFormComponent } from './disc-form/disc-form.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { DiscPageComponent } from './disc-page/disc-page.component';
 
 const routes: Routes = [
   { path: 'discs', component: DiscListComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'discs/add', component: DiscFormComponent },
   { path: 'cart', component: CartComponent },
   { path: 'orders', component: OrderListComponent },
+  { path: 'disc/:id', component: DiscPageComponent},
   { path: '**', redirectTo: '' }
 ];
 

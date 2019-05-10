@@ -10,6 +10,6 @@ export class AuthService {
   }
 
   public isAuthenticated() {
-    return this.getToken() !== '';
+    return this.getToken() !== null && this.getToken() !== '';
   }
 }

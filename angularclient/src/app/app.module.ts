@@ -19,6 +19,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { OrderService } from './service/order.service';
 import { RequestInterceptor } from './auth/request-interceptor';
 import { AuthService } from './auth/auth.service';
+import { DiscPageComponent } from './disc-page/disc-page.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AuthService } from './auth/auth.service';
     DiscFormComponent,
     CartComponent,
     OrderListComponent,
+    DiscPageComponent,
   ],
   imports: [
     BrowserModule,

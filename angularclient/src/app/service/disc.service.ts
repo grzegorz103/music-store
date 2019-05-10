@@ -24,4 +24,8 @@ export class DiscService {
 	public remove(id: number) {
 		return this.http.delete(this.discsUrls + '/' + id);
 	}
+
+	public findById(id: number): Observable<Disc> {
+		return this.http.get<Disc>(this.discsUrls + '/' + id);
+	}
 }

@@ -15,7 +15,7 @@
         <tbody>
           <tr *ngFor="let disc of discs">
             <td>{{ disc.id }}</td>
-            <td>{{ disc.band }}</td>
+            <td><a [routerLink]="['/disc', disc.id]">{{ disc.band }}</a></td>
             <td>{{ disc.title }}</td>
             <td>{{ disc.price }}</td>
             <td>
