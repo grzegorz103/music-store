@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.uph.tpsi.config.UserAuthentication;
 import pl.edu.uph.tpsi.dto.CartDTO;
 import pl.edu.uph.tpsi.models.Cart;
 import pl.edu.uph.tpsi.models.CartItem;
@@ -20,20 +21,19 @@ public class CartController
 {
         private final CartService cartService;
 
+        private final UserAuthentication userAuthentication;
 
         @Autowired
-        public CartController ( CartService cartService )
+        public CartController ( CartService cartService, UserAuthentication userAuthentication )
         {
                 this.cartService = cartService;
+                this.userAuthentication = userAuthentication;
         }
 
         @GetMapping
         public CartDTO getCart ( @RequestHeader ("Authorization") String auth )
         {
-                String authToken = auth.substring( "Basic".length() ).trim();
-                String username = new String( Base64.getDecoder()
-                        .decode( authToken ) ).split( ":" )[0];
-                return new CartDTO( cartService.getCart( username ).getList() );
+                return new CartDTO( cartService.getCart( userAuthentication.getUsername( auth ) ).getList() );
         }
 
         @PostMapping ("/{id}")
@@ -41,9 +41,7 @@ public class CartController
                                    @PathVariable (name = "id") Disc disc,
                                    @RequestParam (name = "amount", required = false, defaultValue = "1") Long amount )
         {
-                String authToken = auth.substring( "Basic".length() ).trim();
-                String username = new String( Base64.getDecoder()
-                        .decode( authToken ) ).split( ":" )[0];
+                String username = userAuthentication.getUsername( auth );
                 cartService.addToCart( username, disc, amount );
                 return new CartDTO( cartService.getCart( username ).getList() );
         }
@@ -51,9 +49,7 @@ public class CartController
         @PutMapping
         public void makeOrder ( @RequestHeader ("Authorization") String auth )
         {
-                String authToken = auth.substring( "Basic".length() ).trim();
-                String username = new String( Base64.getDecoder()
-                        .decode( authToken ) ).split( ":" )[0];
+                String username = userAuthentication.getUsername( auth );
 
                 cartService.makeOrder( username );
         }
@@ -62,9 +58,7 @@ public class CartController
         public void deleteById ( @RequestHeader ("Authorization") String auth,
                                  @PathVariable ("id") Long id )
         {
-                String authToken = auth.substring( "Basic".length() ).trim();
-                String username = new String( Base64.getDecoder()
-                        .decode( authToken ) ).split( ":" )[0];
+                String username = userAuthentication.getUsername( auth );
 
                 cartService.removeById( username, id );
         }

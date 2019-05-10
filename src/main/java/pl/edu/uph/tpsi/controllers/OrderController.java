@@ -2,6 +2,7 @@ package pl.edu.uph.tpsi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.uph.tpsi.config.UserAuthentication;
 import pl.edu.uph.tpsi.dto.OrderDTO;
 import pl.edu.uph.tpsi.models.Order;
 import pl.edu.uph.tpsi.services.OrderService;
@@ -16,19 +17,18 @@ public class OrderController
 {
         private final OrderService orderService;
 
+        private final UserAuthentication userAuthentication;
+
         @Autowired
-        public OrderController ( OrderService orderService )
+        public OrderController ( OrderService orderService, UserAuthentication userAuthentication )
         {
                 this.orderService = orderService;
+                this.userAuthentication = userAuthentication;
         }
 
         @GetMapping
         public List<OrderDTO> getOrders ( @RequestHeader ("Authorization") String auth )
         {
-                String authToken = auth.substring( "Basic".length() ).trim();
-                String username = new String( Base64.getDecoder()
-                        .decode( authToken ) ).split( ":" )[0];
-
-                return orderService.findAll( username );
+                return orderService.findAll( userAuthentication.getUsername( auth ) );
         }
 }
