@@ -6,6 +6,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Band</th>
+            <th scope="col">Amount</th>
             <th scope="col">Price</th>
             <th scope="col">Remove</th>
           </tr>
@@ -14,7 +15,8 @@
           <tr *ngFor="let disc of items.list">
             <td>{{ disc.disc.id }}</td>
             <td>{{ disc.disc.band }}</td>
-            <td>{{ disc.disc.price }}</td>
+            <td>{{ disc.amount }}</td>
+            <td>{{ disc.disc.price * disc.amount }}</td>
             <td>
               <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
                 <button type="submit" class="btn btn-primary">Remove</button>
@@ -23,6 +25,7 @@
           </tr>
         </tbody>
       </table>
+      <h5>Total: {{ sum }}zł</h5> 
       <form (ngSubmit)="buy()" #userForm="ngForm">
           <button type="submit" class="btn btn-success">Buy it!</button>
         </form>

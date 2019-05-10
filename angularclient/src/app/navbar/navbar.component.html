@@ -12,11 +12,11 @@
         <a class="nav-link" routerLink="/discs/add">Add disc</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isAuthenticated()">
         <a class="nav-link" routerLink="/cart">Shopping cart</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isAuthenticated()">
         <a class="nav-link" routerLink="/orders">Your orders</a>
       </li>
 

@@ -17,15 +17,15 @@ export class CartService {
     return this.http.get<CartDto>(this.cartUrl);
   }
 
-  public save(id: number) {
-    return this.http.post(this.cartUrl + '/' + id, null);
+  public save(id: number, amount: number) {
+    return this.http.post(this.cartUrl + '/' + id + "?amount=" + amount, null);
   }
 
-  public remove(id: number){
+  public remove(id: number) {
     return this.http.delete(this.cartUrl + '/' + id);
   }
 
-  public buy(){
+  public buy() {
     return this.http.put(this.cartUrl, null);
   }
 }

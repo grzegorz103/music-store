@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
 
   items: CartDto;
+  sum: number;
 
   constructor(private router: Router,
     private cartService: CartService) { }
@@ -22,8 +23,10 @@ export class CartComponent implements OnInit {
 
   fetchData() {
     this.cartService.findAll().subscribe(
-      res => this.items = res
-    );
+      res => {
+        this.items = res;
+        this.calculateSum();
+      });
   }
 
   remove(id: number) {
@@ -32,5 +35,14 @@ export class CartComponent implements OnInit {
 
   buy() {
     this.cartService.buy().subscribe(res => this.router.navigate(['/orders']));
+  }
+
+  calculateSum() {
+    var self = this;
+    let total = 0;
+    for (let i = 0; i < self.items.list.length; ++i) {
+      total += self.items.list[i].amount * self.items.list[i].disc.price;
+    }
+    this.sum = total;
   }
 }
