@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Disc } from '../model/disc';
 import { Observable } from 'rxjs/Observable';
 
@@ -13,26 +13,15 @@ export class DiscService {
 	}
 
 	public findAll(): Observable<Disc[]> {
-		let headers: HttpHeaders = new HttpHeaders({
-			'Authorization': 'Basic ' + sessionStorage.getItem('token')
-		});
-		let options = { headers: headers };
-		return this.http.get<Disc[]>(this.discsUrls, options);
+
+		return this.http.get<Disc[]>(this.discsUrls);
 	}
 
 	public save(disc: Disc) {
-		let headers: HttpHeaders = new HttpHeaders({
-			'Authorization': 'Basic ' + sessionStorage.getItem('token')
-		});
-		let options = { headers: headers };
-		return this.http.post<Disc>(this.discsUrls, disc, options);
+		return this.http.post<Disc>(this.discsUrls, disc);
 	}
 
 	public remove(id: number) {
-		let headers: HttpHeaders = new HttpHeaders({
-			'Authorization': 'Basic ' + sessionStorage.getItem('token')
-		});
-		let options = { headers: headers };
-		return this.http.delete(this.discsUrls + '/' + id, options);
+		return this.http.delete(this.discsUrls + '/' + id);
 	}
 }

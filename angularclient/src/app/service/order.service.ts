@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Order } from '../model/order';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class OrderService {
@@ -12,12 +12,7 @@ export class OrderService {
   }
 
   public findAll() {
-    let headers: HttpHeaders = new HttpHeaders({
-      'Authorization': 'Basic ' + sessionStorage.getItem('token')
-    });
-    let options = { headers: headers };
-
-    return this.http.get<Order[]>(this.orderUrl, options);
+    return this.http.get<Order[]>(this.orderUrl);
   }
 
 }

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DiscListComponent } from './disc-list/disc-list.component';
 import { DiscService } from './service/disc.service';
@@ -17,6 +17,8 @@ import { CartComponent } from './cart/cart.component';
 import { CartService } from './service/cart-service.service';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderService } from './service/order.service';
+import { RequestInterceptor } from './auth/request-interceptor';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,12 @@ import { OrderService } from './service/order.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService, DiscService, CartService, OrderService],
+  providers: [UserService, DiscService, CartService, OrderService, AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

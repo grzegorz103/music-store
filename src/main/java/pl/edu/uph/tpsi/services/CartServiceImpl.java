@@ -9,7 +9,9 @@ import pl.edu.uph.tpsi.repositories.CartRepository;
 import pl.edu.uph.tpsi.repositories.UserRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -150,6 +152,7 @@ public class CartServiceImpl implements CartService
                 {
                         return cart;
                 }
+
                 return null;
         }
 }

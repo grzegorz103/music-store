@@ -14,37 +14,18 @@ export class CartService {
   }
 
   public findAll() {
-    let headers: HttpHeaders = new HttpHeaders({
-      'Authorization': 'Basic ' + sessionStorage.getItem('token')
-    });
-    let options = { headers: headers };
-    return this.http.get<CartDto>(this.cartUrl, options);
+    return this.http.get<CartDto>(this.cartUrl);
   }
 
   public save(id: number) {
-    let headers: HttpHeaders = new HttpHeaders({
-      'Authorization': 'Basic ' + sessionStorage.getItem('token')
-    });
-    let options = { headers: headers };
-    
-    return this.http.post(this.cartUrl + '/' + id, null, options);
+    return this.http.post(this.cartUrl + '/' + id, null);
   }
 
   public remove(id: number){
-    let headers: HttpHeaders = new HttpHeaders({
-      'Authorization': 'Basic ' + sessionStorage.getItem('token')
-    });
-    let options = { headers: headers };
-    
-    return this.http.delete(this.cartUrl + '/' + id, options);
+    return this.http.delete(this.cartUrl + '/' + id);
   }
 
   public buy(){
-    let headers: HttpHeaders = new HttpHeaders({
-      'Authorization': 'Basic ' + sessionStorage.getItem('token')
-    });
-    let options = { headers: headers };
-    
-    return this.http.put(this.cartUrl, null, options);
+    return this.http.put(this.cartUrl, null);
   }
 }
