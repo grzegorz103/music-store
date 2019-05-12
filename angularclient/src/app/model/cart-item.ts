@@ -1,12 +1,11 @@
 import { Disc } from "./disc";
-import { CartDto } from "./cart-dto";
 
 export class CartItem {
     ID: number;
     disc: Disc;
     amount: number;
 
-    constructor(id, disc, amount) {
+    constructor(id: number, disc: Disc, amount: number) {
         this.ID = id;
         this.disc = disc;
         this.amount = amount;

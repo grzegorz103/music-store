@@ -2,10 +2,13 @@ package pl.edu.uph.tpsi.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.repositories.DiscRepository;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service ("discService")
 public class DiscServiceImpl implements DiscService
@@ -19,27 +22,43 @@ public class DiscServiceImpl implements DiscService
         }
 
         @Override
-        public List<Disc> findAll ()
+        public List<DiscDTO> findAll ()
         {
-                return discRepository.findAll();
+                return discRepository.findAll()
+                        .stream()
+                        .map( DiscDTO::new )
+                        .collect( Collectors.toList() );
         }
 
         @Override
-        public Disc findById ( Long id )
+        public DiscDTO findById ( Long id )
         {
                 if ( id != null && id < 0 )
-                        return discRepository.findById( 0L ).orElse( null );
-                return discRepository.findById( id ).orElse( null );
+                        return discRepository.findById( 0L )
+                                .map( DiscDTO::new )
+                                .orElse( null );
+                return discRepository.findById( Objects.requireNonNull( id ) )
+                        .map( DiscDTO::new )
+                        .orElse( null );
         }
 
         @Override
-        public Long create ( Disc disc )
+        public Long create ( DiscDTO disc )
         {
-                return discRepository.save( disc ).getID();
+                return discRepository.save(
+                        Disc.builder()
+                                .band( disc.getBand() )
+                                .amount( disc.getAmount() )
+                                .price( disc.getPrice() )
+                                .releaseDate( disc.getReleaseDate() )
+                                .title( disc.getTitle() )
+                                .deleted( false )
+                                .build()
+                ).getID();
         }
 
         @Override
-        public Disc update ( Long id, Disc disc )
+        public DiscDTO update ( Long id, DiscDTO disc )
         {
                 Disc discToReplace = discRepository.findById( id ).orElse( null );
                 if ( discToReplace != null )
@@ -51,7 +70,7 @@ public class DiscServiceImpl implements DiscService
                         discToReplace.setReleaseDate( disc.getReleaseDate() );
                         discRepository.save( discToReplace );
                 }
-                return discToReplace;
+                return disc;
         }
 
         @Override

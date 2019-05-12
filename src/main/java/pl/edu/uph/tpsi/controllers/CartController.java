@@ -1,18 +1,11 @@
 package pl.edu.uph.tpsi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.config.UserAuthentication;
 import pl.edu.uph.tpsi.dto.CartDTO;
-import pl.edu.uph.tpsi.models.Cart;
-import pl.edu.uph.tpsi.models.CartItem;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.services.CartService;
-
-import javax.servlet.http.HttpSession;
-import java.util.Base64;
 
 @RestController
 @RequestMapping ("/api/cart")

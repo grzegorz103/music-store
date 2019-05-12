@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DiscListComponent } from './disc-list/disc-list.component';
-import { UserFormComponent } from './register-form/register-form.component';
-import { LoginComponent } from './login/login.component';
-import { MainPageComponent } from './main-page/main-page.component';
-import { DiscFormComponent } from './disc-form/disc-form.component';
-import { CartComponent } from './cart/cart.component';
-import { OrderListComponent } from './order-list/order-list.component';
-import { DiscPageComponent } from './disc-page/disc-page.component';
+import { DiscListComponent } from './shop/disc-list/disc-list.component';
+import { UserFormComponent } from './public/register-form/register-form.component';
+import { LoginComponent } from './public/login/login.component';
+import { MainPageComponent } from './public/main-page/main-page.component';
+import { DiscFormComponent } from './shop/disc-form/disc-form.component';
+import { CartComponent } from './shop/cart/cart.component';
+import { OrderListComponent } from './shop/order-list/order-list.component';
+import { DiscPageComponent } from './shop/disc-page/disc-page.component';
 
 const routes: Routes = [
   { path: 'discs', component: DiscListComponent },

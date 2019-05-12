@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.config.UserAuthentication;
-import pl.edu.uph.tpsi.models.Disc;
+import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.services.DiscService;
 
 @RestController
@@ -17,6 +17,7 @@ public class DiscController
         private final DiscService discService;
 
         private final UserAuthentication userAuthentication;
+
 
         @Autowired
         public DiscController ( DiscService discService, UserAuthentication userAuthentication )
@@ -32,13 +33,13 @@ public class DiscController
         }
 
         @GetMapping ("/{id}")
-        public Disc findById ( @PathVariable ("id") Long id )
+        public DiscDTO findById ( @PathVariable ("id") Long id )
         {
                 return discService.findById( id );
         }
 
         @PostMapping
-        public ResponseEntity<?> create ( @RequestBody Disc disc,
+        public ResponseEntity<?> create ( @RequestBody DiscDTO disc,
                                           @RequestHeader ("Authorization") String auth )
         {
                 if ( !userAuthentication.hasAdminRole( auth ) )
@@ -51,7 +52,7 @@ public class DiscController
         @PutMapping ("/{id}")
         @ResponseStatus (HttpStatus.OK)
         public void update ( @PathVariable ("id") Long id,
-                             @RequestBody Disc disc )
+                             @RequestBody DiscDTO disc )
         {
                 Preconditions.checkNotNull( disc );
                 discService.update( id, disc );

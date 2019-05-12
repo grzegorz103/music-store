@@ -1,18 +1,19 @@
 package pl.edu.uph.tpsi.services;
 
+import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.models.Disc;
 
 import java.util.List;
 
 public interface DiscService
 {
-        List<Disc> findAll ();
+        List<DiscDTO> findAll ();
 
-        Disc findById ( Long id );
+        DiscDTO findById ( Long id );
 
-        Long create ( Disc disc );
+        Long create ( DiscDTO disc );
 
-        Disc update ( Long id, Disc disc );
+        DiscDTO update ( Long id, DiscDTO disc );
 
         boolean delete ( Long id );
 }

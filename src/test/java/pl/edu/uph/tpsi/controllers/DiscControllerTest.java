@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.services.DiscService;
 
@@ -43,15 +44,15 @@ public class DiscControllerTest
         @InjectMocks
         private DiscController discController;
 
-        private List<Disc> list;
+        private List<DiscDTO> list;
 
         @Before
         public void setup ()
         {
                 list = new ArrayList<>();
-                list.add( new Disc( 1L, "Brand1", "Title1", new Date( new Date().getTime() - 10 ), 1f, 2, false ) );
-                list.add( new Disc( 2L, "Brand2", "Title2", new Date( new Date().getTime() - 10 ), 2f, 3, false ) );
-                list.add( new Disc( 3L, "Brand3", "Title3", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
+                list.add( new DiscDTO( 1L, "Brand1", "Title1", new Date( new Date().getTime() - 10 ), 1f, 2, false ) );
+                list.add( new DiscDTO( 2L, "Brand2", "Title2", new Date( new Date().getTime() - 10 ), 2f, 3, false ) );
+                list.add( new DiscDTO( 3L, "Brand3", "Title3", new Date( new Date().getTime() - 10 ), 3f, 4, false ) );
                 when( discService.findAll() ).thenReturn( list );
         }
 

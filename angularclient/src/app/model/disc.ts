@@ -5,4 +5,5 @@ export class Disc {
 	price: number;
 	amount: string;
 	deleted: string;
+	title: string;
 }

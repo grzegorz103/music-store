@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.repositories.DiscRepository;
 
@@ -65,9 +66,9 @@ public class DiscServiceTest
         @Test
         public void createDiscTest ()
         {
-                Disc disc = new Disc( 4L, "TestBrand", "TestTitle", new Date( new Date().getTime() - 10 ), 1f, 1, false );
-                list.add( disc );
-                when( discRepository.save( disc ) ).thenReturn( disc );
+                DiscDTO disc = new DiscDTO( 4L, "TestBrand", "TestTitle", new Date( new Date().getTime() - 10 ), 1f, 1, false );
+               // list.add( disc );
+               // when( discRepository.save( disc ) ).thenReturn( disc );
                 assertThat( discService.create( disc ) ).isEqualTo( disc.getID() );
                 assertEquals( 5, discRepository.findAll().size() );
         }
@@ -75,8 +76,8 @@ public class DiscServiceTest
         @Test
         public void updateDiscTest ()
         {
-                Disc test = new Disc( 0L, "ReplaceBand", "Test", new Date( new Date().getTime() - 10 ), 100f, 1, false );
-                Disc test2 = new Disc( 111L, "NoIdInDB", "Test", new Date( new Date().getTime() - 10 ), 100f, 1, false );
+                DiscDTO test = new DiscDTO( 0L, "ReplaceBand", "Test", new Date( new Date().getTime() - 10 ), 100f, 1, false );
+                DiscDTO test2 = new DiscDTO( 111L, "NoIdInDB", "Test", new Date( new Date().getTime() - 10 ), 100f, 1, false );
                 assertThat( discService.update( 0L, test ).getBand() ).isEqualTo( "ReplaceBand" );
                 assertNull( discService.update( 111L, test2 ) );
         }
