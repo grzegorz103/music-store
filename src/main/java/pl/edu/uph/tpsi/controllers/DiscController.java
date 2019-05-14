@@ -44,8 +44,6 @@ public class DiscController
         {
                 if ( !userAuthentication.hasAdminRole( auth ) )
                         return new ResponseEntity<>( HttpStatus.UNAUTHORIZED );
-
-                Preconditions.checkNotNull( disc );
                 return new ResponseEntity<>( discService.create( disc ), HttpStatus.OK );
         }
 

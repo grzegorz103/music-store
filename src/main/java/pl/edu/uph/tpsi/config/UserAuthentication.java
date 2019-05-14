@@ -9,7 +9,7 @@ import pl.edu.uph.tpsi.services.UserService;
 import java.util.Base64;
 
 /**
- * @autor Grzegorz Piłat
+ * @author  Grzegorz Piłat
  */
 @Component
 public class UserAuthentication

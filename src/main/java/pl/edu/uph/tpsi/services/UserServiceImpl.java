@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import pl.edu.uph.tpsi.dto.UserDTO;
+import pl.edu.uph.tpsi.exceptions.UserExistsException;
 import pl.edu.uph.tpsi.models.User;
 import pl.edu.uph.tpsi.models.UserRole;
 import pl.edu.uph.tpsi.repositories.RoleRepository;
@@ -27,8 +28,11 @@ public class UserServiceImpl implements UserService
 
         private final CartService cartService;
 
-        @Value ("user.not.exists")
-        private String userException;
+        @Value ("${user.not.exists}")
+        private String userNotExists;
+
+        @Value ("${user.exists}")
+        private String userExists;
 
         @Autowired
         public UserServiceImpl ( UserRepository userRepository, PasswordEncoder encoder, RoleRepository roleRepository, CartService cartService )
@@ -45,7 +49,7 @@ public class UserServiceImpl implements UserService
                 User user = userRepository.findUserByUsername( s );
 
                 if ( user == null )
-                        throw new UsernameNotFoundException( this.userException );
+                        throw new UsernameNotFoundException( this.userNotExists );
 
                 return user;
         }
@@ -54,6 +58,9 @@ public class UserServiceImpl implements UserService
         @Transactional
         public User create ( UserDTO userDTO )
         {
+                if ( getByUsername( userDTO.getUsername() ) != null )
+                        throw new UserExistsException( this.userExists );
+
                 User user = User.builder()
                         .username( userDTO.getUsername() )
                         .email( userDTO.getEmail() )

@@ -1,5 +1,7 @@
 package pl.edu.uph.tpsi.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import pl.edu.uph.tpsi.config.UserAuthentication;
 import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.services.DiscService;
@@ -24,9 +30,13 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,10 +51,13 @@ public class DiscControllerTest
         @Mock
         private DiscService discService;
 
+        private UserAuthentication userAuthentication;
+
         @InjectMocks
         private DiscController discController;
 
         private List<DiscDTO> list;
+
 
         @Before
         public void setup ()
@@ -71,5 +84,32 @@ public class DiscControllerTest
                 when( discService.delete( 2L ) ).thenReturn( true );
                 assertThat( discController.delete( 1L ) ).isEqualTo( new ResponseEntity<>( HttpStatus.NO_CONTENT ) );
                 assertThat( discController.delete( 2L ) ).isEqualTo( new ResponseEntity<>( HttpStatus.OK ) );
+        }
+
+        @Test
+        public void createDiscTestWithoutAuth () throws Exception
+        {
+                DiscDTO d = new DiscDTO( 10L, "band", "test", null, 1f, 1, false );
+                mockMvc.perform( post( "/api/disc" )
+                        .content( new ObjectMapper().writeValueAsString( d ) ) )
+                        .andExpect( status().isUnauthorized() );
+
+        }
+
+        @Test
+        public void createDiscTestWithAuth () throws Exception
+        {
+                userAuthentication = mock( UserAuthentication.class );
+                discService = mock( DiscService.class );
+                discController = new DiscController( discService, userAuthentication );
+                mockMvc = MockMvcBuilders.standaloneSetup( discController ).build();
+                when( userAuthentication.hasAdminRole( any( String.class ) ) ).thenReturn( true );
+                DiscDTO d = new DiscDTO( 10L, "band", "test", new Date( new Date().getTime() - 10 ), 1f, 1, false );
+                when( discService.create( any( DiscDTO.class ) ) ).thenReturn( 1L );
+                mockMvc.perform( post( "/api/disc" )
+                        .content( new ObjectMapper().writeValueAsString( d ) )
+                        .contentType( MediaType.APPLICATION_JSON )
+                        .header( "authorization", "Basic a2pramtqOmtqa2prag==" ) )
+                        .andExpect( status().isOk() );
         }
 }
