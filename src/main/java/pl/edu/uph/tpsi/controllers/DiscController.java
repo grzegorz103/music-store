@@ -27,7 +27,7 @@ public class DiscController
         }
 
         @GetMapping
-        public ResponseEntity<?> findAll ( @RequestHeader ("Authorization") String auth )
+        public ResponseEntity<?> findAll ()
         {
                 return new ResponseEntity<>( discService.findAll(), HttpStatus.OK );
         }

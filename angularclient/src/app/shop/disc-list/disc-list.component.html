@@ -32,8 +32,10 @@
           </tr>
         </tbody>
       </table>
-      <div *ngIf="bought" [@slideInOut]>
-  dsafdsfdsfdsfsdfdsfsddfsdsf
+      <div *ngIf="bought">
+        <div class="alert alert-success" role="alert">
+          {{ text }}
+        </div>
       </div>
     </div>
   </div>

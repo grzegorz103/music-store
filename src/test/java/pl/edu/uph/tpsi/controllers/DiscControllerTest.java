@@ -60,9 +60,8 @@ public class DiscControllerTest
         @WithMockUser (username = "test", password = "test")
         public void findAllDiscsTest () throws Exception
         {
-                mockMvc.perform( get( "/disc" ) )
+                mockMvc.perform( get( "/api/disc" ) )
                         .andExpect( status().isOk() );
-                //assertThat( discController.findAll() ).isEqualTo( list );
         }
 
         @Test

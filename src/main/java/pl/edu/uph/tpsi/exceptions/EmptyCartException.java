@@ -6,4 +6,9 @@ public class EmptyCartException extends RuntimeException
         {
                 super( "Cart cannot be empty" );
         }
+
+        public EmptyCartException ( String s )
+        {
+                super( s );
+        }
 }

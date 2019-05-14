@@ -1,6 +1,7 @@
 package pl.edu.uph.tpsi.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,9 @@ public class UserServiceImpl implements UserService
 
         private final CartService cartService;
 
+        @Value ("user.not.exists")
+        private String userException;
+
         @Autowired
         public UserServiceImpl ( UserRepository userRepository, PasswordEncoder encoder, RoleRepository roleRepository, CartService cartService )
         {
@@ -41,7 +45,7 @@ public class UserServiceImpl implements UserService
                 User user = userRepository.findUserByUsername( s );
 
                 if ( user == null )
-                        throw new UsernameNotFoundException( "User does not exists" );
+                        throw new UsernameNotFoundException( this.userException );
 
                 return user;
         }
