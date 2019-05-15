@@ -20,7 +20,7 @@ import { OrderService } from './service/order/order.service';
 import { RequestInterceptor } from './service/auth/request-interceptor';
 import { AuthService } from './service/auth/auth.service';
 import { DiscPageComponent } from './shop/disc-page/disc-page.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +39,8 @@ import { DiscPageComponent } from './shop/disc-page/disc-page.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [UserService, DiscService, CartService, OrderService, AuthService,
     {

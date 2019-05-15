@@ -10,14 +10,14 @@ import { OrderListComponent } from './shop/order-list/order-list.component';
 import { DiscPageComponent } from './shop/disc-page/disc-page.component';
 
 const routes: Routes = [
-  { path: 'discs', component: DiscListComponent },
-  { path: 'register', component: UserFormComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'main', component: MainPageComponent },
-  { path: 'discs/add', component: DiscFormComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'orders', component: OrderListComponent },
-  { path: 'disc/:id', component: DiscPageComponent},
+  { path: 'discs', component: DiscListComponent, data: { animation: 'Disc' } },
+  { path: 'register', component: UserFormComponent, data: { animation: 'Register' } },
+  { path: 'login', component: LoginComponent, data: { animation: 'Login' } },
+  { path: 'main', component: MainPageComponent, data: { animation: 'Main' } },
+  { path: 'discs/add', component: DiscFormComponent, data: { animation: 'Add' } },
+  { path: 'cart', component: CartComponent, data: { animation: 'Cart' } },
+  { path: 'orders', component: OrderListComponent, data: { animation: 'Orders' } },
+  { path: 'disc/:id', component: DiscPageComponent, data: { animation: 'Details' } },
   { path: '**', redirectTo: '' }
 ];
 

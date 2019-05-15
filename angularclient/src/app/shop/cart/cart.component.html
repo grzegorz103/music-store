@@ -1,34 +1,36 @@
 <div class="container">
   <div class="card my-5">
     <div class="card-body">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Band</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Price</th>
-            <th scope="col">Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let disc of items.list">
-            <td>{{ disc.disc.id }}</td>
-            <td>{{ disc.disc.band }}</td>
-            <td>{{ disc.amount }}</td>
-            <td>{{ disc.disc.price * disc.amount }}</td>
-            <td>
-              <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
-                <button type="submit" class="btn btn-primary">Remove</button>
-              </form>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <h5>Total: {{ sum }}zł</h5> 
+      <div *ngIf="items.list !== null">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Band</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Price</th>
+              <th scope="col">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let disc of items.list">
+              <td>{{ disc.disc.id }}</td>
+              <td>{{ disc.disc.band }}</td>
+              <td>{{ disc.amount }}</td>
+              <td>{{ disc.disc.price * disc.amount }}</td>
+              <td>
+                <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
+                  <button type="submit" class="btn btn-primary">Remove</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>Total: {{ sum }}zł</h5>
       <form (ngSubmit)="buy()" #userForm="ngForm">
-          <button type="submit" class="btn btn-success">Buy it!</button>
-        </form>
+        <button type="submit" class="btn btn-success">Buy it!</button>
+      </form>
     </div>
 
   </div>
