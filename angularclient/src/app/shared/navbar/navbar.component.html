@@ -1,9 +1,14 @@
-<nav class="navbar navbar-expand-lg bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <ul class="navbar-nav mr-auto ">
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/main">Index</a>
-        </li>
+    <a class="navbar-brand" routerLink="/main">Index</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+      <ul class="navbar-nav mr-auto">
+      
         <li class="nav-item">
           <a class="nav-link text-white" routerLink="/discs">Discs</a>
         </li>
@@ -11,7 +16,9 @@
         <li class="nav-item">
           <a class="nav-link text-white" routerLink="/discs/add">Add disc</a>
         </li>
+      </ul>
 
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngIf="isAuthenticated()">
           <a class="nav-link text-white" routerLink="/cart">Shopping cart</a>
         </li>
@@ -21,15 +28,19 @@
         </li>
 
         <li class="nav-item" *ngIf="!isAuthenticated()">
-          <a class="nav-link text-white" routerLink="/login"><button class="btn btn-sm btn-success">Login</button></a>
+          <a class="nav-link text-white" routerLink="/login">Login</a>
         </li>
         <li class="nav-item" *ngIf="!isAuthenticated()">
-          <a class="nav-link text-white" routerLink="/register"><button class="btn btn-sm btn-warning">Sign up</button></a>
+          <a class="nav-link" routerLink="/register">Sign up</a>
         </li>
 
         <li class="nav-item" *ngIf="isAuthenticated()">
-          <button class="btn btn-warning" (click)="logout()">Logout</button>
+          <div (click)="logout()" class="nav-link">Logout</div>
         </li>
-    </ul>
+      </ul>
+    </div>
   </div>
 </nav>
+<!--
+<mat-progress-bar class="progress success-color-dark" mode="indeterminate"></mat-progress-bar>
+-->

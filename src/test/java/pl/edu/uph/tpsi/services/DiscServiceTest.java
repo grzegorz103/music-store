@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,7 +53,8 @@ public class DiscServiceTest
         @Test
         public void findAllDiscsTest ()
         {
-                assertThat( discService.findAll() ).isEqualTo( list );
+                List<DiscDTO> temp = list.stream().map( DiscDTO::new ).collect(Collectors.toList());
+                assertThat( discService.findAll() ).isEqualTo( temp );
         }
 
         @Test

@@ -21,6 +21,8 @@ import { RequestInterceptor } from './service/auth/request-interceptor';
 import { AuthService } from './service/auth/auth.service';
 import { DiscPageComponent } from './shop/disc-page/disc-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule, MatProgressBarModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,8 +42,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatProgressBarModule
   ],
+  
   providers: [UserService, DiscService, CartService, OrderService, AuthService,
     {
       provide: HTTP_INTERCEPTORS,

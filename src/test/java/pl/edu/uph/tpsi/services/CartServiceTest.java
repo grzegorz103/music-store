@@ -15,6 +15,8 @@ import pl.edu.uph.tpsi.exceptions.EmptyCartException;
 import pl.edu.uph.tpsi.models.Cart;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.models.Order;
+import pl.edu.uph.tpsi.models.User;
+import pl.edu.uph.tpsi.repositories.CartRepository;
 import pl.edu.uph.tpsi.repositories.OrderRepository;
 
 import java.util.ArrayList;
@@ -38,16 +40,21 @@ public class CartServiceTest
         @InjectMocks
         private CartServiceImpl cartService;
 
+        @Mock
+        private CartRepository cartRepository;
+
         @Before
         public void setup ()
         {
-                Disc disc = new Disc( 1L, "TestBrand","Test", new Date( new Date().getTime() - 10 ), 1f, 100, false );
+                Disc disc = new Disc( 1L, "TestBrand", "Test", new Date( new Date().getTime() - 10 ), 1f, 100, false );
                 cartService.addToCart( "test", disc, 4L );
         }
 
         @Test
         public void addDiscToCartTest ()
         {
+                User test = User.builder().username( "test" ).build();
+               // when( cartRepository.findByUser( any(User.class) ) ).t(test);
                 assertThat( cart.getList().size() ).isEqualTo( 1 );
                 assertThat( cart.getList().get( 0 ).getDisc().getBand() ).isEqualTo( "TestBrand" );
                 assertThat( cart.getList().get( 0 ).getAmount() ).isEqualTo( 4L );
@@ -66,13 +73,13 @@ public class CartServiceTest
                 Order order = new Order();
                 order.setDiscs( cart.getList() );
                 when( orderService.create( any( Order.class ) ) ).thenReturn( order );
-                assertThat( cartService.makeOrder("test").getDiscs() ).isEqualTo( order.getDiscs() );
+                assertThat( cartService.makeOrder( "test" ).getDiscs() ).isEqualTo( order.getDiscs() );
         }
 
         @Test (expected = EmptyCartException.class)
         public void makeOrderWithEmptyCartTest ()
         {
                 cart.setList( new ArrayList<>() );
-                cartService.makeOrder("test");
+                cartService.makeOrder( "test" );
         }
 }

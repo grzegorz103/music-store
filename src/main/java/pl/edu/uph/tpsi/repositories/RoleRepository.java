@@ -5,5 +5,5 @@ import pl.edu.uph.tpsi.models.UserRole;
 
 public interface RoleRepository extends JpaRepository<UserRole, Long>
 {
-        public UserRole findUserRoleByUserType ( UserRole.UserType userType );
+        UserRole findUserRoleByUserType ( UserRole.UserType userType );
 }

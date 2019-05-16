@@ -5,14 +5,14 @@
       </div>
   </div>
   <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-    <div [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+    <div [ngClass]="{ 'has-error': f.submitted && !username.valid }" class="md-form">
       <label for="username">Username</label>
       <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel"
         required />
       <div *ngIf="f.submitted
         && !username.valid">Username is required</div>
     </div>
-    <div [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+    <div class="md-form" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
       <label for="password">Password</label>
       <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
         required />
