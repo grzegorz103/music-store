@@ -21,7 +21,7 @@ import { RequestInterceptor } from './service/auth/request-interceptor';
 import { AuthService } from './service/auth/auth.service';
 import { DiscPageComponent } from './shop/disc-page/disc-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule, MatProgressBarModule } from '@angular/material';
+import { MatIconModule, MatProgressBarModule, MatTabsModule, MatSidenavModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,9 @@ import { MatIconModule, MatProgressBarModule } from '@angular/material';
     FormsModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTabsModule,
+    MatSidenavModule
   ],
   
   providers: [UserService, DiscService, CartService, OrderService, AuthService,

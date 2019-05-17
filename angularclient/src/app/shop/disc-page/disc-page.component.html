@@ -3,6 +3,12 @@
     <p class="font-weight-bold">
       <span class="d-block">
         <h2>
+          <div class="row">
+            <div *ngFor="let image of disc.images">
+              <a [href]="image" target="_blank"><img [src]="image" alt="Brak" class="discImg"></a>
+            </div>
+          </div>
+
           <div *ngIf="disc !== null">
             {{ disc.band }} - {{ disc.title }}
           </div>
