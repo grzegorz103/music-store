@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table (name = "discs")
@@ -51,4 +52,12 @@ public class Disc
 
         @Column (name = "deleted")
         private Boolean deleted;
+
+        @ElementCollection
+        @CollectionTable (name = "images", joinColumns = @JoinColumn (name = "image_id"))
+        @Column (name = "images")
+        private List<String> images;
+
+        @Column (name = "description", length = 5000)
+        private String description;
 }

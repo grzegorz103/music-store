@@ -46,7 +46,7 @@ public class CartServiceTest
         @Before
         public void setup ()
         {
-                Disc disc = new Disc( 1L, "TestBrand", "Test", new Date( new Date().getTime() - 10 ), 1f, 100, false );
+                Disc disc = new Disc( 1L, "TestBrand", "Test", new Date( new Date().getTime() - 10 ), 1f, 100, false, new ArrayList<String>(), "" );
                 cartService.addToCart( "test", disc, 4L );
         }
 
@@ -54,7 +54,7 @@ public class CartServiceTest
         public void addDiscToCartTest ()
         {
                 User test = User.builder().username( "test" ).build();
-               // when( cartRepository.findByUser( any(User.class) ) ).t(test);
+                // when( cartRepository.findByUser( any(User.class) ) ).t(test);
                 assertThat( cart.getList().size() ).isEqualTo( 1 );
                 assertThat( cart.getList().get( 0 ).getDisc().getBand() ).isEqualTo( "TestBrand" );
                 assertThat( cart.getList().get( 0 ).getAmount() ).isEqualTo( 4L );

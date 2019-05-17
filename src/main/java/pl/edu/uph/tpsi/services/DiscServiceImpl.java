@@ -53,6 +53,8 @@ public class DiscServiceImpl implements DiscService
                                 .releaseDate( disc.getReleaseDate() )
                                 .title( disc.getTitle() )
                                 .deleted( false )
+                                .images( disc.getImages() )
+                                .description( disc.getDescription() )
                                 .build()
                 ).getID();
         }
@@ -68,6 +70,8 @@ public class DiscServiceImpl implements DiscService
                         discToReplace.setDeleted( disc.getDeleted() );
                         discToReplace.setPrice( disc.getPrice() );
                         discToReplace.setReleaseDate( disc.getReleaseDate() );
+                        discToReplace.setImages( disc.getImages() );
+                        discToReplace.setDescription( disc.getDescription() );
                         discRepository.save( discToReplace );
                 }
                 return disc;
