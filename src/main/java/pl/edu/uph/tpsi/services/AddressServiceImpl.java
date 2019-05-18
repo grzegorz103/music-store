@@ -28,11 +28,8 @@ public class AddressServiceImpl implements AddressService
         @Override
         public AddressDTO update ( Address target, AddressDTO addressDTO )
         {
-                System.out.println( "AAA" );
-                System.out.println( "CCCC" + addressDTO.getPostCode() );
                 if ( target != null )
                 {
-                        System.out.println( "TT" );
                         target.setCity( addressDTO.getCity() );
                         target.setHouseNumber( addressDTO.getHouseNumber() );
                         target.setName( addressDTO.getName() );

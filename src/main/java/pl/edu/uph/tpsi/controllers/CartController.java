@@ -32,7 +32,7 @@ public class CartController
         @PostMapping ("/{id}")
         public CartDTO addToCart ( @RequestHeader ("Authorization") String auth,
                                    @PathVariable (name = "id") Disc disc,
-                                   @RequestParam (name = "amount", required = false, defaultValue = "1") Long amount )
+                                   @RequestParam (name = "amount", required = false, defaultValue = "1") Integer amount )
         {
                 String username = userAuthentication.getUsername( auth );
                 cartService.addToCart( username, disc, amount );

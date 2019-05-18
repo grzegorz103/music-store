@@ -3,7 +3,9 @@ package pl.edu.uph.tpsi.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.uph.tpsi.dto.DiscDTO;
+import pl.edu.uph.tpsi.exceptions.ItemOutOfStockException;
 import pl.edu.uph.tpsi.models.Disc;
+import pl.edu.uph.tpsi.models.Order;
 import pl.edu.uph.tpsi.repositories.DiscRepository;
 
 import java.util.List;
@@ -85,4 +87,29 @@ public class DiscServiceImpl implements DiscService
                 discRepository.deleteById( id );
                 return true;
         }
+
+        @Override
+        public void validateOrder ( Order order )
+        {
+                List<String> list = order.getDiscs()
+                        .stream()
+                        .filter( e -> e.getAmount() > discRepository.findById( e.getDisc().getID() ).get().getAmount() )
+                        .map( e -> e.getDisc().getBand() + " " + e.getDisc().getTitle() )
+                        .collect( Collectors.toList() );
+                if ( list.size() > 0 )
+                        throw new ItemOutOfStockException( list );
+        }
+
+        @Override
+        public void decreaseAmount ( Order order )
+        {
+                order.getDiscs()
+                        .forEach( e -> {
+                                Disc disc = discRepository.findById( e.getDisc().getID() ).get();
+                                disc.setAmount( disc.getAmount() - e.getAmount() );
+                                discRepository.save( disc );
+                        } );
+        }
+
+
 }

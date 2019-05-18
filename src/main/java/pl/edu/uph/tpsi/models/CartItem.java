@@ -27,9 +27,9 @@ public class CartItem
         @NotNull
         @Max (100000)
         @Positive
-        private Long amount;
+        private Integer amount;
 
-        public CartItem ( @NotNull Disc disc, @NotNull @Max (100000) @Positive Long amount )
+        public CartItem ( @NotNull Disc disc, @NotNull @Max (100000) @Positive Integer amount )
         {
                 this.disc = disc;
                 this.amount = amount;

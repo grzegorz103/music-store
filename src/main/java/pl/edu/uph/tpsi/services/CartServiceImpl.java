@@ -30,6 +30,8 @@ public class CartServiceImpl implements CartService
 
         private final AddressService addressService;
 
+        private final DiscService discService;
+
         @Value ("${cart.empty.exception}")
         private String cartEmptyException;
 
@@ -37,12 +39,13 @@ public class CartServiceImpl implements CartService
         private String userDetailsException;
 
         @Autowired
-        public CartServiceImpl ( OrderService orderService, CartRepository cartRepository, UserRepository userRepository, AddressService addressService )
+        public CartServiceImpl ( OrderService orderService, CartRepository cartRepository, UserRepository userRepository, AddressService addressService, DiscService discService )
         {
                 this.orderService = orderService;
                 this.cartRepository = cartRepository;
                 this.userRepository = userRepository;
                 this.addressService = addressService;
+                this.discService = discService;
         }
 
         /**
@@ -75,7 +78,7 @@ public class CartServiceImpl implements CartService
          */
         @Override
         @Transactional
-        public void addToCart ( String username, Disc disc, Long amount )
+        public void addToCart ( String username, Disc disc, Integer amount )
         {
                 Cart cart = cartRepository.findByUser( userRepository.findUserByUsername( username ) );
                 if ( cart != null )
@@ -146,6 +149,9 @@ public class CartServiceImpl implements CartService
                                 .orderDate( new Date() )
                                 .user( userRepository.findUserByUsername( username ) )
                                 .build();
+
+                        discService.validateOrder( order );
+                        discService.decreaseAmount( order );
                         if ( order != null )
                         {
                                 cart.setList( new ArrayList<>() );

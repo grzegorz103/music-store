@@ -9,7 +9,7 @@ public interface CartService
 {
         void create ( User user );
 
-        void addToCart ( String username, Disc disc, Long amount );
+        void addToCart ( String username, Disc disc, Integer amount );
 
         boolean removeById ( String username, Long id );
 

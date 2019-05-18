@@ -47,6 +47,8 @@ export class CartComponent implements OnInit {
         } else if (code === 403) {
           this.error = 'User details is empty! ';
           this.showRedirect = true;
+        } else if (code === 412) {
+          this.error = 'Following products are not available:\r\n' + err.error;
         }
         this.isError = true;
         setTimeout(() => {
