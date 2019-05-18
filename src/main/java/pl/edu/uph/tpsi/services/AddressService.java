@@ -8,7 +8,7 @@ public interface AddressService
 {
         AddressDTO findOneByUser ( User user );
 
-        AddressDTO update (Long id, AddressDTO addressDTO);
+        AddressDTO update ( Address target, AddressDTO addressDTO);
 
         boolean isAddressCorrect ( Address address );
 }

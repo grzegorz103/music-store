@@ -34,7 +34,7 @@
 
       <div *ngIf="isError">
           <div class="alert alert-danger my-1" role="alert">
-          {{ error }}
+          {{ error }} <div *ngIf="showRedirect"><a routerLink="/profile">Click here </a> to update your profile</div>
           </div>
       </div>
     </div>

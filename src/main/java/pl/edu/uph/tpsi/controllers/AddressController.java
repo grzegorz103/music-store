@@ -8,8 +8,6 @@ import pl.edu.uph.tpsi.models.Address;
 import pl.edu.uph.tpsi.services.AddressService;
 import pl.edu.uph.tpsi.services.UserService;
 
-import javax.xml.ws.RequestWrapper;
-
 @RestController
 @RequestMapping ("/api/address")
 public class AddressController
@@ -33,6 +31,16 @@ public class AddressController
         {
                 return addressService.findOneByUser(
                         userService.getByUsername( userAuthentication.getUsername( auth ) )
+                );
+        }
+
+        @PutMapping
+        public AddressDTO update ( @RequestBody AddressDTO addressDTO,
+                                   @RequestHeader ("Authorization") String auth )
+        {
+                return addressService.update(
+                        userService.getByUsername( userAuthentication.getUsername( auth ) ).getAddress(),
+                        addressDTO
                 );
         }
 }

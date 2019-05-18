@@ -1,0 +1,78 @@
+<div class="container">
+  <div *ngIf="address">
+    <div *ngIf="isDone">
+      <div class="alert alert-success" role="alert">
+        {{ success }}
+      </div>
+    </div>
+    Your profile
+
+    <form #form="ngForm" (ngSubmit)="updateAddress()">
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" name="city" [(ngModel)]="address.city" #username="ngModel"
+              required />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" class="form-control" name="street" [(ngModel)]="address.street" #username="ngModel"
+              required />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="postcode">Post-code</label>
+            <input type="text" class="form-control" name="postcode" [(ngModel)]="address.postCode" #name="ngModel"
+              required />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="housenumber">House number</label>
+            <input type="text" class="form-control" name="housenumber" [(ngModel)]="address.houseNumber"
+              #username="ngModel" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="address.name" #username="ngModel"
+              required />
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="housenumber">Surname</label>
+            <input type="text" class="form-control" name="housenumber" [(ngModel)]="address.surname" #username="ngModel"
+              required />
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="phonenumber">Phone number</label>
+            <input type="text" class="form-control" name="phonenumber" [(ngModel)]="address.phoneNumber"
+              #username="ngModel" required />
+          </div>
+        </div>
+      </div>
+      <div>
+        <br />
+        <button [disabled]="loading" class="btn btn-success">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

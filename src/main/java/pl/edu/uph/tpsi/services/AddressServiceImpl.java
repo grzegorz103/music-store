@@ -26,12 +26,21 @@ public class AddressServiceImpl implements AddressService
         }
 
         @Override
-        public AddressDTO update ( Long id, AddressDTO addressDTO )
+        public AddressDTO update ( Address target, AddressDTO addressDTO )
         {
-                Address address = addressRepository.findById( id ).orElse( null );
-                if ( address != null )
+                System.out.println( "AAA" );
+                System.out.println( "CCCC" + addressDTO.getPostCode() );
+                if ( target != null )
                 {
-
+                        System.out.println( "TT" );
+                        target.setCity( addressDTO.getCity() );
+                        target.setHouseNumber( addressDTO.getHouseNumber() );
+                        target.setName( addressDTO.getName() );
+                        target.setPhoneNumber( addressDTO.getPhoneNumber() );
+                        target.setPostCode( addressDTO.getPostCode() );
+                        target.setSurname( addressDTO.getSurname() );
+                        target.setStreet( addressDTO.getStreet() );
+                        addressRepository.save( target );
                         return addressDTO;
                 }
                 return null;
@@ -46,6 +55,7 @@ public class AddressServiceImpl implements AddressService
                         && !StringUtils.isEmpty( address.getSurname() )
                         && !StringUtils.isEmpty( address.getPhoneNumber() )
                         && !StringUtils.isEmpty( address.getStreet() )
-                        && !StringUtils.isEmpty( address.getClass() );
+                        && !StringUtils.isEmpty( address.getClass() )
+                        && !StringUtils.isEmpty( address.getPostCode() );
         }
 }

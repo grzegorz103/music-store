@@ -8,6 +8,7 @@ import { DiscFormComponent } from './shop/disc-form/disc-form.component';
 import { CartComponent } from './shop/cart/cart.component';
 import { OrderListComponent } from './shop/order-list/order-list.component';
 import { DiscPageComponent } from './shop/disc-page/disc-page.component';
+import { AddressComponent } from './shop/address/address.component';
 
 const routes: Routes = [
   { path: 'discs', component: DiscListComponent, data: { animation: 'Disc' } },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, data: { animation: 'Cart' } },
   { path: 'orders', component: OrderListComponent, data: { animation: 'Orders' } },
   { path: 'disc/:id', component: DiscPageComponent, data: { animation: 'Details' } },
+  { path: 'profile', component: AddressComponent, data: { animation: 'Profile' } },
   { path: '**', redirectTo: '' }
 ];
 

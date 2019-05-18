@@ -15,6 +15,7 @@ export class CartComponent implements OnInit {
   sum: number;
   isError: boolean;
   error: string;
+  showRedirect: boolean;
 
   constructor(private router: Router,
     private cartService: CartService) { }
@@ -44,10 +45,14 @@ export class CartComponent implements OnInit {
         if (code === 400) {
           this.error = 'Cart is empty!';
         } else if (code === 403) {
-          this.error = 'User details is empty';
+          this.error = 'User details is empty! ';
+          this.showRedirect = true;
         }
         this.isError = true;
-        setTimeout(() => this.isError = false, 5000);
+        setTimeout(() => {
+          this.isError = false;
+          this.showRedirect = false;
+        }, 5000);
       });
   }
 

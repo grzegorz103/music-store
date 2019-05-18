@@ -22,6 +22,8 @@ import { AuthService } from './service/auth/auth.service';
 import { DiscPageComponent } from './shop/disc-page/disc-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule, MatProgressBarModule, MatTabsModule, MatSidenavModule } from '@angular/material';
+import { AddressComponent } from './shop/address/address.component';
+import { AddressService } from './service/address/address.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { MatIconModule, MatProgressBarModule, MatTabsModule, MatSidenavModule } 
     CartComponent,
     OrderListComponent,
     DiscPageComponent,
+    AddressComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { MatIconModule, MatProgressBarModule, MatTabsModule, MatSidenavModule } 
     MatSidenavModule
   ],
   
-  providers: [UserService, DiscService, CartService, OrderService, AuthService,
+  providers: [UserService, DiscService, CartService, OrderService, AuthService, AddressService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
