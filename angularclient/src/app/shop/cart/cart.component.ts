@@ -13,6 +13,8 @@ export class CartComponent implements OnInit {
 
   items: CartDto;
   sum: number;
+  isError: boolean;
+  error: string;
 
   constructor(private router: Router,
     private cartService: CartService) { }
@@ -34,7 +36,19 @@ export class CartComponent implements OnInit {
   }
 
   buy() {
-    this.cartService.buy().subscribe(res => this.router.navigate(['/orders']));
+    this.cartService.buy().subscribe(res => {
+      this.router.navigate(['/orders']);
+    },
+      err => {
+        const code: number = err.status;
+        if (code === 400) {
+          this.error = 'Cart is empty!';
+        } else if (code === 403) {
+          this.error = 'User details is empty';
+        }
+        this.isError = true;
+        setTimeout(() => this.isError = false, 5000);
+      });
   }
 
   calculateSum() {

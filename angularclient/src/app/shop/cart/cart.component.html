@@ -31,6 +31,12 @@
       <form (ngSubmit)="buy()" #userForm="ngForm">
         <button type="submit" class="btn btn-success">Buy it!</button>
       </form>
+
+      <div *ngIf="isError">
+          <div class="alert alert-danger my-1" role="alert">
+          {{ error }}
+          </div>
+      </div>
     </div>
 
   </div>

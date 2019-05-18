@@ -47,6 +47,10 @@ public class User implements UserDetails
         @NotNull
         private String email;
 
+        @OneToOne (fetch = FetchType.EAGER)
+        @JoinColumn (name = "address_id")
+        private Address address;
+
         //springowe
 
         @Column (name = "expired")
@@ -61,7 +65,7 @@ public class User implements UserDetails
         @Column (name = "enabled")
         private boolean enabled;
 
-        @ManyToMany(fetch = FetchType.EAGER)
+        @ManyToMany (fetch = FetchType.EAGER)
         @JoinTable (name = "users_roles",
                 joinColumns = @JoinColumn (name = "user_id"),
                 inverseJoinColumns = @JoinColumn (name = "role_id"))

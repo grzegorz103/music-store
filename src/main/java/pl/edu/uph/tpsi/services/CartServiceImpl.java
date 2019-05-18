@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.uph.tpsi.exceptions.EmptyCartException;
+import pl.edu.uph.tpsi.exceptions.UserDetailsException;
 import pl.edu.uph.tpsi.models.*;
 import pl.edu.uph.tpsi.repositories.CartRepository;
 import pl.edu.uph.tpsi.repositories.UserRepository;
@@ -27,15 +28,21 @@ public class CartServiceImpl implements CartService
 
         private final UserRepository userRepository;
 
+        private final AddressService addressService;
+
         @Value ("${cart.empty.exception}")
         private String cartEmptyException;
 
+        @Value ("${user.details.exception")
+        private String userDetailsException;
+
         @Autowired
-        public CartServiceImpl ( OrderService orderService, CartRepository cartRepository, UserRepository userRepository )
+        public CartServiceImpl ( OrderService orderService, CartRepository cartRepository, UserRepository userRepository, AddressService addressService )
         {
                 this.orderService = orderService;
                 this.cartRepository = cartRepository;
                 this.userRepository = userRepository;
+                this.addressService = addressService;
         }
 
         /**
@@ -126,6 +133,8 @@ public class CartServiceImpl implements CartService
         @Transactional
         public Order makeOrder ( String username )
         {
+                if ( !addressService.isAddressCorrect( userRepository.findUserByUsername( username ).getAddress() ) )
+                        throw new UserDetailsException( this.userDetailsException );
                 Cart cart = cartRepository.findByUser( userRepository.findUserByUsername( username ) );
                 if ( cart != null )
                 {

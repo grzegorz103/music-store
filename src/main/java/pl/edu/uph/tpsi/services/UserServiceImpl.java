@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import pl.edu.uph.tpsi.dto.UserDTO;
 import pl.edu.uph.tpsi.exceptions.UserExistsException;
+import pl.edu.uph.tpsi.models.Address;
 import pl.edu.uph.tpsi.models.User;
 import pl.edu.uph.tpsi.models.UserRole;
 import pl.edu.uph.tpsi.repositories.RoleRepository;
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService
                         .email( userDTO.getEmail() )
                         .enabled( true )
                         .password( encoder.encode( userDTO.getPassword() ) )
+                        .address( new Address() )
                         .userRoles( Collections.singleton( roleRepository.findUserRoleByUserType( UserRole.UserType.ROLE_USER ) ) )
                         .build();
                 userRepository.save( user );
