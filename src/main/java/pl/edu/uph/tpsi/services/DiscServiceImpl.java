@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * @Author Grzegorz Piłat
+ */
 @Service ("discService")
 public class DiscServiceImpl implements DiscService
 {
@@ -23,6 +26,10 @@ public class DiscServiceImpl implements DiscService
                 this.discRepository = discRepository;
         }
 
+        /**
+         * Finds all discs stored in database
+         * @return list of discs mapped to DTO
+         */
         @Override
         public List<DiscDTO> findAll ()
         {
@@ -32,6 +39,14 @@ public class DiscServiceImpl implements DiscService
                         .collect( Collectors.toList() );
         }
 
+        /**
+         * Retrieves disc from input ID argument
+         * ID argument must be positive.
+         * In case of negative number argument, returns
+         * disc with id 0
+         * @param id    id argument
+         * @return      disc mapped to DTO
+         */
         @Override
         public DiscDTO findById ( Long id )
         {
@@ -44,6 +59,12 @@ public class DiscServiceImpl implements DiscService
                         .orElse( null );
         }
 
+        /**
+         * Creates new disc from input argument
+         *
+         * @param disc  disc argument that will be saved to database
+         * @return      ID of saved disc
+         */
         @Override
         public Long create ( DiscDTO disc )
         {
@@ -61,6 +82,12 @@ public class DiscServiceImpl implements DiscService
                 ).getID();
         }
 
+        /**
+         * Updates disc stored in DB with given argument
+         * @param id    the ID of disc that will be updated
+         * @param disc  argument that will be used to replace currently existing disc
+         * @return      same object that is passed as argument
+         */
         @Override
         public DiscDTO update ( Long id, DiscDTO disc )
         {
@@ -79,6 +106,12 @@ public class DiscServiceImpl implements DiscService
                 return disc;
         }
 
+        /**
+         * Removes disc from database
+         * @param id    the ID of disc that has to be removed
+         * @return      true if disc has been removed successfully,
+         *              false if disc does not exists
+         */
         @Override
         public boolean delete ( Long id )
         {
@@ -88,6 +121,13 @@ public class DiscServiceImpl implements DiscService
                 return true;
         }
 
+        /**
+         * Checks if every disc's amount in order
+         * is greater than actual amount of each disc in DB
+         * @throws ItemOutOfStockException if any amount in order is not correct
+         * with list of incorrect items
+         * @param order the order which contains list of disc and amounts
+         */
         @Override
         public void validateOrder ( Order order )
         {
@@ -96,10 +136,14 @@ public class DiscServiceImpl implements DiscService
                         .filter( e -> e.getAmount() > discRepository.findById( e.getDisc().getID() ).get().getAmount() )
                         .map( e -> e.getDisc().getBand() + " " + e.getDisc().getTitle() )
                         .collect( Collectors.toList() );
-                if ( list.size() > 0 )
+                if ( !list.isEmpty() )
                         throw new ItemOutOfStockException( list );
         }
 
+        /**
+         * Decreases actual amount of each disc from DB in given order as argument
+         * @param order the order that contains list of items
+         */
         @Override
         public void decreaseAmount ( Order order )
         {
@@ -110,6 +154,5 @@ public class DiscServiceImpl implements DiscService
                                 discRepository.save( disc );
                         } );
         }
-
 
 }

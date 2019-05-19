@@ -128,7 +128,8 @@ public class CartServiceImpl implements CartService
 
         /**
          * Creates order by user's shopping cart and clears it's cart
-         *
+         * @throws EmptyCartException if user's cart contains no items
+         * @throws UserDetailsException if user's address is not filled correctly
          * @param username username of the shopping cart owner
          * @return created order
          */
