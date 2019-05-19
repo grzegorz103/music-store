@@ -25,6 +25,7 @@ public class DiscDTO
         private Boolean deleted;
         private List<String> images;
 
+
         public DiscDTO ( Disc disc )
         {
                 this.ID = disc.getID();

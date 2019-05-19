@@ -2,3 +2,7 @@ app-root {
     display: block;
     height: 100%;
   }
+
+  #margin{
+    margin-bottom: 10%;
+  }

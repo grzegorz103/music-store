@@ -3,6 +3,7 @@ package pl.edu.uph.tpsi.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.uph.tpsi.dto.OrderDTO;
+import pl.edu.uph.tpsi.mappers.OrderMapper;
 import pl.edu.uph.tpsi.models.Cart;
 import pl.edu.uph.tpsi.models.CartItem;
 import pl.edu.uph.tpsi.models.Order;
@@ -16,10 +17,13 @@ public class OrderServiceImpl implements OrderService
 {
         private final OrderRepository orderRepository;
 
+        private final OrderMapper orderMapper;
+
         @Autowired
-        public OrderServiceImpl ( OrderRepository orderRepository )
+        public OrderServiceImpl ( OrderRepository orderRepository, OrderMapper orderMapper )
         {
                 this.orderRepository = orderRepository;
+                this.orderMapper = orderMapper;
         }
 
         @Override
@@ -29,7 +33,7 @@ public class OrderServiceImpl implements OrderService
                         return orderRepository.findAll()
                                 .stream()
                                 .filter( e -> e.getUser().getUsername().equals( username ) )
-                                .map( OrderDTO::new )
+                                .map( orderMapper::orderToDTO )
                                 .collect( Collectors.toList() );
                 return null;
         }
