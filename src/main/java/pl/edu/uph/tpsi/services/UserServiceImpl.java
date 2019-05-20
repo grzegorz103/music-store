@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService
                         .email( userDTO.getEmail() )
                         .enabled( true )
                         .password( encoder.encode( userDTO.getPassword() ) )
-                        .address( addressService.create( userDTO.getAddressDTO() ) )
+                        .address( addressService.create( new AddressDTO() ) )
                         .userRoles( Collections.singleton( roleRepository.findUserRoleByUserType( UserRole.UserType.ROLE_USER ) ) )
                         .build();
                 userRepository.save( user );

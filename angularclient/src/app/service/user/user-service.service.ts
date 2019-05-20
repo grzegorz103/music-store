@@ -13,6 +13,7 @@ export class UserService {
   }
 
   public save(user: User) {
+    sessionStorage.setItem('token', '');
     return this.http.post<User>(this.usersUrl, user);
   }
 }

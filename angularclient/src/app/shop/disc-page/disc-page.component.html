@@ -1,23 +1,23 @@
 <div class="container">
   <div class="d-flex justify-content-center">
     <p class="font-weight-bold">
-        <div *ngIf="disc">
-      <span class="d-block">
-        <h2>
+      <div *ngIf="disc">
+        <span class="d-block">
+          <h2>
             <div class="row">
               <div *ngFor="let image of disc.images">
                 <a [href]="image" target="_blank"><img [src]="image" alt="Brak" class="discImg"></a>
               </div>
             </div>
 
-          <div *ngIf="disc !== null">
-            {{ disc.band }} - {{ disc.title }}
-          </div>
-        </h2>
-      </span>
-      <span class="d-block">
-        {{ disc.price }}zł
-      </span>
-    </div>
+            <div *ngIf="disc !== null">
+              {{ disc.band }} - {{ disc.title }}
+            </div>
+          </h2>
+        </span>
+        <span class="d-block">
+          {{ disc.price }}zł
+        </span>
+      </div>
   </div>
 </div>

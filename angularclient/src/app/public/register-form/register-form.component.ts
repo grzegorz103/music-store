@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../service/user/user-service.service';
 import { User } from '../../model/user';
-import { Address } from '../../model/address';
 
 @Component({
   selector: 'app-register-form',
@@ -15,7 +14,6 @@ export class UserFormComponent {
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
     this.user = new User();
-    this.user.addressDTO = new Address();
   }
 
   onSubmit() {

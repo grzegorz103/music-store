@@ -33,8 +33,6 @@ public class UserDTO
         @NotBlank
         private String email;
 
-        private AddressDTO addressDTO;
-
         @AssertTrue
         public boolean isPasswordEqual ()
         {

@@ -6,4 +6,5 @@ export class Order {
     discs: CartItem[];
     orderDate: Date;
     user: User;
+    orderID: number;
 }
