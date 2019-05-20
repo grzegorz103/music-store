@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -25,6 +27,7 @@ public class Order
 
         @OneToMany (fetch = FetchType.EAGER)
         @JoinColumn (name = "order_info_id")
+        @Fetch( value = FetchMode.SUBSELECT)
         private List<CartItem> discs;
 
         @Temporal (TemporalType.DATE)

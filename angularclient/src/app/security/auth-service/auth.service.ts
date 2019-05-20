@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
 
-  constructor() { }
+  url: string;
+  adminRole: boolean;
+
+  constructor(
+    private http: HttpClient
+  ) {
+    this.url = 'http://localhost:8080/api/users/admin';
+  }
 
   public getToken(): string {
     return sessionStorage.getItem('token');
@@ -11,5 +19,9 @@ export class AuthService {
 
   public isAuthenticated() {
     return this.getToken() !== null && this.getToken() !== '';
+  }
+
+  public hasAdminRole() {
+    return this.http.get<boolean>(this.url);
   }
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { CartService } from '../../service/cart/cart-service.service';
 import { CartItem } from '../../model/cart-item';
+import { AuthService } from '../../security/auth-service/auth.service';
 
 @Component({
   selector: 'app-disc-list',
@@ -19,14 +20,17 @@ export class DiscListComponent implements OnInit {
   list: Array<CartItem> = [];
   bought: boolean;
   text: string = 'Product has been added to your shopping cart';
+  adminRole: boolean;
 
   constructor(private discService: DiscService,
     private cartService: CartService,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthService) {
   }
 
   ngOnInit() {
     this.fetchData();
+    this.verifyRole();
   }
 
   fetchData() {
@@ -49,6 +53,12 @@ export class DiscListComponent implements OnInit {
 
   changeStatus() {
     this.bought = false;
+  }
+
+  verifyRole() {
+    this.authService.hasAdminRole().subscribe(res => {
+      this.adminRole = res;
+    });
   }
 
 }

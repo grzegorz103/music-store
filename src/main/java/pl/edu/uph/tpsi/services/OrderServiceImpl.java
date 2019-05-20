@@ -82,7 +82,6 @@ public class OrderServiceImpl implements OrderService
                 {
                         id = generator.nextInt( ORDER_ID_RANGE );
                 }
-                System.out.println( id );
                 return id;
         }
 }

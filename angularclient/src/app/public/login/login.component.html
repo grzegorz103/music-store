@@ -4,6 +4,11 @@
       {{ invalidText }}
       </div>
   </div>
+  <div *ngIf="info">
+      <div class="alert alert-success my-1" role="alert">
+       You have successfully logged in. <a routerLink="/discs">Click here </a> if you are not redirected
+      </div>
+  </div>
   <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
     <div [ngClass]="{ 'has-error': f.submitted && !username.valid }" class="md-form">
       <label for="username">Username</label>

@@ -1,11 +1,11 @@
 <div class="container">
   <div class="card my-5">
     <div class="card-body">
-        <div *ngIf="bought">
-            <div class="alert alert-success" role="alert">
-              {{ text }}
-            </div>
-          </div>
+      <div *ngIf="bought">
+        <div class="alert alert-success" role="alert">
+          {{ text }}
+        </div>
+      </div>
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
           <tr>
@@ -15,7 +15,9 @@
             <th scope="col">Title</th>
             <th scope="col">Price</th>
             <th scope="col">Buy</th>
-            <th scope="col">Delete</th>
+            <div *ngIf="adminRole">
+              <th scope="col">Delete </th>
+            </div>
           </tr>
         </thead>
         <tbody>
@@ -31,11 +33,13 @@
                 <button type="submit" class="btn btn-primary">Buy</button>
               </form>
             </td>
-            <td>
-              <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
-                <button type="submit" class="btn btn-danger">Remove</button>
-              </form>
-            </td>
+            <div *ngIf="adminRole">
+              <td>
+                <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
+                  <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+              </td>
+            </div>
           </tr>
         </tbody>
       </table>

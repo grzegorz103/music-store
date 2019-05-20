@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.uph.tpsi.config.UserAuthentication;
 import pl.edu.uph.tpsi.dto.UserDTO;
 import pl.edu.uph.tpsi.services.UserService;
 
@@ -14,10 +15,13 @@ import java.util.Base64;
 
 @RestController
 @RequestMapping ("/api/users")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin (origins = "http://localhost:4200")
 public class UserController
 {
         private final UserService userService;
+
+        @Autowired
+        private UserAuthentication userAuthentication;
 
         @Autowired
         public UserController ( UserService userService )
@@ -25,7 +29,7 @@ public class UserController
                 this.userService = userService;
         }
 
-        @PostMapping("/register")
+        @PostMapping ("/register")
         public void addUser ( @RequestBody @Valid UserDTO userDTO,
                               BindingResult bindingResult )
         {
@@ -47,5 +51,11 @@ public class UserController
                         .substring( "Basic".length() ).trim();
                 return () -> new String( Base64.getDecoder()
                         .decode( authToken ) ).split( ":" )[0];
+        }
+
+        @GetMapping ("/admin")
+        public Boolean hasAdminRole ( @RequestHeader ("Authorization") String auth )
+        {
+                return userAuthentication.hasAdminRole( auth );
         }
 }

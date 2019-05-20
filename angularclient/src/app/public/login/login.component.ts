@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   model: any = {};
   invalidText = 'Incorrect login and/or password';
   isInvalid: boolean;
+  info: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,8 +35,12 @@ export class LoginComponent implements OnInit {
           'token',
           btoa(this.model.username + ':' + this.model.password)
         );
-        this.router.navigate(["/discs"]);
-        alert("You have successfully logged in")
+        this.info = true;
+        setTimeout(() => {
+          this.info = false;
+          this.router.navigate(['/discs']);
+        }, 5000);
+
       } else {
         this.isInvalid = true;
         setTimeout(() => this.isInvalid = false, 3000);
