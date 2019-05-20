@@ -32,7 +32,7 @@ public class DiscServiceImpl implements DiscService
         }
 
         /**
-         * Finds all discs stored in database
+         * Finds all discs stored in database that are not deleted
          *
          * @return list of discs mapped to DTO
          */
@@ -41,6 +41,7 @@ public class DiscServiceImpl implements DiscService
         {
                 return discRepository.findAll()
                         .stream()
+                        .filter( e->!e.getDeleted() )
                         .map( discMapper::discToDTO )
                         .collect( Collectors.toList() );
         }
@@ -96,7 +97,7 @@ public class DiscServiceImpl implements DiscService
         }
 
         /**
-         * Removes disc from database
+         * Removes disc by setting it's delete flag to true
          *
          * @param id the ID of disc that has to be removed
          * @return true if disc has been removed successfully,
@@ -107,7 +108,9 @@ public class DiscServiceImpl implements DiscService
         {
                 if ( !discRepository.existsById( id ) )
                         return false;
-                discRepository.deleteById( id );
+                Disc d = discRepository.getOne( id );
+                d.setDeleted( true );
+                discRepository.save( d );
                 return true;
         }
 

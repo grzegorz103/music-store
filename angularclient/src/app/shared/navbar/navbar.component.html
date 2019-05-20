@@ -32,14 +32,14 @@
           </li>
 
         <li class="nav-item" *ngIf="!isAuthenticated()">
-          <a class="nav-link text-white" routerLink="/login">Login</a>
+          <a class="nav-link font-weight-bold text-success" routerLink="/login">Login</a>
         </li>
         <li class="nav-item" *ngIf="!isAuthenticated()">
-          <a class="nav-link" routerLink="/register">Sign up</a>
+          <a class="nav-link font-weight-bold text-warning" routerLink="/register">Sign up</a>
         </li>
 
         <li class="nav-item" *ngIf="isAuthenticated()">
-          <div (click)="logout()" class="nav-link">Logout</div>
+          <div (click)="logout()" class="nav-link font-weight-bold text-warning">Logout</div>
         </li>
       </ul>
     </div>

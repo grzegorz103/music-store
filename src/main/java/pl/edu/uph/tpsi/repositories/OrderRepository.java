@@ -5,4 +5,5 @@ import pl.edu.uph.tpsi.models.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long>
 {
+        boolean existsByOrderID(Integer id);
 }

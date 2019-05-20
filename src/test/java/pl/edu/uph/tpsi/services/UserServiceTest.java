@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.edu.uph.tpsi.dto.AddressDTO;
 import pl.edu.uph.tpsi.dto.UserDTO;
 import pl.edu.uph.tpsi.models.User;
 import pl.edu.uph.tpsi.models.UserRole;
@@ -61,7 +62,7 @@ public class UserServiceTest
                         .build();
                 when( roleRepository.findUserRoleByUserType( UserRole.UserType.ROLE_USER ) ).thenReturn( new UserRole( 0L, UserRole.UserType.ROLE_USER ) );
                 when( userRepository.save( any( User.class ) ) ).thenReturn( test );
-                UserDTO userDTO = new UserDTO( "testLogin", "testPassword", "testPassword", "email@email.pl" );
+                UserDTO userDTO = new UserDTO( "testLogin", "testPassword", "testPassword", "email@email.pl" , new AddressDTO(  ) );
                 User createdUser = userService.create( userDTO );
                 assertThat( createdUser.getUsername() ).isEqualTo( userDTO.getUsername() );
         }

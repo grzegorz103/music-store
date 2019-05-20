@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule, MatProgressBarModule, MatTabsModule, MatSidenavModule } from '@angular/material';
 import { AddressComponent } from './shop/address/address.component';
 import { AddressService } from './service/address/address.service';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AddressService } from './service/address/address.service';
     MatIconModule,
     MatProgressBarModule,
     MatTabsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatExpansionModule
   ],
   
   providers: [UserService, DiscService, CartService, OrderService, AuthService, AddressService,

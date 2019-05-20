@@ -34,4 +34,7 @@ public class Order
         @OneToOne (fetch = FetchType.EAGER)
         @JoinColumn (name = "user_id")
         private User user;
+
+        @Column (name = "order_id")
+        private Integer orderID;
 }

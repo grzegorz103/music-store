@@ -23,8 +23,22 @@
           <input type="text" [(ngModel)]="user.email" class="form-control" id="email" name="email" required
             #email="ngModel">
         </div>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Additional informations
+            </mat-panel-title>
+            <mat-panel-description>
+              Required at making orders
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <p>This is the primary content of the panel.</p>
+
+        </mat-expansion-panel>
         <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-info">Submit</button>
       </form>
+
     </div>
   </div>
 </div>

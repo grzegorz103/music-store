@@ -11,4 +11,6 @@ public interface AddressService
         AddressDTO update ( Address target, AddressDTO addressDTO);
 
         boolean isAddressCorrect ( Address address );
+
+        Address create(AddressDTO addressDTO);
 }

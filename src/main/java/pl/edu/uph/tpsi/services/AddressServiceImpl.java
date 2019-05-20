@@ -82,4 +82,13 @@ public class AddressServiceImpl implements AddressService
                         && !StringUtils.isEmpty( address.getClass() )
                         && !StringUtils.isEmpty( address.getPostCode() );
         }
+
+        @Override
+        public Address create ( AddressDTO addressDTO )
+        {
+                Address mapped = addressMapper.DTOtoAddress( addressDTO );
+                return addressRepository.save( mapped == null ? new Address() : mapped );
+        }
+
+
 }

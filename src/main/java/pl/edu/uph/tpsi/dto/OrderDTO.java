@@ -19,6 +19,7 @@ public class OrderDTO
         private List<CartItem> discs;
         private Date orderDate;
         private User user;
+        private Integer orderID;
 
         public OrderDTO ( Order order )
         {

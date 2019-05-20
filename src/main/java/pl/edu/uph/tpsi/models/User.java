@@ -47,7 +47,7 @@ public class User implements UserDetails
         @NotNull
         private String email;
 
-        @OneToOne (fetch = FetchType.EAGER)
+        @OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         @JoinColumn (name = "address_id")
         private Address address;
 

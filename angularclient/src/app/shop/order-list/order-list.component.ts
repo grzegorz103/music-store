@@ -12,7 +12,7 @@ export class OrderListComponent implements OnInit {
 
   orders: Order[];
 
-  constructor(private router: Router, 
+  constructor(private router: Router,
     private orderService: OrderService) { }
 
   ngOnInit() {
@@ -21,5 +21,15 @@ export class OrderListComponent implements OnInit {
 
   fetchData() {
     this.orderService.findAll().subscribe(res => this.orders = res);
+  }
+
+  calculateSum(id: number) {
+    const self = this;
+    let sum = 0;
+    const discs = self.orders[id].discs;
+    for (let i = 0; i < discs.length; ++i) {
+      sum += discs[i].amount * discs[i].disc.price;
+    }
+    return sum;
   }
 }

@@ -8,8 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import pl.edu.uph.tpsi.dto.AddressDTO;
 import pl.edu.uph.tpsi.dto.UserDTO;
 import pl.edu.uph.tpsi.exceptions.UserExistsException;
+import pl.edu.uph.tpsi.mappers.AddressMapper;
 import pl.edu.uph.tpsi.models.Address;
 import pl.edu.uph.tpsi.models.User;
 import pl.edu.uph.tpsi.models.UserRole;
@@ -29,6 +31,11 @@ public class UserServiceImpl implements UserService
 
         private final CartService cartService;
 
+        private final AddressService addressService;
+
+        @Autowired
+        private AddressMapper addressMapper;
+
         @Value ("${user.not.exists}")
         private String userNotExists;
 
@@ -36,12 +43,16 @@ public class UserServiceImpl implements UserService
         private String userExists;
 
         @Autowired
-        public UserServiceImpl ( UserRepository userRepository, PasswordEncoder encoder, RoleRepository roleRepository, CartService cartService )
+        public UserServiceImpl ( UserRepository userRepository,
+                                 PasswordEncoder encoder,
+                                 RoleRepository roleRepository,
+                                 CartService cartService, AddressService addressService )
         {
                 this.userRepository = userRepository;
                 this.encoder = encoder;
                 this.roleRepository = roleRepository;
                 this.cartService = cartService;
+                this.addressService = addressService;
         }
 
         @Override
@@ -67,7 +78,7 @@ public class UserServiceImpl implements UserService
                         .email( userDTO.getEmail() )
                         .enabled( true )
                         .password( encoder.encode( userDTO.getPassword() ) )
-                        .address( new Address() )
+                        .address( addressService.create( userDTO.getAddressDTO() ) )
                         .userRoles( Collections.singleton( roleRepository.findUserRoleByUserType( UserRole.UserType.ROLE_USER ) ) )
                         .build();
                 userRepository.save( user );
