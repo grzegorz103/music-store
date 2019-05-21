@@ -4,6 +4,8 @@ import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.config.UserAuthentication;
 import pl.edu.uph.tpsi.dto.DiscDTO;
@@ -33,21 +35,24 @@ public class DiscController
         }
 
         @GetMapping ("/{id}")
+        @PreAuthorize ( "isAuthenticated()" )
         public DiscDTO findById ( @PathVariable ("id") Long id )
         {
                 return discService.findById( id );
         }
 
         @PostMapping
+        @Secured ("ROLE_ADMIN")
         public ResponseEntity<?> create ( @RequestBody DiscDTO disc,
                                           @RequestHeader ("Authorization") String auth )
         {
-                if ( !userAuthentication.hasAdminRole( auth ) )
-                        return new ResponseEntity<>( HttpStatus.UNAUTHORIZED );
+                //     if ( !userAuthentication.hasAdminRole( auth ) )
+                //           return new ResponseEntity<>( HttpStatus.UNAUTHORIZED );
                 return new ResponseEntity<>( discService.create( disc ), HttpStatus.OK );
         }
 
         @PutMapping ("/{id}")
+        @Secured("ROLE_ADMIN")
         @ResponseStatus (HttpStatus.OK)
         public void update ( @PathVariable ("id") Long id,
                              @RequestBody DiscDTO disc )
@@ -57,6 +62,7 @@ public class DiscController
         }
 
         @DeleteMapping ("/{id}")
+        @Secured("ROLE_ADMIN")
         public ResponseEntity<?> delete ( @PathVariable ("id") Long id )
         {
                 return new ResponseEntity<>( discService.delete( id ) ? HttpStatus.OK : HttpStatus.NO_CONTENT );

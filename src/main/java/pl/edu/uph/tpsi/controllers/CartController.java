@@ -1,6 +1,7 @@
 package pl.edu.uph.tpsi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.config.UserAuthentication;
 import pl.edu.uph.tpsi.dto.CartDTO;
@@ -24,12 +25,14 @@ public class CartController
         }
 
         @GetMapping
+        @PreAuthorize( "isAuthenticated()" )
         public CartDTO getCart ( @RequestHeader ("Authorization") String auth )
         {
                 return new CartDTO( cartService.getCart( userAuthentication.getUsername( auth ) ).getList() );
         }
 
         @PostMapping ("/{id}")
+        @PreAuthorize( "isAuthenticated()" )
         public CartDTO addToCart ( @RequestHeader ("Authorization") String auth,
                                    @PathVariable (name = "id") Disc disc,
                                    @RequestParam (name = "amount", required = false, defaultValue = "1") Integer amount )
@@ -40,6 +43,7 @@ public class CartController
         }
 
         @PutMapping
+        @PreAuthorize( "isAuthenticated()" )
         public void makeOrder ( @RequestHeader ("Authorization") String auth )
         {
                 String username = userAuthentication.getUsername( auth );
@@ -48,6 +52,7 @@ public class CartController
         }
 
         @DeleteMapping ("/{id}")
+        @PreAuthorize( "isAuthenticated()" )
         public void deleteById ( @RequestHeader ("Authorization") String auth,
                                  @PathVariable ("id") Long id )
         {

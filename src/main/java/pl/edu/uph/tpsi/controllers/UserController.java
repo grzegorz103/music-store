@@ -2,6 +2,7 @@ package pl.edu.uph.tpsi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.config.UserAuthentication;
@@ -20,16 +21,17 @@ public class UserController
 {
         private final UserService userService;
 
-        @Autowired
-        private UserAuthentication userAuthentication;
+        private final UserAuthentication userAuthentication;
 
         @Autowired
-        public UserController ( UserService userService )
+        public UserController ( UserService userService, UserAuthentication userAuthentication )
         {
                 this.userService = userService;
+                this.userAuthentication = userAuthentication;
         }
 
         @PostMapping ("/register")
+        @PreAuthorize ("isAnonymous()")
         public void addUser ( @RequestBody @Valid UserDTO userDTO,
                               BindingResult bindingResult )
         {
@@ -39,6 +41,7 @@ public class UserController
         }
 
         @RequestMapping ("/login")
+        @PreAuthorize ("isAnonymous()")
         public boolean login ( @RequestBody UserDTO userDTO )
         {
                 return userService.isLoginCorrect( userDTO.getUsername(), userDTO.getPassword() );
@@ -54,6 +57,7 @@ public class UserController
         }
 
         @GetMapping ("/admin")
+        @PreAuthorize( "isAuthenticated()" )
         public Boolean hasAdminRole ( @RequestHeader ("Authorization") String auth )
         {
                 return userAuthentication.hasAdminRole( auth );

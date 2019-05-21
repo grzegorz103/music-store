@@ -1,6 +1,7 @@
 package pl.edu.uph.tpsi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.uph.tpsi.config.UserAuthentication;
 import pl.edu.uph.tpsi.dto.OrderDTO;
@@ -27,6 +28,7 @@ public class OrderController
         }
 
         @GetMapping
+        @PreAuthorize ("isAuthenticated()")
         public List<OrderDTO> getOrders ( @RequestHeader ("Authorization") String auth )
         {
                 return orderService.findAll( userAuthentication.getUsername( auth ) );
