@@ -21,6 +21,7 @@ export class DiscListComponent implements OnInit {
   bought: boolean;
   text: string = 'Product has been added to your shopping cart';
   adminRole: boolean;
+  value = 0;
 
   constructor(private discService: DiscService,
     private cartService: CartService,
@@ -43,8 +44,15 @@ export class DiscListComponent implements OnInit {
   buyItem(id: number, amount: number) {
     this.cartService.save(id, amount).subscribe(res => {
       this.bought = true;
-      setTimeout(() => this.changeStatus(), 2000)
+      for(let i = 0; i < 100; ++i){
+      setTimeout(() => this.addValue(i), i * 15);
+      }
+      setTimeout(() => this.changeStatus(), 2000);
     });
+  }
+
+  addValue(v: number){
+    this.value = v;
   }
 
   remove(id: number) {
@@ -53,6 +61,7 @@ export class DiscListComponent implements OnInit {
 
   changeStatus() {
     this.bought = false;
+    this.value = 0;
   }
 
   verifyRole() {

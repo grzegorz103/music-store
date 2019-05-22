@@ -15,16 +15,20 @@ export class LoginComponent implements OnInit {
   invalidText = 'Incorrect login and/or password';
   isInvalid: boolean;
   info: boolean;
+  timer: any;
+  value: number;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     sessionStorage.setItem('token', '');
   }
+
   login() {
     this.http.post<Observable<boolean>>('http://localhost:8080/api/users/login', {
       username: this.model.username,
@@ -36,7 +40,11 @@ export class LoginComponent implements OnInit {
           btoa(this.model.username + ':' + this.model.password)
         );
         this.info = true;
-        setTimeout(() => {
+
+        for (let i = 0; i < 100; ++i) {
+          setTimeout(() => this.addValue(i), i * 50);
+        }
+        this.timer = setTimeout(() => {
           this.info = false;
           this.router.navigate(['/discs']);
         }, 5000);
@@ -46,5 +54,15 @@ export class LoginComponent implements OnInit {
         setTimeout(() => this.isInvalid = false, 3000);
       }
     });
+  }
+
+  addValue(v: number) {
+    this.value = v;
+  }
+
+  redirect() {
+    this.router.navigate(['/discs']);
+    this.info = false;
+    clearTimeout(this.timer);
   }
 }

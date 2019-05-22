@@ -6,7 +6,8 @@
   </div>
   <div *ngIf="info">
       <div class="alert alert-success my-1" role="alert">
-       You have successfully logged in. <a routerLink="/discs">Click here </a> if you are not redirected
+       You have successfully logged in. <a class="text-danger font-weight-bold" (click)="redirect()">Click here </a> if you are not redirected
+       <mat-progress-bar [value]="value"></mat-progress-bar>
       </div>
   </div>
   <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>

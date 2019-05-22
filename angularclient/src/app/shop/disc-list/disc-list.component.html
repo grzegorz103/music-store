@@ -4,6 +4,7 @@
       <div *ngIf="bought">
         <div class="alert alert-success" role="alert">
           {{ text }}
+          <mat-progress-bar [value]="value"></mat-progress-bar>
         </div>
       </div>
       <table class="table table-bordered table-striped">
