@@ -27,6 +27,7 @@ import { AddressService } from './service/address/address.service';
 import { FilterListPipe } from './utils/pipes/filter-list-pipe';
 import { MatInputModule } from '@angular/material/input';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,7 @@ import { MatInputModule } from '@angular/material/input';
     MatProgressBarModule,
     MatTabsModule,
     MatSidenavModule,
-    MatInputModule
+    MatInputModule,
   ],
 
   providers: [UserService, DiscService, CartService, OrderService, AuthService, AddressService,

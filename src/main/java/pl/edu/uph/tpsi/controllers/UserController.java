@@ -2,6 +2,7 @@ package pl.edu.uph.tpsi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -59,9 +60,24 @@ public class UserController
         }
 
         @GetMapping ("/admin")
-        @PreAuthorize( "isAuthenticated()" )
+        @PreAuthorize ("isAuthenticated()")
         public Boolean hasAdminRole ( @RequestHeader ("Authorization") String auth )
         {
                 return userAuthentication.hasAdminRole( auth );
+        }
+
+        @PutMapping ("/{id}")
+        @PreAuthorize ("isAuthenticated()")
+        public UserDTO update ( @PathVariable ("id") Long id,
+                                @RequestBody UserDTO userDTO )
+        {
+                return userService.update( id, userDTO );
+        }
+
+        @DeleteMapping ("/{id}")
+        @Secured ("ROLE_ADMIN")
+        public void delete ( @PathVariable ("id") Long id )
+        {
+                userService.delete( id );
         }
 }

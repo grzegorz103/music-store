@@ -11,14 +11,18 @@ import org.springframework.util.StringUtils;
 import pl.edu.uph.tpsi.dto.AddressDTO;
 import pl.edu.uph.tpsi.dto.UserDTO;
 import pl.edu.uph.tpsi.exceptions.UserExistsException;
+import pl.edu.uph.tpsi.exceptions.UserNotExistsException;
 import pl.edu.uph.tpsi.mappers.AddressMapper;
-import pl.edu.uph.tpsi.models.Address;
+import pl.edu.uph.tpsi.mappers.UserMapper;
 import pl.edu.uph.tpsi.models.User;
 import pl.edu.uph.tpsi.models.UserRole;
 import pl.edu.uph.tpsi.repositories.RoleRepository;
 import pl.edu.uph.tpsi.repositories.UserRepository;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service ("userService")
 public class UserServiceImpl implements UserService
@@ -33,8 +37,9 @@ public class UserServiceImpl implements UserService
 
         private final AddressService addressService;
 
-        @Autowired
-        private AddressMapper addressMapper;
+        private final AddressMapper addressMapper;
+
+        private final UserMapper userMapper;
 
         @Value ("${user.not.exists}")
         private String userNotExists;
@@ -46,13 +51,18 @@ public class UserServiceImpl implements UserService
         public UserServiceImpl ( UserRepository userRepository,
                                  PasswordEncoder encoder,
                                  RoleRepository roleRepository,
-                                 CartService cartService, AddressService addressService )
+                                 CartService cartService,
+                                 AddressService addressService,
+                                 AddressMapper addressMapper,
+                                 UserMapper userMapper )
         {
                 this.userRepository = userRepository;
                 this.encoder = encoder;
                 this.roleRepository = roleRepository;
                 this.cartService = cartService;
                 this.addressService = addressService;
+                this.addressMapper = addressMapper;
+                this.userMapper = userMapper;
         }
 
         @Override
@@ -106,6 +116,39 @@ public class UserServiceImpl implements UserService
                 }
                 return u.getUsername().equals( login )
                         && encoder.matches( u.getUsername(), encoder.encode( password ) );
+        }
+
+        @Override
+        public List<UserDTO> findAll ()
+        {
+                return userRepository.findAll()
+                        .stream()
+                        .map( userMapper::UserToDTO )
+                        .collect( Collectors.toList() );
+        }
+
+        @Override
+        public UserDTO update ( Long id, UserDTO userDTO )
+        {
+                userRepository.findById( id ).ifPresent( e -> {
+                        e.setEmail( userDTO.getEmail() );
+                        e.setUsername( userDTO.getUsername() );
+                        e.setPassword( encoder.encode( userDTO.getPassword() ) );
+                        userRepository.save( e );
+                } );
+                return userRepository.findById( id )
+                        .map( userMapper::UserToDTO )
+                        .orElseThrow( () -> new UserNotExistsException( this.userNotExists ) );
+        }
+
+        @Override
+        public void delete ( Long id )
+        {
+                userRepository.findById( id ).map( e -> {
+                        e.setLocked( true );
+                        userRepository.save( e );
+                        return e;
+                } ).orElseThrow( () -> new UserNotExistsException( this.userNotExists ) );
         }
 
 }

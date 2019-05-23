@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           btoa(this.model.username + ':' + this.model.password)
         );
         this.info = true;
-        this.authService.hasAdminRole();
+        this.authService.fetchAdminRole();
 
         for (let i = 0; i < 100; ++i) {
           setTimeout(() => this.addValue(i), i * 50);

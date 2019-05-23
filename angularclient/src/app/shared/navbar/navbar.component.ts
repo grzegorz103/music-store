@@ -16,18 +16,14 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   
   }
-
-  verifyRoles() {
-    this.authService.hasAdminRole();
-  }
-
+ 
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
 
   logout() {
     sessionStorage.clear();
-    this.authService.adminRole = false;
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 

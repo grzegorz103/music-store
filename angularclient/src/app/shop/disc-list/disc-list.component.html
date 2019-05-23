@@ -28,7 +28,7 @@
               <div (click)="sortList(4)">Price</div>
             </th>
             <th scope="col">Buy</th>
-            <div *ngIf="authService.adminRole">
+            <div *ngIf="authService.hasAdminRole()">
               <th scope="col">Delete </th>
             </div>
           </tr>
@@ -46,11 +46,11 @@
                 <button type="submit" class="btn btn-primary">Buy</button>
               </form>
             </td>
-            <div *ngIf="authService.adminRole">
+            <div *ngIf="authService.hasAdminRole()">
               <td>
-                <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
-                  <button type="submit" class="btn btn-danger">Remove</button>
-                </form>
+              <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
+                <button type="submit" class="btn btn-danger">Remove</button>
+              </form>
               </td>
             </div>
           </tr>

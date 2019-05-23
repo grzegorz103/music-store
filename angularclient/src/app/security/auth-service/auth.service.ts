@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
 
   url: string;
-  adminRole: boolean;
 
   constructor(
     private http: HttpClient
@@ -22,8 +21,11 @@ export class AuthService {
   }
 
   public hasAdminRole() {
-   this.http.get<boolean>(this.url).subscribe(res => this.adminRole = res);
-   return this.adminRole;
+    return localStorage.getItem('adminRole') !== null && localStorage.getItem('adminRole') === 'true';
+  }
+
+  public fetchAdminRole() {
+    this.http.get<boolean>(this.url).subscribe(res => localStorage.setItem('adminRole', String(res)));
   }
 
 }
