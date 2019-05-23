@@ -16,7 +16,7 @@
             <th scope="col">Title</th>
             <th scope="col">Price</th>
             <th scope="col">Buy</th>
-            <div *ngIf="adminRole">
+            <div *ngIf="authService.adminRole">
               <th scope="col">Delete </th>
             </div>
           </tr>
@@ -34,7 +34,7 @@
                 <button type="submit" class="btn btn-primary">Buy</button>
               </form>
             </td>
-            <div *ngIf="adminRole">
+            <div *ngIf="authService.adminRole">
               <td>
                 <form (ngSubmit)="remove(disc.id)" #userForm="ngForm">
                   <button type="submit" class="btn btn-danger">Remove</button>
@@ -44,6 +44,7 @@
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
 </div>

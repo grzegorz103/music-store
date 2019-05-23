@@ -31,7 +31,6 @@ export class DiscListComponent implements OnInit {
 
   ngOnInit() {
     this.fetchData();
-    this.verifyRole();
   }
 
   fetchData() {
@@ -44,14 +43,14 @@ export class DiscListComponent implements OnInit {
   buyItem(id: number, amount: number) {
     this.cartService.save(id, amount).subscribe(res => {
       this.bought = true;
-      for(let i = 0; i < 100; ++i){
-      setTimeout(() => this.addValue(i), i * 15);
+      for (let i = 0; i < 100; ++i) {
+        setTimeout(() => this.addValue(i), i * 15);
       }
       setTimeout(() => this.changeStatus(), 2000);
     });
   }
 
-  addValue(v: number){
+  addValue(v: number) {
     this.value = v;
   }
 
@@ -62,12 +61,6 @@ export class DiscListComponent implements OnInit {
   changeStatus() {
     this.bought = false;
     this.value = 0;
-  }
-
-  verifyRole() {
-    this.authService.hasAdminRole().subscribe(res => {
-      this.adminRole = res;
-    });
   }
 
 }

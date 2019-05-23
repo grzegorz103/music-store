@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../security/auth-service/auth.service';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'login',
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) {
   }
 
@@ -40,6 +43,7 @@ export class LoginComponent implements OnInit {
           btoa(this.model.username + ':' + this.model.password)
         );
         this.info = true;
+        this.authService.hasAdminRole();
 
         for (let i = 0; i < 100; ++i) {
           setTimeout(() => this.addValue(i), i * 50);

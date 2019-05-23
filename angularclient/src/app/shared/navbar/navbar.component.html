@@ -8,14 +8,16 @@
 
     <div class="collapse navbar-collapse" id="basicExampleNav">
       <ul class="navbar-nav mr-auto">
-      
+
         <li class="nav-item">
           <a class="nav-link text-white" routerLink="/discs">Discs</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/discs/add">Add disc</a>
-        </li>
+        <div *ngIf="authService.adminRole">
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/discs/add">Add disc</a>
+          </li>
+        </div>
       </ul>
 
       <ul class="navbar-nav ml-auto">
@@ -28,8 +30,8 @@
         </li>
 
         <li class="nav-item" *ngIf="isAuthenticated()">
-            <a class="nav-link text-white" routerLink="/profile">Your profile</a>
-          </li>
+          <a class="nav-link text-white" routerLink="/profile">Your profile</a>
+        </li>
 
         <li class="nav-item" *ngIf="!isAuthenticated()">
           <a class="nav-link font-weight-bold text-success" routerLink="/login">Login</a>

@@ -22,6 +22,8 @@ export class AuthService {
   }
 
   public hasAdminRole() {
-    return this.http.get<boolean>(this.url);
+   this.http.get<boolean>(this.url).subscribe(res => this.adminRole = res);
+   return this.adminRole;
   }
+
 }

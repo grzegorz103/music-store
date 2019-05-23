@@ -9,10 +9,16 @@ import { AuthService } from '../../security/auth-service/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
+
   constructor(private router: Router,
     private authService: AuthService) { }
 
   ngOnInit() {
+  
+  }
+
+  verifyRoles() {
+    this.authService.hasAdminRole();
   }
 
   isAuthenticated(): boolean {
@@ -21,8 +27,8 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     sessionStorage.clear();
-    this.router.navigate(['/discs']);
+    this.authService.adminRole = false;
+    this.router.navigate(['/login']);
   }
-
 
 }
