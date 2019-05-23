@@ -7,14 +7,26 @@
           <mat-progress-bar [value]="value"></mat-progress-bar>
         </div>
       </div>
+      <mat-form-field class="my-2 mx-2">
+        <input matInput placeholder="Search" [(ngModel)]="query">
+        <mat-hint>By title or band name</mat-hint>
+      </mat-form-field>
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Image</th>
-            <th scope="col">Band</th>
-            <th scope="col">Title</th>
-            <th scope="col">Price</th>
+            <th scope="col">
+              <div (click)="sortList(1)">#ID</div>
+            </th>
+            <th scope="col">Cover</th>
+            <th scope="col">
+              <div (click)="sortList(2)">Band</div>
+            </th>
+            <th scope="col">
+              <div (click)="sortList(3)">Title</div>
+            </th>
+            <th scope="col">
+              <div (click)="sortList(4)">Price</div>
+            </th>
             <th scope="col">Buy</th>
             <div *ngIf="authService.adminRole">
               <th scope="col">Delete </th>
@@ -22,7 +34,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let disc of discs; let i=index">
+          <tr *ngFor="let disc of discs | filterList:query; let i=index ">
             <td>{{ disc.id }}</td>
             <td><a [routerLink]="['/disc', disc.id]"><img [src]="disc.images[0]"></a></td>
             <td><a [routerLink]="['/disc', disc.id]">{{ disc.band }}</a></td>

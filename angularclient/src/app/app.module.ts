@@ -24,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule, MatProgressBarModule, MatTabsModule, MatSidenavModule } from '@angular/material';
 import { AddressComponent } from './shop/address/address.component';
 import { AddressService } from './service/address/address.service';
+import { FilterListPipe } from './utils/pipes/filter-list-pipe';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { AddressService } from './service/address/address.service';
     OrderListComponent,
     DiscPageComponent,
     AddressComponent,
+    FilterListPipe
   ],
   imports: [
     BrowserModule,
@@ -49,9 +52,10 @@ import { AddressService } from './service/address/address.service';
     MatIconModule,
     MatProgressBarModule,
     MatTabsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatInputModule
   ],
-  
+
   providers: [UserService, DiscService, CartService, OrderService, AuthService, AddressService,
     {
       provide: HTTP_INTERCEPTORS,

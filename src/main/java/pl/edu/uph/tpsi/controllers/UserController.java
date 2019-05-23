@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.function.IntFunction;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping ("/api/users")

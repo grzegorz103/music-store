@@ -22,6 +22,8 @@ export class DiscListComponent implements OnInit {
   text: string = 'Product has been added to your shopping cart';
   adminRole: boolean;
   value = 0;
+  ascending: boolean = true;
+  previousCriterium: number;
 
   constructor(private discService: DiscService,
     private cartService: CartService,
@@ -61,6 +63,31 @@ export class DiscListComponent implements OnInit {
   changeStatus() {
     this.bought = false;
     this.value = 0;
+  }
+
+  sortList(criterium: number) {
+    if (this.previousCriterium !== criterium) {
+      this.ascending = true;
+    }
+    switch (criterium) {
+      case 1:
+        this.discs.sort((o1, o2) => o1.id.toString().localeCompare(o2.id));
+        break;
+      case 2:
+        this.discs.sort((o1, o2) => o1.band.toString().localeCompare(o2.band));
+        break;
+      case 3:
+        this.discs.sort((o1, o2) => o1.title.toString().localeCompare(o2.title));
+        break;
+      case 4:
+        this.discs.sort((o1, o2) => o1.price - o2.price);
+        break;
+    }
+    if (!this.ascending) {
+      this.discs = this.discs.reverse();
+    }
+    this.ascending = !this.ascending;
+    this.previousCriterium = criterium;
   }
 
 }
