@@ -13,6 +13,8 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 public class UserDTO
 {
+        private Long ID;
+
         @NotNull
         @NotBlank
         @Length (min = 4, max = 30)
@@ -32,6 +34,8 @@ public class UserDTO
         @NotNull
         @NotBlank
         private String email;
+
+        private Boolean locked;
 
         @AssertTrue
         public boolean isPasswordEqual ()

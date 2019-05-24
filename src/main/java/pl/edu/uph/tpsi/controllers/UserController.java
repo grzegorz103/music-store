@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.List;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
@@ -79,5 +80,19 @@ public class UserController
         public void delete ( @PathVariable ("id") Long id )
         {
                 userService.delete( id );
+        }
+
+        @GetMapping
+        @Secured ("ROLE_ADMIN")
+        public List<UserDTO> getAll ()
+        {
+                return userService.findAll();
+        }
+
+        @GetMapping("/curr")
+        @PreAuthorize ("isAuthenticated()")
+        public UserDTO findCurrentUser ()
+        {
+                return userService.getCurrentUser();
         }
 }

@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="card my-5">
+    <div class="card-body">
+      <mat-form-field class="my-2 mx-2">
+        <input matInput placeholder="Search" [(ngModel)]="query">
+        <mat-hint>By title or band name</mat-hint>
+      </mat-form-field>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">
+              #ID
+            </th>
+            <th scope="col">
+              Username
+            </th>
+            <th scope="col">
+              E-mail
+            </th>
+            <th scope="col">
+              Locked
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users | filterUsers:query">
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <div (click)="lockUser(user.id)" class="active">
+                <p *ngIf="user.locked" class="text-danger font-weight-bold">Locked</p>
+                <p *ngIf="!user.locked" class="text-success font-weight-bold">OK</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@ package pl.edu.uph.tpsi.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -107,6 +108,13 @@ public class UserServiceImpl implements UserService
         }
 
         @Override
+        public UserDTO getCurrentUser ()
+        {
+                User user = ( User ) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                return userMapper.UserToDTO( user );
+        }
+
+        @Override
         public boolean isLoginCorrect ( String login, String password )
         {
                 User u = userRepository.findUserByUsername( login );
@@ -145,7 +153,7 @@ public class UserServiceImpl implements UserService
         public void delete ( Long id )
         {
                 userRepository.findById( id ).map( e -> {
-                        e.setLocked( true );
+                        e.setLocked( !e.isLocked() );
                         userRepository.save( e );
                         return e;
                 } ).orElseThrow( () -> new UserNotExistsException( this.userNotExists ) );

@@ -62,7 +62,7 @@ public class UserServiceTest
                         .build();
                 when( roleRepository.findUserRoleByUserType( UserRole.UserType.ROLE_USER ) ).thenReturn( new UserRole( 0L, UserRole.UserType.ROLE_USER ) );
                 when( userRepository.save( any( User.class ) ) ).thenReturn( test );
-                UserDTO userDTO = new UserDTO( "testLogin", "testPassword", "testPassword", "email@email.pl"  );
+                UserDTO userDTO = new UserDTO( 1L, "testLogin", "testPassword", "testPassword", "email@email.pl" , false );
                 User createdUser = userService.create( userDTO );
                 assertThat( createdUser.getUsername() ).isEqualTo( userDTO.getUsername() );
         }

@@ -10,6 +10,7 @@ import { OrderListComponent } from './shop/order-list/order-list.component';
 import { DiscPageComponent } from './shop/disc-page/disc-page.component';
 import { AddressComponent } from './shop/address/address.component';
 import { AuthGuardService } from './security/guard/auth-guard.service';
+import { UserListComponent } from './shop/user-list/user-list.component';
 
 const routes: Routes = [
   { path: 'discs', component: DiscListComponent, data: { animation: 'Disc' }, canActivate: [AuthGuardService] },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'orders', component: OrderListComponent, data: { animation: 'Orders' }, canActivate: [AuthGuardService] },
   { path: 'disc/:id', component: DiscPageComponent, data: { animation: 'Details' }, canActivate: [AuthGuardService] },
   { path: 'profile', component: AddressComponent, data: { animation: 'Profile' }, canActivate: [AuthGuardService] },
+  {path: 'user/all', component: UserListComponent, data:{animation: 'UserList'}, canActivate: [AuthGuardService]},
   { path: '**', redirectTo: '' }
 ];
 

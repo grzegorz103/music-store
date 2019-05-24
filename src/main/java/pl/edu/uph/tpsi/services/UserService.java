@@ -18,6 +18,8 @@ public interface UserService extends UserDetailsService
 
         User getByUsername ( String username );
 
+        UserDTO getCurrentUser();
+
         boolean isLoginCorrect ( String login, String password );
 
 }

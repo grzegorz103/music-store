@@ -26,6 +26,8 @@ import { AddressComponent } from './shop/address/address.component';
 import { AddressService } from './service/address/address.service';
 import { FilterListPipe } from './utils/pipes/filter-list-pipe';
 import { MatInputModule } from '@angular/material/input';
+import { UserListComponent } from './shop/user-list/user-list.component';
+import { FilterUsersPipe } from './utils/pipes/filter-user-pipe';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { MatInputModule } from '@angular/material/input';
     OrderListComponent,
     DiscPageComponent,
     AddressComponent,
-    FilterListPipe
+    FilterListPipe,
+    UserListComponent,
+    FilterUsersPipe
   ],
   imports: [
     BrowserModule,
