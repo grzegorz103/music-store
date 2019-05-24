@@ -122,8 +122,9 @@ public class UserServiceImpl implements UserService
                 {
                         return false;
                 }
+
                 return u.getUsername().equals( login )
-                        && encoder.matches( u.getUsername(), encoder.encode( password ) );
+                        && encoder.matches( password, u.getPassword() );
         }
 
         @Override

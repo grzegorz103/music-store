@@ -22,11 +22,15 @@ export class UserService {
   }
 
   public findCurrentUser() {
-    return this.http.get<User>(this.usersUrl + '/curr');
+    return this.http.get<User>(this.usersUrl + 'curr');
   }
 
   public delete(id: number) {
     return this.http.delete<User>(this.usersUrl + id);
+  }
+
+  public update(id: number, user: User){
+    return this.http.put<User>(this.usersUrl + id, user);
   }
 
 }

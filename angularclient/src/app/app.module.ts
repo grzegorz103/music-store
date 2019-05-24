@@ -28,6 +28,7 @@ import { FilterListPipe } from './utils/pipes/filter-list-pipe';
 import { MatInputModule } from '@angular/material/input';
 import { UserListComponent } from './shop/user-list/user-list.component';
 import { FilterUsersPipe } from './utils/pipes/filter-user-pipe';
+import { AccountDetailsComponent } from './shop/account-details/account-details.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { FilterUsersPipe } from './utils/pipes/filter-user-pipe';
     AddressComponent,
     FilterListPipe,
     UserListComponent,
-    FilterUsersPipe
+    FilterUsersPipe,
+    AccountDetailsComponent
   ],
   imports: [
     BrowserModule,
