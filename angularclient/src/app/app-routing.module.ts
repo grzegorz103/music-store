@@ -9,20 +9,21 @@ import { CartComponent } from './shop/cart/cart.component';
 import { OrderListComponent } from './shop/order-list/order-list.component';
 import { DiscPageComponent } from './shop/disc-page/disc-page.component';
 import { AddressComponent } from './shop/address/address.component';
-import { AuthGuardService } from './security/guard/auth-guard.service';
 import { UserListComponent } from './shop/user-list/user-list.component';
+import { AuthGuardService } from './security/guards/user-guard/auth-guard.service';
+import { AdminGuardService } from './security/guards/admin-guard/admin-guard.service';
 
 const routes: Routes = [
   { path: 'discs', component: DiscListComponent, data: { animation: 'Disc' }, canActivate: [AuthGuardService] },
   { path: 'register', component: UserFormComponent, data: { animation: 'Register' } },
   { path: 'login', component: LoginComponent, data: { animation: 'Login' } },
   { path: 'main', component: MainPageComponent, data: { animation: 'Main' } },
-  { path: 'discs/add', component: DiscFormComponent, data: { animation: 'Add' }, canActivate: [AuthGuardService] },
+  { path: 'discs/add', component: DiscFormComponent, data: { animation: 'Add' }, canActivate: [AdminGuardService] },
   { path: 'cart', component: CartComponent, data: { animation: 'Cart' }, canActivate: [AuthGuardService] },
   { path: 'orders', component: OrderListComponent, data: { animation: 'Orders' }, canActivate: [AuthGuardService] },
   { path: 'disc/:id', component: DiscPageComponent, data: { animation: 'Details' }, canActivate: [AuthGuardService] },
   { path: 'profile', component: AddressComponent, data: { animation: 'Profile' }, canActivate: [AuthGuardService] },
-  {path: 'user/all', component: UserListComponent, data:{animation: 'UserList'}, canActivate: [AuthGuardService]},
+  {path: 'user/all', component: UserListComponent, data:{animation: 'UserList'}, canActivate: [AdminGuardService]},
   { path: '**', redirectTo: '' }
 ];
 
@@ -33,7 +34,8 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [],
   providers: [
-    AuthGuardService
+    AuthGuardService,
+    AdminGuardService
   ]
 })
 export class AppRoutingModule { }
