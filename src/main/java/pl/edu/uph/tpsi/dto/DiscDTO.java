@@ -7,6 +7,7 @@ import pl.edu.uph.tpsi.models.Disc;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -19,12 +20,11 @@ public class DiscDTO
         private String band;
         private String title;
         private String description;
-        private Date releaseDate;
+        private LocalDate releaseDate;
         private Float price;
         private Integer amount;
         private Boolean deleted;
         private List<String> images;
-
 
         public DiscDTO ( Disc disc )
         {

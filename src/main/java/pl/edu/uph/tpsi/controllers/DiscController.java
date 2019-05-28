@@ -35,7 +35,7 @@ public class DiscController
         }
 
         @GetMapping ("/{id}")
-        @PreAuthorize ( "isAuthenticated()" )
+        @PreAuthorize ("isAuthenticated()")
         public DiscDTO findById ( @PathVariable ("id") Long id )
         {
                 return discService.findById( id );
@@ -52,17 +52,16 @@ public class DiscController
         }
 
         @PutMapping ("/{id}")
-        @Secured("ROLE_ADMIN")
-        @ResponseStatus (HttpStatus.OK)
-        public void update ( @PathVariable ("id") Long id,
-                             @RequestBody DiscDTO disc )
+        @Secured ("ROLE_ADMIN")
+        public DiscDTO update ( @PathVariable ("id") Long id,
+                                @RequestBody DiscDTO disc )
         {
                 Preconditions.checkNotNull( disc );
-                discService.update( id, disc );
+                return discService.update( id, disc );
         }
 
         @DeleteMapping ("/{id}")
-        @Secured("ROLE_ADMIN")
+        @Secured ("ROLE_ADMIN")
         public ResponseEntity<?> delete ( @PathVariable ("id") Long id )
         {
                 return new ResponseEntity<>( discService.delete( id ) ? HttpStatus.OK : HttpStatus.NO_CONTENT );

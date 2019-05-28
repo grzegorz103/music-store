@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -34,9 +35,8 @@ public class Disc
         @NotBlank
         private String title;
 
-        @Temporal (TemporalType.DATE)
         @Past
-        private Date releaseDate;
+        private LocalDate releaseDate;
 
         @Column (name = "price")
         @Min (1)

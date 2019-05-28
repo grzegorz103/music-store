@@ -13,6 +13,7 @@ import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.models.Disc;
 import pl.edu.uph.tpsi.repositories.DiscRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,10 +42,10 @@ public class DiscServiceTest
         public void setup ()
         {
                 list = new ArrayList<>();
-                list.add( new Disc( 1L, "Brand1", "Title1", new Date( new Date().getTime() - 10 ), 1f, 2, false, new ArrayList<String>(), "" ) );
-                list.add( new Disc( 2L, "Brand2", "Title2", new Date( new Date().getTime() - 10 ), 2f, 3, false, new ArrayList<String>(), "" ) );
-                list.add( new Disc( 3L, "Brand3", "Title3", new Date( new Date().getTime() - 10 ), 3f, 4, false, new ArrayList<String>(), "" ) );
-                list.add( new Disc( 10L, "Brand4", "Title4", new Date( new Date().getTime() - 10 ), 3f, 4, false, new ArrayList<String>(), "" ) );
+                list.add( new Disc( 1L, "Brand1", "Title1", LocalDate.of( 1888, 11, 11 ), 1f, 2, false, new ArrayList<String>(), "" ) );
+                list.add( new Disc( 2L, "Brand2", "Title2", LocalDate.of( 1888, 11, 11 ), 2f, 3, false, new ArrayList<String>(), "" ) );
+                list.add( new Disc( 3L, "Brand3", "Title3", LocalDate.of( 1888, 11, 11 ), 3f, 4, false, new ArrayList<String>(), "" ) );
+                list.add( new Disc( 10L, "Brand4", "Title4", LocalDate.of( 1888, 11, 11 ), 3f, 4, false, new ArrayList<String>(), "" ) );
 
                 when( discRepository.findAll() ).thenReturn( list );
                 when( discRepository.findById( 0L ) ).thenReturn( Optional.of( list.get( 0 ) ) );
@@ -68,7 +69,7 @@ public class DiscServiceTest
         @Test
         public void createDiscTest ()
         {
-                DiscDTO disc = new DiscDTO( 4L, "TestBrand", "TestTitle", "", new Date( new Date().getTime() - 10 ), 1f, 1, false, new ArrayList<String>() );
+                DiscDTO disc = new DiscDTO( 4L, "TestBrand", "TestTitle", "", LocalDate.of( 1888, 11, 11 ), 1f, 1, false, new ArrayList<String>() );
                 // list.add( disc );
                 // when( discRepository.save( disc ) ).thenReturn( disc );
                 assertThat( discService.create( disc ) ).isEqualTo( disc.getID() );
@@ -78,8 +79,8 @@ public class DiscServiceTest
         @Test
         public void updateDiscTest ()
         {
-                DiscDTO test = new DiscDTO( 0L, "ReplaceBand", "Test", "", new Date( new Date().getTime() - 10 ), 100f, 1, false, new ArrayList<String>() );
-                DiscDTO test2 = new DiscDTO( 111L, "NoIdInDB", "Test", "", new Date( new Date().getTime() - 10 ), 100f, 1, false, new ArrayList<String>() );
+                DiscDTO test = new DiscDTO( 0L, "ReplaceBand", "Test", "", LocalDate.of( 1888, 11, 11 ), 100f, 1, false, new ArrayList<String>() );
+                DiscDTO test2 = new DiscDTO( 111L, "NoIdInDB", "Test", "", LocalDate.of( 1888, 11, 11 ), 100f, 1, false, new ArrayList<String>() );
                 assertThat( discService.update( 0L, test ).getBand() ).isEqualTo( "ReplaceBand" );
                 assertNull( discService.update( 111L, test2 ) );
         }

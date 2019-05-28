@@ -19,6 +19,7 @@ import pl.edu.uph.tpsi.models.User;
 import pl.edu.uph.tpsi.repositories.CartRepository;
 import pl.edu.uph.tpsi.repositories.OrderRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -46,7 +47,7 @@ public class CartServiceTest
         @Before
         public void setup ()
         {
-                Disc disc = new Disc( 1L, "TestBrand", "Test", new Date( new Date().getTime() - 10 ), 1f, 100, false, new ArrayList<String>(), "" );
+                Disc disc = new Disc( 1L, "TestBrand", "Test", LocalDate.of(1888,11,11), 1f, 100, false, new ArrayList<String>(), "" );
                 cartService.addToCart( "test", disc, 4);
         }
 

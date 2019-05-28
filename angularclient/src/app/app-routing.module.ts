@@ -12,6 +12,7 @@ import { AddressComponent } from './shop/address/address.component';
 import { UserListComponent } from './shop/user-list/user-list.component';
 import { AuthGuardService } from './security/guards/user-guard/auth-guard.service';
 import { AdminGuardService } from './security/guards/admin-guard/admin-guard.service';
+import { DiscEditComponent } from './shop/disc-edit/disc-edit.component';
 
 const routes: Routes = [
   { path: 'discs', component: DiscListComponent, data: { animation: 'Disc' }, canActivate: [AuthGuardService] },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'orders', component: OrderListComponent, data: { animation: 'Orders' }, canActivate: [AuthGuardService] },
   { path: 'disc/:id', component: DiscPageComponent, data: { animation: 'Details' }, canActivate: [AuthGuardService] },
   { path: 'profile', component: AddressComponent, data: { animation: 'Profile' }, canActivate: [AuthGuardService] },
-  {path: 'user/all', component: UserListComponent, data:{animation: 'UserList'}, canActivate: [AdminGuardService]},
+  { path: 'user/all', component: UserListComponent, data: { animation: 'UserList' }, canActivate: [AdminGuardService] },
+  { path: 'edit/:id', component: DiscEditComponent, data: { animation: 'EditDisc' }, canActivate: [AdminGuardService] },
   { path: '**', redirectTo: '' }
 ];
 

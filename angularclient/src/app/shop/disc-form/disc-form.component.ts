@@ -16,6 +16,7 @@ export class DiscFormComponent implements OnInit {
 
   ngOnInit() {
     this.disc = new Disc();
+    this.disc.images = [];
   }
 
   onSubmit() {

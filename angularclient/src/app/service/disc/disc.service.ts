@@ -28,4 +28,8 @@ export class DiscService {
 	public findById(id: number): Observable<Disc> {
 		return this.http.get<Disc>(this.discsUrls + '/' + id);
 	}
+
+	public update(id: number, disc: Disc) {
+		return this.http.put<Disc>(this.discsUrls + '/' + id, disc);
+	}
 }

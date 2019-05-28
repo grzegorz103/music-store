@@ -14,6 +14,11 @@
             required #name="ngModel">
         </div>
         <div class="md-form">
+          <label for="description">Description</label>
+          <input type="text" [(ngModel)]="disc.description" class="form-control" id="description" name="description"
+             required #name="ngModel">
+        </div>
+        <div class="md-form">
           <input type="date" [(ngModel)]="disc.releaseDate" class="form-control" id="releaseDate" name="releaseDate"
             required #name="ngModel">
         </div>
@@ -26,6 +31,16 @@
           <label for="amount">Amount</label>
           <input type="text" [(ngModel)]="disc.amount" class="form-control" id="amount" name="amount"
          required #name="ngModel">
+        </div>
+        <div class="md-form">
+          <label for="photo">Photo</label>
+          <input type="text" [(ngModel)]="disc.images[0]" class="form-control" id="photo" name="photo"
+             required #name="ngModel">
+        </div>
+        <div class="md-form">
+          <label for="photo2">Photo 2</label>
+          <input type="text" [(ngModel)]="disc.images[1]" class="form-control" id="photo2" name="photo2"
+             required #name="ngModel">
         </div>
         <button type="submit" class="btn btn-info">Submit</button>
       </form>

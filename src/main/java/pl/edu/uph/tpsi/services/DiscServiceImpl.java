@@ -2,6 +2,7 @@ package pl.edu.uph.tpsi.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.exceptions.ItemOutOfStockException;
 import pl.edu.uph.tpsi.mappers.DiscMapper;
@@ -41,7 +42,7 @@ public class DiscServiceImpl implements DiscService
         {
                 return discRepository.findAll()
                         .stream()
-                        .filter( e->!e.getDeleted() )
+                        .filter( e -> !e.getDeleted() )
                         .map( discMapper::discToDTO )
                         .collect( Collectors.toList() );
         }
@@ -76,6 +77,7 @@ public class DiscServiceImpl implements DiscService
         @Override
         public Long create ( DiscDTO disc )
         {
+                disc.setDeleted( false );
                 return discRepository.save( discMapper.DTOtoDisc( disc ) )
                         .getID();
         }
@@ -104,6 +106,7 @@ public class DiscServiceImpl implements DiscService
          * false if disc does not exists
          */
         @Override
+        @Transactional
         public boolean delete ( Long id )
         {
                 if ( !discRepository.existsById( id ) )

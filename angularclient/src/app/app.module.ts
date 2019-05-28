@@ -29,6 +29,7 @@ import { MatInputModule } from '@angular/material/input';
 import { UserListComponent } from './shop/user-list/user-list.component';
 import { FilterUsersPipe } from './utils/pipes/filter-user-pipe';
 import { AccountDetailsComponent } from './shop/account-details/account-details.component';
+import { DiscEditComponent } from './shop/disc-edit/disc-edit.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { AccountDetailsComponent } from './shop/account-details/account-details.
     FilterListPipe,
     UserListComponent,
     FilterUsersPipe,
-    AccountDetailsComponent
+    AccountDetailsComponent,
+    DiscEditComponent
   ],
   imports: [
     BrowserModule,
