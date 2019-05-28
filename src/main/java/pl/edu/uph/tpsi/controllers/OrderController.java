@@ -33,4 +33,10 @@ public class OrderController
         {
                 return orderService.findAll( userAuthentication.getUsername( auth ) );
         }
+
+        @PutMapping("/{id}")
+        @PreAuthorize ("isAuthenticated()")
+        public Order updateById(@PathVariable Long id){
+                return orderService.updateById( id );
+        }
 }

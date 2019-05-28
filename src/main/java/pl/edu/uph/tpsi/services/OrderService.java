@@ -13,7 +13,7 @@ public interface OrderService
 
         public Order create ( Order disc );
 
-        public Order update ( Long id, Order disc );
+        public Order updateById ( Long id );
 
         public void delete ( Long id );
 }

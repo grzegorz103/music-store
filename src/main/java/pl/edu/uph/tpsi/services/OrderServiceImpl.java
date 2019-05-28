@@ -8,7 +8,9 @@ import pl.edu.uph.tpsi.mappers.OrderMapper;
 import pl.edu.uph.tpsi.models.Cart;
 import pl.edu.uph.tpsi.models.CartItem;
 import pl.edu.uph.tpsi.models.Order;
+import pl.edu.uph.tpsi.models.OrderStatus;
 import pl.edu.uph.tpsi.repositories.OrderRepository;
+import pl.edu.uph.tpsi.repositories.OrderStatusRepository;
 
 import java.util.List;
 import java.util.Random;
@@ -23,15 +25,21 @@ public class OrderServiceImpl implements OrderService
 
         private final Random generator;
 
+        private final OrderStatusRepository orderStatusRepository;
+
         @Value ("#{new Integer('${order.id.range}')}")
         private Integer ORDER_ID_RANGE;
 
         @Autowired
-        public OrderServiceImpl ( OrderRepository orderRepository, OrderMapper orderMapper, Random generator )
+        public OrderServiceImpl ( OrderRepository orderRepository,
+                                  OrderMapper orderMapper,
+                                  Random generator,
+                                  OrderStatusRepository orderStatusRepository )
         {
                 this.orderRepository = orderRepository;
                 this.orderMapper = orderMapper;
                 this.generator = generator;
+                this.orderStatusRepository = orderStatusRepository;
         }
 
         @Override
@@ -57,6 +65,7 @@ public class OrderServiceImpl implements OrderService
         {
                 if ( order != null )
                 {
+                        order.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.ORDERED ) );
                         order.setOrderID( generateID() );
                         return orderRepository.save( order );
                 }
@@ -64,9 +73,21 @@ public class OrderServiceImpl implements OrderService
         }
 
         @Override
-        public Order update ( Long id, Order disc )
+        public Order updateById ( Long id )
         {
-                return null;
+                Order o = orderRepository.findById( id ).orElse( null );
+                if ( o != null )
+                {
+                        OrderStatus.OrderType status = o.getOrderStatus().getOrderType();
+                        if ( status == OrderStatus.OrderType.CANCELED )
+                                o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.DONE ) );
+                        else if ( status == OrderStatus.OrderType.DONE )
+                                o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.ORDERED ) );
+                        else
+                                o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.CANCELED ) );
+                        orderRepository.save( o );
+                }
+                return o;
         }
 
         @Override

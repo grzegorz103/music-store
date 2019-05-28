@@ -18,7 +18,7 @@ public class OrderStatus
         private Long id;
 
         @Enumerated (EnumType.STRING)
-        private OrderType orderStatus;
+        private OrderType orderType;
 
         public enum OrderType
         {

@@ -27,7 +27,7 @@ public class Order
 
         @OneToMany (fetch = FetchType.EAGER)
         @JoinColumn (name = "order_info_id")
-        @Fetch( value = FetchMode.SUBSELECT)
+        @Fetch (value = FetchMode.SUBSELECT)
         private List<CartItem> discs;
 
         @Temporal (TemporalType.DATE)
@@ -40,4 +40,8 @@ public class Order
 
         @Column (name = "order_id")
         private Integer orderID;
+
+        @ManyToOne (fetch = FetchType.EAGER)
+        @JoinColumn (name = "order_status_id")
+        private OrderStatus orderStatus;
 }

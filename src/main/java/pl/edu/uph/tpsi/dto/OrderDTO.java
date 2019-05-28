@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.edu.uph.tpsi.models.CartItem;
 import pl.edu.uph.tpsi.models.Order;
+import pl.edu.uph.tpsi.models.OrderStatus;
 import pl.edu.uph.tpsi.models.User;
 
 import java.util.Date;
@@ -20,6 +21,7 @@ public class OrderDTO
         private Date orderDate;
         private User user;
         private Integer orderID;
+        private OrderStatus orderStatus;
 
         public OrderDTO ( Order order )
         {
@@ -27,5 +29,6 @@ public class OrderDTO
                 this.discs = order.getDiscs();
                 this.orderDate = order.getOrderDate();
                 this.user = order.getUser();
+                this.orderStatus = order.getOrderStatus();
         }
 }
