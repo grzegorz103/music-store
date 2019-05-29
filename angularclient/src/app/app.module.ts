@@ -30,6 +30,8 @@ import { UserListComponent } from './shop/user-list/user-list.component';
 import { FilterUsersPipe } from './utils/pipes/filter-user-pipe';
 import { AccountDetailsComponent } from './shop/account-details/account-details.component';
 import { DiscEditComponent } from './shop/disc-edit/disc-edit.component';
+import { CategoryListComponent } from './shop/category-list/category-list.component';
+import { CategoryService } from './service/category/category.service';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { DiscEditComponent } from './shop/disc-edit/disc-edit.component';
     UserListComponent,
     FilterUsersPipe,
     AccountDetailsComponent,
-    DiscEditComponent
+    DiscEditComponent,
+    CategoryListComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { DiscEditComponent } from './shop/disc-edit/disc-edit.component';
     MatInputModule,
   ],
 
-  providers: [UserService, DiscService, CartService, OrderService, AuthService, AddressService,
+  providers: [UserService, DiscService, CartService, OrderService, AuthService, AddressService, 
+    CategoryService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

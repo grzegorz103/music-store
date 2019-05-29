@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export class Disc {
 	id: string;
 	band: string;
@@ -8,4 +10,5 @@ export class Disc {
 	title: string;
 	description: string;
 	images: string[];
+	category: Category;
 }

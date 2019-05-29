@@ -13,6 +13,7 @@ import { UserListComponent } from './shop/user-list/user-list.component';
 import { AuthGuardService } from './security/guards/user-guard/auth-guard.service';
 import { AdminGuardService } from './security/guards/admin-guard/admin-guard.service';
 import { DiscEditComponent } from './shop/disc-edit/disc-edit.component';
+import { CategoryListComponent } from './shop/category-list/category-list.component';
 
 const routes: Routes = [
   { path: 'discs', component: DiscListComponent, data: { animation: 'Disc' }, canActivate: [AuthGuardService] },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'profile', component: AddressComponent, data: { animation: 'Profile' }, canActivate: [AuthGuardService] },
   { path: 'user/all', component: UserListComponent, data: { animation: 'UserList' }, canActivate: [AdminGuardService] },
   { path: 'edit/:id', component: DiscEditComponent, data: { animation: 'EditDisc' }, canActivate: [AdminGuardService] },
+  { path: 'category', component: CategoryListComponent, data: { animation: 'Category' }, canActivate: [AdminGuardService] },
   { path: '**', redirectTo: '' }
 ];
 

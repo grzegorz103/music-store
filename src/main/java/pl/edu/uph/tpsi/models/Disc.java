@@ -60,4 +60,8 @@ public class Disc
 
         @Column (name = "description", length = 5000)
         private String description;
+
+        @ManyToOne (fetch = FetchType.EAGER)
+        @JoinColumn (name = "category_id")
+        private Category category;
 }

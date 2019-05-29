@@ -27,6 +27,9 @@
             <th scope="col">
               <div (click)="sortList(4)">Price</div>
             </th>
+            <th scope="col">
+              Category
+            </th>
             <th scope="col">Buy</th>
             <div *ngIf="authService.hasAdminRole()">
               <th scope="col">Delete </th>
@@ -41,6 +44,7 @@
             <td><a [routerLink]="['/disc', disc.id]">{{ disc.band }}</a></td>
             <td>{{ disc.title }}</td>
             <td>{{ disc.price }}</td>
+            <td>{{ disc.category.name }}</td>
             <td>
               <form (ngSubmit)="buyItem(disc.id, disc[i])" #userForm="ngForm">
                 <input type="text" [(ngModel)]='disc[i]' name='disc[i]' />

@@ -3,6 +3,7 @@ package pl.edu.uph.tpsi.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.edu.uph.tpsi.models.Category;
 import pl.edu.uph.tpsi.models.Disc;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class DiscDTO
         private Integer amount;
         private Boolean deleted;
         private List<String> images;
+        private Category category;
 
         public DiscDTO ( Disc disc )
         {

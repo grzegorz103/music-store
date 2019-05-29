@@ -7,10 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.edu.uph.tpsi.models.*;
-import pl.edu.uph.tpsi.repositories.CartRepository;
-import pl.edu.uph.tpsi.repositories.DiscRepository;
-import pl.edu.uph.tpsi.repositories.RoleRepository;
-import pl.edu.uph.tpsi.repositories.UserRepository;
+import pl.edu.uph.tpsi.repositories.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,28 +19,48 @@ public class RepositoryInitializer
 {
         private final DiscRepository discRepository;
 
-        @Autowired
-        private UserRepository userRepository;
+        private final UserRepository userRepository;
+
+        private final RoleRepository roleRepository;
+
+        private final BCryptPasswordEncoder encoder;
+
+        private final CartRepository cartRepository;
+
+        private final CategoryRepository categoryRepository;
 
         @Autowired
-        private RoleRepository roleRepository;
-
-        @Autowired
-        private BCryptPasswordEncoder encoder;
-
-        @Autowired
-        private CartRepository cartRepository;
-
-        @Autowired
-        public RepositoryInitializer ( DiscRepository discRepository )
+        public RepositoryInitializer ( DiscRepository discRepository,
+                                       UserRepository userRepository,
+                                       RoleRepository roleRepository,
+                                       BCryptPasswordEncoder encoder,
+                                       CartRepository cartRepository,
+                                       CategoryRepository categoryRepository )
         {
                 this.discRepository = discRepository;
+                this.userRepository = userRepository;
+                this.roleRepository = roleRepository;
+                this.encoder = encoder;
+                this.cartRepository = cartRepository;
+                this.categoryRepository = categoryRepository;
         }
 
         @Bean
         public InitializingBean initializingBean ()
         {
                 return () -> {
+                        if ( categoryRepository.findAll().isEmpty() )
+                        {
+                                categoryRepository.save( Category.builder().name( "Country" ).deleted( false ).build() );
+                                categoryRepository.save( Category.builder().name( "Disco Polo" ).deleted( false ).build() );
+                                categoryRepository.save( Category.builder().name( "Jazz" ).deleted( false ).build() );
+                                categoryRepository.save( Category.builder().name( "Metal" ).deleted( false ).build() );
+                                categoryRepository.save( Category.builder().name( "Pop" ).deleted( false ).build() );
+                                categoryRepository.save( Category.builder().name( "Hip hop" ).deleted( false ).build() );
+                                categoryRepository.save( Category.builder().name( "Rock" ).deleted( false ).build() );
+                                categoryRepository.save( Category.builder().name( "Techno" ).deleted( false ).build() );
+                                categoryRepository.save( Category.builder().name( "Inne" ).deleted( false ).build() );
+                        }
 
                         if ( roleRepository.findAll().isEmpty() )
                         {
@@ -86,6 +103,7 @@ public class RepositoryInitializer
                                                 .band( "The beatles" )
                                                 .title( "With the Beatles" )
                                                 .deleted( false )
+                                                .category( categoryRepository.getOne( 4L ) )
                                                 .price( 100f )
                                                 .images( Arrays.asList( "https://is2-ssl.mzstatic.com/image/thumb/Music/a1/43/f1/mzi.jellenxl.tif/600x600bf.png",
                                                         "http://beatles.ncf.ca/beatlemania.jpe" ) )
@@ -101,6 +119,7 @@ public class RepositoryInitializer
                                                 .title( "Thriller" )
                                                 .deleted( false )
                                                 .price( 100f )
+                                                .category( categoryRepository.getOne( 4L ) )
                                                 .images( Arrays.asList( "https://image.ceneostatic.pl/data/products/2722250/i-michael-jackson-thriller.jpg",
                                                         "https://images-na.ssl-images-amazon.com/images/I/51CHlJubDqL.jpg" ) )
                                                 .description( "Thriller – szósty solowy album studyjny amerykańskiego piosenkarza Michaela Jacksona, wydany 30 listopada 1982 przez wytwórnię Epic Records, nagrywany w Westlake Recording Studios w Los Angeles. Thriller to najlepiej sprzedający się album wszech czasów." )
@@ -113,6 +132,7 @@ public class RepositoryInitializer
                                                 .title( "A kind of magic" )
                                                 .deleted( false )
                                                 .price( 100f )
+                                                .category( categoryRepository.getOne( 4L ) )
                                                 .images( Arrays.asList( "https://images-na.ssl-images-amazon.com/images/I/61p75HL83bL.jpg",
                                                         "https://apollo-ireland.akamaized.net/v1/files/vtceltups9wi2-PL/image;s=644x461" ) )
                                                 .description( "A Kind of Magic – album brytyjskiego zespołu rockowego Queen, wydany w 1986 roku.\n" +
