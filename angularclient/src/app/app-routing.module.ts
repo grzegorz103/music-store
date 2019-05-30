@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'user/all', component: UserListComponent, data: { animation: 'UserList' }, canActivate: [AdminGuardService] },
   { path: 'edit/:id', component: DiscEditComponent, data: { animation: 'EditDisc' }, canActivate: [AdminGuardService] },
   { path: 'category', component: CategoryListComponent, data: { animation: 'Category' }, canActivate: [AdminGuardService] },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'main' }
 ];
 
 @NgModule({

@@ -22,11 +22,22 @@ export class CategoryListComponent implements OnInit {
   }
 
   fetchData() {
-    this.categoryService.findAll().subscribe(res => this.categories = res);
+    this.categoryService.findAll().subscribe(
+      res => this.categories = res.sort((o1, o2) => o1.name.toString().localeCompare(o2.name))
+    );
   }
 
   save() {
     this.categoryService.create(this.category).subscribe(res => this.fetchData());
+  }
+
+  remove(id: number) {
+    this.categoryService.delete(id).subscribe(res => this.fetchData());
+  }
+
+  update(id: number) {
+    this.categoryService.update(id, this.categories.find(e => e.id === id))
+      .subscribe(res => this.fetchData());
   }
 
 }

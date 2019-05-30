@@ -9,12 +9,24 @@
               <div (click)="sortList(1)">#ID</div>
             </th>
             <th scope="col">Name</th>
+            <th scope="col">Deleted</th>
+            <th scope="col">Save</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let category of categories ">
             <td>{{ category.id }}</td>
-            <td>{{ category.name }}</td>
+            <td><input type="text" [(ngModel)]="category.name" class="form-control" id="name" name="name" required
+              #name="ngModel"></td>
+            <td>
+              <div *ngIf="category.deleted">
+                <p class="text-danger font-weight-bold hover" (click)="remove(category.id)">Deleted</p>
+              </div>
+              <div *ngIf="!category.deleted">
+                  <p class="text-success font-weight-bold hover" (click)="remove(category.id)">OK</p>
+                </div>
+            </td>
+            <td><button class="btn btn-warning" (click)="update(category.id)">Update</button></td>
           </tr>
         </tbody>
       </table>

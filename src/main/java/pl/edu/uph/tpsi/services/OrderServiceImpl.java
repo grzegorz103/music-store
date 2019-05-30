@@ -79,12 +79,18 @@ public class OrderServiceImpl implements OrderService
                 if ( o != null )
                 {
                         OrderStatus.OrderType status = o.getOrderStatus().getOrderType();
-                        if ( status == OrderStatus.OrderType.CANCELED )
-                                o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.DONE ) );
-                        else if ( status == OrderStatus.OrderType.DONE )
-                                o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.ORDERED ) );
-                        else
-                                o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.CANCELED ) );
+                        switch ( status )
+                        {
+                                case CANCELED:
+                                        o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.DONE ) );
+                                        break;
+                                case DONE:
+                                        o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.ORDERED ) );
+                                        break;
+                                default:
+                                        o.setOrderStatus( orderStatusRepository.findByOrOrderType( OrderStatus.OrderType.CANCELED ) );
+                                        break;
+                        }
                         orderRepository.save( o );
                 }
                 return o;

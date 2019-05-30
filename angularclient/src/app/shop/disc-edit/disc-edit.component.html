@@ -27,7 +27,9 @@
             <input type="text" [(ngModel)]="disc.description" class="form-control" id="description" name="description"
               required #name="ngModel">
           </div>
+          
           <div class="form-group">
+          <label for="releaseDate">Release date</label>
             <input type="date" [(ngModel)]="disc.releaseDate" class="form-control" id="releaseDate" name="releaseDate"
               required #name="ngModel">
           </div>
@@ -36,6 +38,12 @@
             <input type="text" [(ngModel)]="disc.price" class="form-control" id="price" name="price" required
               #name="ngModel">
           </div>
+
+          <label for="category">Category</label>
+          <select class="form-control" [(ngModel)]="disc.category" name="category">
+            <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }} </option>
+          </select>
+
           <div class="form-group">
             <label for="amount">Amount</label>
             <input type="text" [(ngModel)]="disc.amount" class="form-control" id="amount" name="amount" required

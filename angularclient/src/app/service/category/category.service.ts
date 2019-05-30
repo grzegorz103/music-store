@@ -19,4 +19,12 @@ export class CategoryService {
     return this.http.post<Category>(this.categoryUrl, category);
   }
 
+  public update(id: number, category: Category){
+    return this.http.put<Category>(this.categoryUrl + id, category);
+  }
+
+  public delete(id: number) {
+    return this.http.delete(this.categoryUrl + id);
+  }
+
 }

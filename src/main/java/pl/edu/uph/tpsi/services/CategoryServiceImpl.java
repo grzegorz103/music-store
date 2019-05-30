@@ -41,7 +41,6 @@ public class CategoryServiceImpl implements CategoryService
         {
                 return categoryRepository.findAll()
                         .stream()
-                        .filter( e -> !e.getDeleted() )
                         .map( categoryMapper::categoryToDTO )
                         .collect( Collectors.toList() );
         }
@@ -60,9 +59,10 @@ public class CategoryServiceImpl implements CategoryService
         @Override
         public void delete ( Long id )
         {
-                categoryRepository.findById( id ).ifPresent( e -> {
-                        e.setDeleted( !e.getDeleted() );
-                        categoryRepository.save( e );
-                } );
+                categoryRepository.findById( id )
+                        .ifPresent( e -> {
+                                e.setDeleted( !e.getDeleted() );
+                                categoryRepository.save( e );
+                        } );
         }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DiscService } from '../../service/disc/disc.service';
 import { Disc } from '../../model/disc';
 import { ActivatedRoute } from '@angular/router';
+import { Category } from '../../model/category';
+import { CategoryService } from '../../service/category/category.service';
 
 @Component({
   selector: 'app-disc-edit',
@@ -15,10 +17,12 @@ export class DiscEditComponent implements OnInit {
   info: string;
   isInfo: boolean;
   value: number;
+  categories: Category[];
 
   constructor(
     private discService: DiscService,
-    private rt: ActivatedRoute
+    private rt: ActivatedRoute,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit() {
@@ -27,6 +31,7 @@ export class DiscEditComponent implements OnInit {
 
   fetchData() {
     this.rt.params.subscribe(params => this.urlId = params['id']);
+    this.categoryService.findAll().subscribe(res => this.categories = res);
     this.discService.findById(this.urlId).subscribe(res => this.disc = res);
   }
 
