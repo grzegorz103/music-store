@@ -3,6 +3,12 @@
     <p class="font-weight-bold">
       <div *ngIf="disc">
         <span class="d-block">
+          <div *ngIf="infoMsg && infoMsg.length > 0">
+            <div class="alert alert-danger" role="alert">
+              {{ infoMsg }}
+              <mat-progress-bar [value]="value"></mat-progress-bar>
+            </div>
+          </div>
           <h2>
             <div class="row">
               <div *ngFor="let image of disc.images">
@@ -18,6 +24,13 @@
         <span class="d-block">
           {{ disc.price }}zł
         </span>
+        <hr />
+        <h2>Buy this disc</h2>
+        <div class="md-form">
+          <input placeholder="Enter amount to buy!" class="form-control" type="number" [(ngModel)]="amount">
+          Cost: {{ disc.price * amount }}zł
+          <button (click)="buy()" class="btn blue-gradient">Buy!</button>
+        </div>
       </div>
   </div>
 </div>

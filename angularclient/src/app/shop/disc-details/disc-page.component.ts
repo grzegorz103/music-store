@@ -13,6 +13,9 @@ export class DiscPageComponent implements OnInit {
 
   disc: Disc;
   urlId: number;
+  amount = 1;
+  infoMsg: string;
+  value = 0;
 
   constructor(private discService: DiscService,
     private cartService: CartService,
@@ -26,6 +29,19 @@ export class DiscPageComponent implements OnInit {
 
   fetchData() {
     this.discService.findById(this.urlId).subscribe(res => this.disc = res);
+  }
+
+  buy() {
+    if (this.amount < 1 || !Number.isInteger(this.amount)) {
+      this.infoMsg = 'Please enter correct amount';
+      setTimeout(() => this.infoMsg = '', 3000);
+      for (let i = 0; i < 100; ++i) {
+        setTimeout(() => this.value++, i * 28);
+      }
+      return;
+    }
+    this.cartService.save(Number.parseInt(this.disc.id), this.amount)
+      .subscribe(res => this.router.navigate(['/cart']));
   }
 
 }

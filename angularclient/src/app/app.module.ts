@@ -19,7 +19,7 @@ import { OrderListComponent } from './shop/order-list/order-list.component';
 import { OrderService } from './service/order/order.service';
 import { RequestInterceptor } from './security/auth-service/request-interceptor';
 import { AuthService } from './security/auth-service/auth.service';
-import { DiscPageComponent } from './shop/disc-page/disc-page.component';
+import { DiscPageComponent } from './shop/disc-details/disc-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule, MatProgressBarModule, MatTabsModule, MatSidenavModule } from '@angular/material';
 import { AddressComponent } from './shop/address/address.component';

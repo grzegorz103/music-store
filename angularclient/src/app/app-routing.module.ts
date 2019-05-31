@@ -7,7 +7,7 @@ import { MainPageComponent } from './public/main-page/main-page.component';
 import { DiscFormComponent } from './shop/disc-form/disc-form.component';
 import { CartComponent } from './shop/cart/cart.component';
 import { OrderListComponent } from './shop/order-list/order-list.component';
-import { DiscPageComponent } from './shop/disc-page/disc-page.component';
+import { DiscPageComponent } from './shop/disc-details/disc-page.component';
 import { AddressComponent } from './shop/address/address.component';
 import { UserListComponent } from './shop/user-list/user-list.component';
 import { AuthGuardService } from './security/guards/user-guard/auth-guard.service';
