@@ -2,6 +2,7 @@ package pl.edu.uph.tpsi.config;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,10 +10,8 @@ import org.springframework.stereotype.Component;
 import pl.edu.uph.tpsi.models.*;
 import pl.edu.uph.tpsi.repositories.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+import java.time.LocalDate;
+import java.util.*;
 
 @Configuration
 public class RepositoryInitializer
@@ -103,7 +102,8 @@ public class RepositoryInitializer
                                                 .band( "The beatles" )
                                                 .title( "With the Beatles" )
                                                 .deleted( false )
-                                                .category( categoryRepository.getOne( 4L ) )
+                                                .releaseDate( LocalDate.of( 1992, 12, 15 ) )
+                                                .category( categoryRepository.findByName( "Pop" ) )
                                                 .price( 100f )
                                                 .images( Arrays.asList( "https://is2-ssl.mzstatic.com/image/thumb/Music/a1/43/f1/mzi.jellenxl.tif/600x600bf.png",
                                                         "http://beatles.ncf.ca/beatlemania.jpe" ) )
@@ -118,8 +118,9 @@ public class RepositoryInitializer
                                                 .band( "Michael Jackson" )
                                                 .title( "Thriller" )
                                                 .deleted( false )
+                                                .releaseDate( LocalDate.of( 1995, 5, 5 ) )
                                                 .price( 100f )
-                                                .category( categoryRepository.getOne( 4L ) )
+                                                .category( categoryRepository.findByName( "Pop" ) )
                                                 .images( Arrays.asList( "https://image.ceneostatic.pl/data/products/2722250/i-michael-jackson-thriller.jpg",
                                                         "https://images-na.ssl-images-amazon.com/images/I/51CHlJubDqL.jpg" ) )
                                                 .description( "Thriller – szósty solowy album studyjny amerykańskiego piosenkarza Michaela Jacksona, wydany 30 listopada 1982 przez wytwórnię Epic Records, nagrywany w Westlake Recording Studios w Los Angeles. Thriller to najlepiej sprzedający się album wszech czasów." )
@@ -131,8 +132,9 @@ public class RepositoryInitializer
                                                 .band( "Queen" )
                                                 .title( "A kind of magic" )
                                                 .deleted( false )
+                                                .releaseDate( LocalDate.of( 1999, 12, 12 ) )
                                                 .price( 100f )
-                                                .category( categoryRepository.getOne( 4L ) )
+                                                .category( categoryRepository.findByName( "Rock" ) )
                                                 .images( Arrays.asList( "https://images-na.ssl-images-amazon.com/images/I/61p75HL83bL.jpg",
                                                         "https://apollo-ireland.akamaized.net/v1/files/vtceltups9wi2-PL/image;s=644x461" ) )
                                                 .description( "A Kind of Magic – album brytyjskiego zespołu rockowego Queen, wydany w 1986 roku.\n" +

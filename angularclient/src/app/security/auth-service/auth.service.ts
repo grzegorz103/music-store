@@ -9,7 +9,7 @@ export class AuthService {
   constructor(
     private http: HttpClient
   ) {
-    this.url = 'http://localhost:8080/api/users/admin';
+    this.url = '/api/users/admin';
   }
 
   public getToken(): string {

@@ -139,12 +139,13 @@ public class UserServiceImpl implements UserService
         @Override
         public UserDTO update ( Long id, UserDTO userDTO )
         {
-                userRepository.findById( id ).ifPresent( e -> {
-                        e.setEmail( userDTO.getEmail() );
-                        e.setUsername( userDTO.getUsername() );
-                        e.setPassword( encoder.encode( userDTO.getPassword() ) );
-                        userRepository.save( e );
-                } );
+                userRepository.findById( id )
+                        .ifPresent( e -> {
+                                e.setEmail( userDTO.getEmail() );
+                                e.setUsername( userDTO.getUsername() );
+                                e.setPassword( encoder.encode( userDTO.getPassword() ) );
+                                userRepository.save( e );
+                        } );
                 return userRepository.findById( id )
                         .map( userMapper::UserToDTO )
                         .orElseThrow( () -> new UserNotExistsException( this.userNotExists ) );

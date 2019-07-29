@@ -9,7 +9,6 @@
               <mat-progress-bar [value]="value"></mat-progress-bar>
             </div>
           </div>
-          <h2>
             <div class="row">
               <div *ngFor="let image of disc.images">
                 <a [href]="image" target="_blank"><img [src]="image" alt="Brak" class="discImg"></a>
@@ -17,10 +16,17 @@
             </div>
 
             <div *ngIf="disc !== null">
+              <h2>Tytuł:</h2>
               {{ disc.band }} - {{ disc.title }}
             </div>
-          </h2>
+            <h2>Data wydania</h2>
+            {{ disc.releaseDate }}
+            <br/>
+            <h2>Opis</h2>
+          {{disc.description}}
         </span>
+
+        <h2>Cena</h2>
         <span class="d-block">
           {{ disc.price }}zł
         </span>

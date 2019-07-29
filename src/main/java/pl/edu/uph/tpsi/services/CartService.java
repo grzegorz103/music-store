@@ -13,7 +13,7 @@ public interface CartService
 
         boolean removeById ( String username, Long id );
 
-        boolean remove ( Disc id );
+        boolean remove ( Cart cart);
 
         public Order makeOrder ( String username );
 

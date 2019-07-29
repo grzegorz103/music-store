@@ -10,7 +10,7 @@ export class CartService {
   private cartUrl: string;
 
   constructor(private http: HttpClient) {
-    this.cartUrl = 'http://localhost:8080/api/cart';
+    this.cartUrl = '/api/cart';
   }
 
   public findAll() {

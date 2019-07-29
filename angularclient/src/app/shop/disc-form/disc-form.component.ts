@@ -42,7 +42,4 @@ export class DiscFormComponent implements OnInit {
     this.categoryService.findAll().subscribe(res => this.categories = res);
   }
 
-  setCategory(id: any): void {
-    alert(id);
-  }
 }

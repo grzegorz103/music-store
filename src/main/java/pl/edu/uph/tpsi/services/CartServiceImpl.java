@@ -121,17 +121,23 @@ public class CartServiceImpl implements CartService
         }
 
         @Override
-        public boolean remove ( Disc id )
+        public boolean remove ( Cart cart )
         {
+                if ( cart != null )
+                {
+                        cartRepository.delete( cart );
+                        return true;
+                }
                 return false;
         }
 
         /**
          * Creates order by user's shopping cart and clears it's cart
-         * @throws EmptyCartException if user's cart contains no items
-         * @throws UserDetailsException if user's address is not filled correctly
+         *
          * @param username username of the shopping cart owner
          * @return created order
+         * @throws EmptyCartException   if user's cart contains no items
+         * @throws UserDetailsException if user's address is not filled correctly
          */
         @Override
         @Transactional
@@ -142,7 +148,7 @@ public class CartServiceImpl implements CartService
                 Cart cart = cartRepository.findByUser( userRepository.findUserByUsername( username ) );
                 if ( cart != null )
                 {
-                        if ( cart.getList().size() == 0 )
+                        if ( cart.getList().isEmpty() )
                                 throw new EmptyCartException( this.cartEmptyException );
 
                         Order order = Order.builder()

@@ -8,7 +8,7 @@ export class AddressService {
   addressUrl: string;
 
   constructor(private http: HttpClient) {
-    this.addressUrl = 'http://localhost:8080/api/address';
+    this.addressUrl = '/api/address';
   }
 
   public getAddress() {

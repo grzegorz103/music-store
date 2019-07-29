@@ -8,7 +8,7 @@ export class CategoryService {
   private categoryUrl: string;
 
   constructor(private http: HttpClient) {
-    this.categoryUrl = 'http://localhost:8080/api/category/';
+    this.categoryUrl = '/api/category/';
   }
 
   public findAll() {

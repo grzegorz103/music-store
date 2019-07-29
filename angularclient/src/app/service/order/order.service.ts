@@ -8,7 +8,7 @@ export class OrderService {
   private orderUrl: string;
 
   constructor(private http: HttpClient) {
-    this.orderUrl = 'http://localhost:8080/api/order';
+    this.orderUrl = '/api/order';
   }
 
   public findAll() {

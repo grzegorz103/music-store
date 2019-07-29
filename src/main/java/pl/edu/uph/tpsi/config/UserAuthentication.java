@@ -54,6 +54,7 @@ public class UserAuthentication
         {
                 String authToken = auth.substring( "Basic".length() ).trim();
                 return new String( Base64.getDecoder()
-                        .decode( authToken ) ).split( ":" )[0];
+                        .decode( authToken ) )
+                        .split( ":" )[0];
         }
 }
