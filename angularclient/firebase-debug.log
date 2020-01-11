@@ -1,0 +1,82 @@
+[debug] [2020-01-11T22:49:56.642Z] ----------------------------------------------------------------------
+[debug] [2020-01-11T22:49:56.648Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Komputer\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-01-11T22:49:56.649Z] CLI Version:   7.11.0
+[debug] [2020-01-11T22:49:56.649Z] Platform:      win32
+[debug] [2020-01-11T22:49:56.649Z] Node Version:  v12.5.0
+[debug] [2020-01-11T22:49:56.654Z] Time:          Sat Jan 11 2020 23:49:56 GMT+0100 (GMT+01:00)
+[debug] [2020-01-11T22:49:56.654Z] ----------------------------------------------------------------------
+[debug] [2020-01-11T22:49:56.654Z] 
+[debug] [2020-01-11T22:49:56.695Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-11T22:49:56.701Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Komputer\IdeaProjects\mojTPSI\angularclient
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project.
+[debug] [2020-01-11T22:50:19.938Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+
+[debug] [2020-01-11T22:50:21.188Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:21.197Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7341992008053914202  
+ 
+[debug] [2020-01-11T22:50:22.359Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:22.863Z] [Project Creation Poller] Retrying task index 0
+[debug] [2020-01-11T22:50:22.864Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7341992008053914202  
+ 
+[debug] [2020-01-11T22:50:24.003Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:25.007Z] [Project Creation Poller] Retrying task index 0
+[debug] [2020-01-11T22:50:25.008Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7341992008053914202  
+ 
+[debug] [2020-01-11T22:50:26.133Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:26.139Z] >>> HTTP REQUEST POST https://firebase.googleapis.com/v1beta1/projects/music-store-3s25:addFirebase  
+ 
+[debug] [2020-01-11T22:50:28.631Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:28.634Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjRiNTU1ZDYtZWRkMy00MDgyLWFhOWEtZDFhZjM0ZTNiMjBi  
+ 
+[debug] [2020-01-11T22:50:29.325Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:29.829Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-01-11T22:50:29.830Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjRiNTU1ZDYtZWRkMy00MDgyLWFhOWEtZDFhZjM0ZTNiMjBi  
+ 
+[debug] [2020-01-11T22:50:30.524Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:31.527Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-01-11T22:50:31.529Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjRiNTU1ZDYtZWRkMy00MDgyLWFhOWEtZDFhZjM0ZTNiMjBi  
+ 
+[debug] [2020-01-11T22:50:32.236Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:34.251Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-01-11T22:50:34.252Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjRiNTU1ZDYtZWRkMy00MDgyLWFhOWEtZDFhZjM0ZTNiMjBi  
+ 
+[debug] [2020-01-11T22:50:35.051Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-11T22:50:39.054Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-01-11T22:50:39.055Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjRiNTU1ZDYtZWRkMy00MDgyLWFhOWEtZDFhZjM0ZTNiMjBi  
+ 
+[debug] [2020-01-11T22:50:39.831Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Your Firebase project is ready! ===
+[info] 
+[info] Project information:
+[info]    - Project ID: music-store-3s25
+[info]    - Project Name: music-store-3s25
+[info] 
+[info] Firebase console is available at
+[info] https://console.firebase.google.com/project/music-store-3s25/overview
+[info] i  Using project music-store-3s25 (music-store-3s25)
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 

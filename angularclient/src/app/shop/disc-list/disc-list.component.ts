@@ -24,11 +24,12 @@ export class DiscListComponent implements OnInit {
   value = 0;
   ascending: boolean = true;
   previousCriterium: number;
+  query: string;
 
   constructor(private discService: DiscService,
     private cartService: CartService,
     private router: Router,
-    private authService: AuthService) {
+    public authService: AuthService) {
   }
 
   ngOnInit() {

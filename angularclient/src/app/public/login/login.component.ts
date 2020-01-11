@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   info: boolean;
   timer: any;
   value: number;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
