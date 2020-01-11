@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CartItem } from '../../model/cart-item';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { CartDto } from '../../model/cart-dto';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
@@ -10,7 +11,7 @@ export class CartService {
   private cartUrl: string;
 
   constructor(private http: HttpClient) {
-    this.cartUrl = '/api/cart';
+    this.cartUrl =  environment.apiUrl + '/api/cart';
   }
 
   public findAll() {

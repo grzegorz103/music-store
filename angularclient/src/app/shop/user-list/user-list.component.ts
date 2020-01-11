@@ -12,6 +12,7 @@ import { AuthService } from '../../security/auth-service/auth.service';
 export class UserListComponent implements OnInit {
 
   users: User[];
+  query: string;
 
   constructor(
     private userService: UserService,

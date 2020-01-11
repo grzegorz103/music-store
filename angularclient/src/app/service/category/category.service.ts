@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../../model/category';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class CategoryService {
@@ -8,7 +9,7 @@ export class CategoryService {
   private categoryUrl: string;
 
   constructor(private http: HttpClient) {
-    this.categoryUrl = '/api/category/';
+    this.categoryUrl = environment.apiUrl + '/api/category/';
   }
 
   public findAll() {

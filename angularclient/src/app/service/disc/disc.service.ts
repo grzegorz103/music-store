@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Disc } from '../../model/disc';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class DiscService {
@@ -9,7 +10,7 @@ export class DiscService {
 	private discsUrls: string;
 
 	constructor(private http: HttpClient) {
-		this.discsUrls = '/api/disc';
+		this.discsUrls =  environment.apiUrl +'/api/disc';
 	}
 
 	public findAll(): Observable<Disc[]> {

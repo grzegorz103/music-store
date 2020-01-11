@@ -21,7 +21,10 @@ import { RequestInterceptor } from './security/auth-service/request-interceptor'
 import { AuthService } from './security/auth-service/auth.service';
 import { DiscPageComponent } from './shop/disc-details/disc-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule, MatProgressBarModule, MatTabsModule, MatSidenavModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AddressComponent } from './shop/address/address.component';
 import { AddressService } from './service/address/address.service';
 import { FilterListPipe } from './utils/pipes/filter-list-pipe';
