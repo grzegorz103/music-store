@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../security/auth-service/auth.service';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'login',
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.http.post<Observable<boolean>>('http://localhost:8080/api/users/login', {
+    this.http.post<Observable<boolean>>(environment.apiUrl + '/api/users/login', {
       username: this.model.username,
       password: this.model.password
     }).subscribe(isValid => {
