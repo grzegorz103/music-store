@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping ("/api/order")
-@CrossOrigin (origins = "http://localhost:4200")
+@CrossOrigin (origins = {"http://localhost:4200","https://music-store-2620.firebaseapp.com/"})
 public class OrderController
 {
         private final OrderService orderService;
