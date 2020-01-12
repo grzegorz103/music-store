@@ -13,7 +13,7 @@ import pl.edu.uph.tpsi.services.DiscService;
 
 @RestController
 @RequestMapping ("/api/disc")
-@CrossOrigin (origins = "http://localhost:4200")
+@CrossOrigin (origins = {"http://localhost:4200","https://music-store-2620.firebaseapp.com/"})
 public class DiscController
 {
         private final DiscService discService;

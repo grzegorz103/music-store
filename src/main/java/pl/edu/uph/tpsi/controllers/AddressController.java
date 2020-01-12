@@ -10,7 +10,7 @@ import pl.edu.uph.tpsi.services.AddressService;
 import pl.edu.uph.tpsi.services.UserService;
 
 @RestController
-@RequestMapping ("/api/address")
+@CrossOrigin (origins = {"http://localhost:4200","https://music-store-2620.firebaseapp.com/"})
 public class AddressController
 {
         private final AddressService addressService;

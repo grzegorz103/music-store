@@ -10,7 +10,7 @@ import pl.edu.uph.tpsi.services.CartService;
 
 @RestController
 @RequestMapping ("/api/cart")
-@CrossOrigin (origins = "http://localhost:4200")
+@CrossOrigin (origins = {"http://localhost:4200","https://music-store-2620.firebaseapp.com/"})
 public class CartController
 {
         private final CartService cartService;

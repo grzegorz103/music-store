@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping ("/api/users")
-@CrossOrigin (origins = "http://localhost:4200")
+@CrossOrigin (origins = {"http://localhost:4200","https://music-store-2620.firebaseapp.com/"})
 public class UserController
 {
         private final UserService userService;

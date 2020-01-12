@@ -39,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                         @Override
                         public void addCorsMappings ( CorsRegistry registry )
                         {
-                                registry.addMapping( "/**" ).allowedMethods( "*" ).allowedOrigins( "http://localhost:4200" );
+                                registry.addMapping( "/**" ).allowedMethods( "*" )
+                                .allowedOrigins( "http://localhost:4200","https://music-store-2620.firebaseapp.com" );
 
                         }
                 };
