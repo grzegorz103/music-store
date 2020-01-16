@@ -7,23 +7,21 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "order_statuses")
+@Table(name = "order_statuses")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderStatus
-{
-        @Id
-        @GeneratedValue (strategy = GenerationType.AUTO)
-        private Long id;
+public class OrderStatus {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-        @Enumerated (EnumType.STRING)
-        private OrderType orderType;
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;
 
-        public enum OrderType
-        {
-                ORDERED,
-                DONE,
-                CANCELED,
-        }
+    public enum OrderType {
+        ORDERED,
+        DONE,
+        CANCELED,
+    }
 }

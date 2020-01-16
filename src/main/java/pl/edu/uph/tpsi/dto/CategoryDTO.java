@@ -10,9 +10,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDTO
-{
-        private Long id;
-        private String name;
-        private Boolean deleted;
+public class CategoryDTO {
+    private Long id;
+    private String name;
+    private Boolean deleted;
 }

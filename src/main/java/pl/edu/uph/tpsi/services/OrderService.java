@@ -5,15 +5,14 @@ import pl.edu.uph.tpsi.models.Order;
 
 import java.util.List;
 
-public interface OrderService
-{
-        List<OrderDTO> findAll ( String username );
+public interface OrderService {
+    List<OrderDTO> findAll(String username);
 
-        public Order findById ( Long id );
+    public Order findById(Long id);
 
-        public Order create ( Order disc );
+    public Order create(Order disc);
 
-        public Order updateById ( Long id );
+    public Order updateById(Long id);
 
-        public void delete ( Long id );
+    public void delete(Long id);
 }

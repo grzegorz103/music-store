@@ -6,7 +6,6 @@ import pl.edu.uph.tpsi.models.User;
 
 import java.util.List;
 
-public interface CartRepository extends JpaRepository<Cart, Long>
-{
-        Cart findByUser( User user);
+public interface CartRepository extends JpaRepository<Cart, Long> {
+    Cart findByUser(User user);
 }

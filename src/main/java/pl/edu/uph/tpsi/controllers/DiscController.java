@@ -12,58 +12,50 @@ import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.services.DiscService;
 
 @RestController
-@RequestMapping ("/api/disc")
-@CrossOrigin (origins = {"http://localhost:4200","https://music-store-2620.firebaseapp.com/"})
-public class DiscController
-{
-        private final DiscService discService;
+@RequestMapping("/api/disc")
+@CrossOrigin(origins = {"http://localhost:4200", "https://music-store-2620.firebaseapp.com/"})
+public class DiscController {
+    private final DiscService discService;
 
-        private final UserAuthentication userAuthentication;
+    private final UserAuthentication userAuthentication;
 
 
-        @Autowired
-        public DiscController ( DiscService discService, UserAuthentication userAuthentication )
-        {
-                this.discService = discService;
-                this.userAuthentication = userAuthentication;
-        }
+    @Autowired
+    public DiscController(DiscService discService, UserAuthentication userAuthentication) {
+        this.discService = discService;
+        this.userAuthentication = userAuthentication;
+    }
 
-        @GetMapping
-        public ResponseEntity<?> findAll ()
-        {
-                return new ResponseEntity<>( discService.findAll(), HttpStatus.OK );
-        }
+    @GetMapping
+    public ResponseEntity<?> findAll() {
+        return new ResponseEntity<>(discService.findAll(), HttpStatus.OK);
+    }
 
-        @GetMapping ("/{id}")
-        @PreAuthorize ("isAuthenticated()")
-        public DiscDTO findById ( @PathVariable ("id") Long id )
-        {
-                return discService.findById( id );
-        }
+    @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public DiscDTO findById(@PathVariable("id") Long id) {
+        return discService.findById(id);
+    }
 
-        @PostMapping
-        @Secured ("ROLE_ADMIN")
-        public ResponseEntity<?> create ( @RequestBody DiscDTO disc,
-                                          @RequestHeader ("Authorization") String auth )
-        {
-                //     if ( !userAuthentication.hasAdminRole( auth ) )
-                //           return new ResponseEntity<>( HttpStatus.UNAUTHORIZED );
-                return new ResponseEntity<>( discService.create( disc ), HttpStatus.OK );
-        }
+    @PostMapping
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<?> create(@RequestBody DiscDTO disc) {
+        //     if ( !userAuthentication.hasAdminRole( auth ) )
+        //           return new ResponseEntity<>( HttpStatus.UNAUTHORIZED );
+        return new ResponseEntity<>(discService.create(disc), HttpStatus.OK);
+    }
 
-        @PutMapping ("/{id}")
-        @Secured ("ROLE_ADMIN")
-        public DiscDTO update ( @PathVariable ("id") Long id,
-                                @RequestBody DiscDTO disc )
-        {
-                Preconditions.checkNotNull( disc );
-                return discService.update( id, disc );
-        }
+    @PutMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public DiscDTO update(@PathVariable("id") Long id,
+                          @RequestBody DiscDTO disc) {
+        Preconditions.checkNotNull(disc);
+        return discService.update(id, disc);
+    }
 
-        @DeleteMapping ("/{id}")
-        @Secured ("ROLE_ADMIN")
-        public ResponseEntity<?> delete ( @PathVariable ("id") Long id )
-        {
-                return new ResponseEntity<>( discService.delete( id ) ? HttpStatus.OK : HttpStatus.NO_CONTENT );
-        }
+    @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(discService.delete(id) ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+    }
 }

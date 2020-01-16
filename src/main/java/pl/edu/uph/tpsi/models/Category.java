@@ -9,20 +9,19 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table (name = "categories")
+@Table(name = "categories")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Category
-{
-        @Id
-        @GeneratedValue (strategy = GenerationType.AUTO)
-        private Long id;
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-        @Column (name = "name")
-        private String name;
+    @Column(name = "name")
+    private String name;
 
-        @Column (name = "deleted")
-        private Boolean deleted;
+    @Column(name = "deleted")
+    private Boolean deleted;
 }

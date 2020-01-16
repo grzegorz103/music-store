@@ -12,31 +12,28 @@ import java.util.Base64;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api/order")
-@CrossOrigin (origins = {"http://localhost:4200","https://music-store-2620.firebaseapp.com/"})
-public class OrderController
-{
-        private final OrderService orderService;
+@RequestMapping("/api/order")
+@CrossOrigin(origins = {"http://localhost:4200", "https://music-store-2620.firebaseapp.com/"})
+public class OrderController {
+    private final OrderService orderService;
 
-        private final UserAuthentication userAuthentication;
+    private final UserAuthentication userAuthentication;
 
-        @Autowired
-        public OrderController ( OrderService orderService, UserAuthentication userAuthentication )
-        {
-                this.orderService = orderService;
-                this.userAuthentication = userAuthentication;
-        }
+    @Autowired
+    public OrderController(OrderService orderService, UserAuthentication userAuthentication) {
+        this.orderService = orderService;
+        this.userAuthentication = userAuthentication;
+    }
 
-        @GetMapping
-        @PreAuthorize ("isAuthenticated()")
-        public List<OrderDTO> getOrders ( @RequestHeader ("Authorization") String auth )
-        {
-                return orderService.findAll( userAuthentication.getUsername( auth ) );
-        }
+    @GetMapping
+    @PreAuthorize("isAuthenticated()")
+    public List<OrderDTO> getOrders(@RequestHeader("Authorization") String auth) {
+        return orderService.findAll(userAuthentication.getUsername(auth));
+    }
 
-        @PutMapping("/{id}")
-        @PreAuthorize ("isAuthenticated()")
-        public Order updateById(@PathVariable Long id){
-                return orderService.updateById( id );
-        }
+    @PutMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public Order updateById(@PathVariable Long id) {
+        return orderService.updateById(id);
+    }
 }

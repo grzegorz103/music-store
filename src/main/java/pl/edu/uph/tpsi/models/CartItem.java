@@ -8,30 +8,28 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Entity
-@Table (name = "order_infos")
+@Table(name = "order_infos")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartItem
-{
-        @Id
-        @GeneratedValue (strategy = GenerationType.IDENTITY)
-        private Long ID;
+public class CartItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ID;
 
-        @ManyToOne (fetch = FetchType.EAGER)
-        @JoinColumn (name = "disc_id")
-        @NotNull
-        private Disc disc;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "disc_id")
+    @NotNull
+    private Disc disc;
 
-        @NotNull
-        @Max (100000)
-        @Positive
-        private Integer amount;
+    @NotNull
+    @Max(100000)
+    @Positive
+    private Integer amount;
 
-        public CartItem ( @NotNull Disc disc, @NotNull @Max (100000) @Positive Integer amount )
-        {
-                this.disc = disc;
-                this.amount = amount;
-        }
+    public CartItem(@NotNull Disc disc, @NotNull @Max(100000) @Positive Integer amount) {
+        this.disc = disc;
+        this.amount = amount;
+    }
 }

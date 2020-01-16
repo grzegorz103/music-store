@@ -13,22 +13,21 @@ import java.util.Map;
 
 
 @Entity
-@Table (name = "carts")
+@Table(name = "carts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Cart
-{
-        @Id
-        @GeneratedValue (strategy = GenerationType.AUTO)
-        private Long ID;
+public class Cart {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long ID;
 
-        @OneToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-        @JoinColumn (name = "user_id")
-        private User user;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-        @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-        @JoinColumn (name = "cart_item_id")
-        private List<CartItem> list = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_item_id")
+    private List<CartItem> list = new ArrayList<>();
 }

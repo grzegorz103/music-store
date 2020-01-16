@@ -5,6 +5,5 @@ import org.springframework.stereotype.Repository;
 import pl.edu.uph.tpsi.models.Disc;
 
 @Repository
-public interface DiscRepository extends JpaRepository<Disc, Long>
-{
+public interface DiscRepository extends JpaRepository<Disc, Long> {
 }
