@@ -10,18 +10,15 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import java.util.Random;
 
 @Configuration
-@PropertySource ("classpath:messages.properties")
-public class EnvironmentConfig
-{
-        @Bean
-        public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer ()
-        {
-                return new PropertySourcesPlaceholderConfigurer();
-        }
+@PropertySource("classpath:messages.properties")
+public class EnvironmentConfig {
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
-        @Bean
-        public Random generator ()
-        {
-                return new Random();
-        }
+    @Bean
+    public Random generator() {
+        return new Random();
+    }
 }

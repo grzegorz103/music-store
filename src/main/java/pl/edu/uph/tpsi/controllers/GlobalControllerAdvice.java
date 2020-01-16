@@ -11,23 +11,19 @@ import pl.edu.uph.tpsi.exceptions.UserDetailsException;
 import java.util.List;
 
 @ControllerAdvice
-public class GlobalControllerAdvice
-{
-        @ExceptionHandler (EmptyCartException.class)
-        protected ResponseEntity<?> emptyCartHandler ( Exception e )
-        {
-                return new ResponseEntity<>( e.getMessage(), HttpStatus.BAD_REQUEST );
-        }
+public class GlobalControllerAdvice {
+    @ExceptionHandler(EmptyCartException.class)
+    protected ResponseEntity<?> emptyCartHandler(Exception e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
-        @ExceptionHandler (UserDetailsException.class)
-        protected ResponseEntity<?> userDetailsHandler ( Exception e )
-        {
-                return new ResponseEntity<>( e.getMessage(), HttpStatus.FORBIDDEN );
-        }
+    @ExceptionHandler(UserDetailsException.class)
+    protected ResponseEntity<?> userDetailsHandler(Exception e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+    }
 
-        @ExceptionHandler (ItemOutOfStockException.class)
-        protected ResponseEntity<List<String>> itemOutOfStockHandler ( ItemOutOfStockException e )
-        {
-                return new ResponseEntity<>( e.getItems(), HttpStatus.PRECONDITION_FAILED );
-        }
+    @ExceptionHandler(ItemOutOfStockException.class)
+    protected ResponseEntity<List<String>> itemOutOfStockHandler(ItemOutOfStockException e) {
+        return new ResponseEntity<>(e.getItems(), HttpStatus.PRECONDITION_FAILED);
+    }
 }

@@ -6,19 +6,18 @@ import pl.edu.uph.tpsi.models.Order;
 
 import java.util.List;
 
-public interface DiscService
-{
-        List<DiscDTO> findAll ();
+public interface DiscService {
+    List<DiscDTO> findAll();
 
-        DiscDTO findById ( Long id );
+    DiscDTO findById(Long id);
 
-        Long create ( DiscDTO disc );
+    Long create(DiscDTO disc);
 
-        DiscDTO update ( Long id, DiscDTO disc );
+    DiscDTO update(Long id, DiscDTO disc);
 
-        boolean delete ( Long id );
+    boolean delete(Long id);
 
-        void validateOrder ( Order order );
+    void validateOrder(Order order);
 
-        void decreaseAmount ( Order order );
+    void decreaseAmount(Order order);
 }

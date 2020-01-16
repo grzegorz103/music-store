@@ -6,20 +6,19 @@ import pl.edu.uph.tpsi.models.User;
 
 import java.util.List;
 
-public interface UserService extends UserDetailsService
-{
-        User create ( UserDTO userDTO );
+public interface UserService extends UserDetailsService {
+    User create(UserDTO userDTO);
 
-        List<UserDTO> findAll ();
+    List<UserDTO> findAll();
 
-        UserDTO update ( Long id, UserDTO userDTO );
+    UserDTO update(Long id, UserDTO userDTO);
 
-        void delete ( Long id );
+    void delete(Long id);
 
-        User getByUsername ( String username );
+    User getByUsername(String username);
 
-        UserDTO getCurrentUser();
+    UserDTO getCurrentUser();
 
-        boolean isLoginCorrect ( String login, String password );
+    boolean isLoginCorrect(String login, String password);
 
 }

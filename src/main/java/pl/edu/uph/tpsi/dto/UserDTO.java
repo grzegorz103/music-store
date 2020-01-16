@@ -11,35 +11,33 @@ import javax.validation.constraints.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO
-{
-        private Long ID;
+public class UserDTO {
+    private Long ID;
 
-        @NotNull
-        @NotBlank
-        @Length (min = 4, max = 30)
-        private String username;
+    @NotNull
+    @NotBlank
+    @Length(min = 4, max = 30)
+    private String username;
 
-        @NotNull
-        @NotBlank
-        @Length (min = 4)
-        private String password;
+    @NotNull
+    @NotBlank
+    @Length(min = 4)
+    private String password;
 
-        @NotNull
-        @NotBlank
-        @Length (min = 4)
-        private String confirmPassword;
+    @NotNull
+    @NotBlank
+    @Length(min = 4)
+    private String confirmPassword;
 
-        @Email
-        @NotNull
-        @NotBlank
-        private String email;
+    @Email
+    @NotNull
+    @NotBlank
+    private String email;
 
-        private Boolean locked;
+    private Boolean locked;
 
-        @AssertTrue
-        public boolean isPasswordEqual ()
-        {
-                return password.equals( confirmPassword );
-        }
+    @AssertTrue
+    public boolean isPasswordEqual() {
+        return password.equals(confirmPassword);
+    }
 }

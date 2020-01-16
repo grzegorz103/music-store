@@ -11,7 +11,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartDTO
-{
-        private List<CartItem> list = new ArrayList<>();
+public class CartDTO {
+    private List<CartItem> list = new ArrayList<>();
 }

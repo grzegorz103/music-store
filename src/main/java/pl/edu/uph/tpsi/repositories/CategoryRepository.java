@@ -5,9 +5,8 @@ import pl.edu.uph.tpsi.models.Category;
 
 import java.util.List;
 
-public interface CategoryRepository extends JpaRepository<Category, Long>
-{
-        List<Category> findAllByName ( String name );
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+    List<Category> findAllByName(String name);
 
-        Category findByName ( String name );
+    Category findByName(String name);
 }

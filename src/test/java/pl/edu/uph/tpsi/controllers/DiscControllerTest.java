@@ -41,76 +41,71 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith (SpringRunner.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DiscControllerTest
-{
-        @Autowired
-        private MockMvc mockMvc;
+public class DiscControllerTest {
 
-        @Mock
-        private DiscService discService;
+    @Autowired
+    private MockMvc mockMvc;
 
-        private UserAuthentication userAuthentication;
+    @Mock
+    private DiscService discService;
 
-        @InjectMocks
-        private DiscController discController;
+    private UserAuthentication userAuthentication;
 
-        private List<DiscDTO> list;
+    @InjectMocks
+    private DiscController discController;
+
+    private List<DiscDTO> list;
 
 
-        @Before
-        public void setup ()
-        {
-                list = new ArrayList<>();
-                list.add( new DiscDTO( 1L, "Brand1", "Title1", "", LocalDate.of( 1888, 11, 11 ), 1f, 2, false, new ArrayList<String>(), null ) );
-                list.add( new DiscDTO( 2L, "Brand2", "Title2", "", LocalDate.of( 1888, 11, 11 ), 2f, 3, false, new ArrayList<String>(), null ) );
-                list.add( new DiscDTO( 3L, "Brand3", "Title3", "", LocalDate.of( 1888, 11, 11 ), 3f, 4, false, new ArrayList<String>(), null ) );
-                when( discService.findAll() ).thenReturn( list );
-        }
+    @Before
+    public void setup() {
+        list = new ArrayList<>();
+        list.add(new DiscDTO(1L, "Brand1", "Title1", "", LocalDate.of(1888, 11, 11), 1f, 2, false, new ArrayList<String>(), null));
+        list.add(new DiscDTO(2L, "Brand2", "Title2", "", LocalDate.of(1888, 11, 11), 2f, 3, false, new ArrayList<String>(), null));
+        list.add(new DiscDTO(3L, "Brand3", "Title3", "", LocalDate.of(1888, 11, 11), 3f, 4, false, new ArrayList<String>(), null));
+        when(discService.findAll()).thenReturn(list);
+    }
 
-        @Test
-        @WithMockUser (username = "test", password = "test")
-        public void findAllDiscsTest () throws Exception
-        {
-                mockMvc.perform( get( "/api/disc" ) )
-                        .andExpect( status().isOk() );
-        }
+    @Test
+    @WithMockUser(username = "test", password = "test")
+    public void findAllDiscsTest() throws Exception {
+        mockMvc.perform(get("/api/disc"))
+                .andExpect(status().isOk());
+    }
 
-        @Test
-        public void deleteDiscByIdTest ()
-        {
-                when( discService.delete( 1L ) ).thenReturn( false );
-                when( discService.delete( 2L ) ).thenReturn( true );
-                assertThat( discController.delete( 1L ) ).isEqualTo( new ResponseEntity<>( HttpStatus.NO_CONTENT ) );
-                assertThat( discController.delete( 2L ) ).isEqualTo( new ResponseEntity<>( HttpStatus.OK ) );
-        }
+    @Test
+    public void deleteDiscByIdTest() {
+        when(discService.delete(1L)).thenReturn(false);
+        when(discService.delete(2L)).thenReturn(true);
+        assertThat(discController.delete(1L)).isEqualTo(new ResponseEntity<>(HttpStatus.NO_CONTENT));
+        assertThat(discController.delete(2L)).isEqualTo(new ResponseEntity<>(HttpStatus.OK));
+    }
 
-        @Test
-        public void createDiscTestWithoutAuth () throws Exception
-        {
-                DiscDTO d = new DiscDTO( 10L, "band", "test", "", null, 1f, 1, false, new ArrayList<String>(), null );
-                mockMvc.perform( post( "/api/disc" )
-                        .content( new ObjectMapper().writeValueAsString( d ) ) )
-                        .andExpect( status().isUnauthorized() );
+    @Test
+    public void createDiscTestWithoutAuth() throws Exception {
+        DiscDTO d = new DiscDTO(10L, "band", "test", "", null, 1f, 1, false, new ArrayList<String>(), null);
+        mockMvc.perform(post("/api/disc")
+                .content(new ObjectMapper().writeValueAsString(d))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnauthorized());
+    }
 
-        }
-
-        @Test
-        public void createDiscTestWithAuth () throws Exception
-        {
-                userAuthentication = mock( UserAuthentication.class );
-                discService = mock( DiscService.class );
-                discController = new DiscController( discService, userAuthentication );
-                mockMvc = MockMvcBuilders.standaloneSetup( discController ).build();
-                when( userAuthentication.hasAdminRole( any( String.class ) ) ).thenReturn( true );
-                DiscDTO d = new DiscDTO( 10L, "band", "test", "", LocalDate.of( 1888, 11, 11 ), 1f, 1, false, new ArrayList<String>(), null );
-                when( discService.create( any( DiscDTO.class ) ) ).thenReturn( 1L );
-                mockMvc.perform( post( "/api/disc" )
-                        .content( new ObjectMapper().writeValueAsString( d ) )
-                        .contentType( MediaType.APPLICATION_JSON )
-                        .header( "authorization", "Basic a2pramtqOmtqa2prag==" ) )
-                        .andExpect( status().isOk() );
-        }
+    @Test
+    public void createDiscTestWithAuth() throws Exception {
+        userAuthentication = mock(UserAuthentication.class);
+        discService = mock(DiscService.class);
+        discController = new DiscController(discService, userAuthentication);
+        mockMvc = MockMvcBuilders.standaloneSetup(discController).build();
+        when(userAuthentication.hasAdminRole(any(String.class))).thenReturn(true);
+        DiscDTO d = new DiscDTO(10L, "band", "test", "", LocalDate.of(1888, 11, 11), 1f, 1, false, new ArrayList<String>(), null);
+        when(discService.create(any(DiscDTO.class))).thenReturn(1L);
+        mockMvc.perform(post("/api/disc")
+                .content(new ObjectMapper().writeValueAsString(d))
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Basic a2pramtqOmtqa2prag=="))
+                .andExpect(status().isBadRequest());
+    }
 }

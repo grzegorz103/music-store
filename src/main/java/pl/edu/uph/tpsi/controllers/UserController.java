@@ -19,80 +19,70 @@ import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
 @RestController
-@RequestMapping ("/api/users")
-@CrossOrigin (origins = {"http://localhost:4200","https://music-store-2620.firebaseapp.com/"})
-public class UserController
-{
-        private final UserService userService;
+@RequestMapping("/api/users")
+@CrossOrigin(origins = {"http://localhost:4200", "https://music-store-2620.firebaseapp.com/"})
+public class UserController {
+    private final UserService userService;
 
-        private final UserAuthentication userAuthentication;
+    private final UserAuthentication userAuthentication;
 
-        @Autowired
-        public UserController ( UserService userService, UserAuthentication userAuthentication )
-        {
-                this.userService = userService;
-                this.userAuthentication = userAuthentication;
-        }
+    @Autowired
+    public UserController(UserService userService, UserAuthentication userAuthentication) {
+        this.userService = userService;
+        this.userAuthentication = userAuthentication;
+    }
 
-        @PostMapping ("/register")
-        @PreAuthorize ("isAnonymous()")
-        public void addUser ( @RequestBody @Valid UserDTO userDTO,
-                              BindingResult bindingResult )
-        {
-                if ( bindingResult.hasErrors() )
-                        return;
-                userService.create( userDTO );
-        }
+    @PostMapping("/register")
+    @PreAuthorize("isAnonymous()")
+    public void addUser(@RequestBody @Valid UserDTO userDTO,
+                        BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return;
+        userService.create(userDTO);
+    }
 
-        @RequestMapping ("/login")
-        @PreAuthorize ("isAnonymous()")
-        public boolean login ( @RequestBody UserDTO userDTO )
-        {
-                return userService.isLoginCorrect( userDTO.getUsername(), userDTO.getPassword() );
-        }
+    @RequestMapping("/login")
+    @PreAuthorize("isAnonymous()")
+    public boolean login(@RequestBody UserDTO userDTO) {
+        return userService.isLoginCorrect(userDTO.getUsername(), userDTO.getPassword());
+    }
 
-        @RequestMapping ("/user")
-        public Principal user ( HttpServletRequest request )
-        {
-                String authToken = request.getHeader( "Authorization" )
-                        .substring( "Basic".length() ).trim();
-                return () -> new String( Base64.getDecoder()
-                        .decode( authToken ) ).split( ":" )[0];
-        }
+    @RequestMapping("/user")
+    public Principal user(HttpServletRequest request) {
+        String authToken = request.getHeader("Authorization")
+                .substring("Basic".length()).trim();
+        return () -> new String(Base64.getDecoder()
+                .decode(authToken)).split(":")[0];
+    }
 
-        @GetMapping ("/admin")
-        @PreAuthorize ("isAuthenticated()")
-        public Boolean hasAdminRole ( @RequestHeader ("Authorization") String auth )
-        {
-                return userAuthentication.hasAdminRole( auth );
-        }
+    @GetMapping("/admin")
+    @PreAuthorize("isAuthenticated()")
+    public Boolean hasAdminRole(@RequestHeader("Authorization") String auth) {
+        return userAuthentication.hasAdminRole(auth);
+    }
 
-        @PutMapping ("/{id}")
-        @PreAuthorize ("isAuthenticated()")
-        public UserDTO update ( @PathVariable ("id") Long id,
-                                @RequestBody UserDTO userDTO )
-        {
-                return userService.update( id, userDTO );
-        }
+    @PutMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public UserDTO update(@PathVariable("id") Long id,
+                          @RequestBody UserDTO userDTO) {
+        return userService.update(id, userDTO);
+    }
 
-        @DeleteMapping ("/{id}")
-        @Secured ("ROLE_ADMIN")
-        public void delete ( @PathVariable ("id") Long id )
-        {
-                userService.delete( id );
-        }
+    @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public void delete(@PathVariable("id") Long id) {
+        userService.delete(id);
+    }
 
-        @GetMapping
-        @Secured ("ROLE_ADMIN")
-        public List<UserDTO> getAll ()
-        {
-                return userService.findAll();
-        }
+    @GetMapping
+    @Secured("ROLE_ADMIN")
+    public List<UserDTO> getAll() {
+        return userService.findAll();
+    }
 
-        @GetMapping("/curr")
-        @PreAuthorize ("isAuthenticated()")
-        public UserDTO findCurrentUser ()
-        {
-                return userService.getCurrentUser();
-        }
+    @GetMapping("/curr")
+    @PreAuthorize("isAuthenticated()")
+    public UserDTO findCurrentUser() {
+        return userService.getCurrentUser();
+    }
 }

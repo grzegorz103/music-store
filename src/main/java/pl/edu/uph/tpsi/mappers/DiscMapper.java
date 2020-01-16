@@ -5,9 +5,8 @@ import pl.edu.uph.tpsi.dto.DiscDTO;
 import pl.edu.uph.tpsi.models.Disc;
 
 @Mapper(componentModel = "spring")
-public interface DiscMapper
-{
-        DiscDTO discToDTO(Disc disc);
+public interface DiscMapper {
+    DiscDTO discToDTO(Disc disc);
 
-        Disc DTOtoDisc(DiscDTO discDTO);
+    Disc DTOtoDisc(DiscDTO discDTO);
 }

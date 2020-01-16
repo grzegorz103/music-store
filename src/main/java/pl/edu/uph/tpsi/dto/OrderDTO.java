@@ -14,21 +14,19 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDTO
-{
-        private Long ID;
-        private List<CartItem> discs;
-        private Date orderDate;
-        private User user;
-        private Integer orderID;
-        private OrderStatus orderStatus;
+public class OrderDTO {
+    private Long ID;
+    private List<CartItem> discs;
+    private Date orderDate;
+    private User user;
+    private Integer orderID;
+    private OrderStatus orderStatus;
 
-        public OrderDTO ( Order order )
-        {
-                this.ID = order.getID();
-                this.discs = order.getDiscs();
-                this.orderDate = order.getOrderDate();
-                this.user = order.getUser();
-                this.orderStatus = order.getOrderStatus();
-        }
+    public OrderDTO(Order order) {
+        this.ID = order.getID();
+        this.discs = order.getDiscs();
+        this.orderDate = order.getOrderDate();
+        this.user = order.getUser();
+        this.orderStatus = order.getOrderStatus();
+    }
 }

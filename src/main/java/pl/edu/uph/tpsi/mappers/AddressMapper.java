@@ -4,10 +4,9 @@ import org.mapstruct.Mapper;
 import pl.edu.uph.tpsi.dto.AddressDTO;
 import pl.edu.uph.tpsi.models.Address;
 
-@Mapper (componentModel = "spring")
-public interface AddressMapper
-{
-        AddressDTO addressToDTO ( Address address );
+@Mapper(componentModel = "spring")
+public interface AddressMapper {
+    AddressDTO addressToDTO(Address address);
 
-        Address DTOtoAddress ( AddressDTO addressDTO);
+    Address DTOtoAddress(AddressDTO addressDTO);
 }
