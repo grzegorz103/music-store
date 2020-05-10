@@ -45,7 +45,7 @@ $ npm install -g @angular/cli
 ### Deployment
 
 ```
-$ mvn spring-boot:run
+$ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 $ cd angularclient
 $ npm install
 $ ng serve
