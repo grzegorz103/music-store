@@ -32,6 +32,8 @@ https://music-store-2620.firebaseapp.com/
 ## Features
 - Management discs and orders via admin panel
 - Ordering discs by users
+- Browse available discs for sale
+- Browse user shopping cart and orders
 
 ## Setup
 ### Prerequisites
